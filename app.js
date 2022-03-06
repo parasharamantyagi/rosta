@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //****Database connection mongodb using mongoose */
-mongoose.connect('mongodb://localhost:27017/' + process.env.DB_DATABASE, {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.ATLAS_DATABASE, {useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
