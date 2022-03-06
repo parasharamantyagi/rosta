@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <%- include('include/Header') -%>
+  <body>
+    <%- include('include/Sidebar') -%>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+      <%- include('include/Logo') -%> <%- include('include/Menu',{menu:
+      'Party'}) -%>
+
+      <!-- start menu -->
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="product-status-wrap">
+              <h4>Party</h4>
+              <div class="add-product">
+                <a href="<%= rosta.web_link('admin/add-party') %>">Add Party</a>
+              </div>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Name</th>
+                    <th>Short name</th>
+                    <th>Image link</th>
+                    <th>Voter</th>
+                    <th>Action</th>
+                  </tr>
+                  <% parties.forEach(function(party){ %>
+                  <tr>
+                    <td><%- party.name %></td>
+                    <td><%- party.short_name %></td>
+                    <td>
+                      <img
+                        src="<%= rosta.web_link(party.image_link) %>"
+                        class="form-control"
+                        alt=""
+                        style="height: 100px; width: 130px"
+                      />
+                    </td>
+                    <td><%- party.voters_estimated %></td>
+                    <td>
+                      <button
+                        data-toggle="tooltip"
+                        title="Edit"
+                        class="pd-setting-ed"
+                        onclick="editData('<%= party._id %>','party')"
+                      >
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        data-toggle="tooltip"
+                        title=""
+                        class="pd-setting-ed"
+                        onclick="deleteData('<%= party._id %>','party')"
+                        data-original-title="Trash"
+                      >
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- end menu -->
+    </div>
+
+    <%- include('include/Footer') -%>
+  </body>
+</html>

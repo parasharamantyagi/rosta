@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <%- include('include/Header') -%>
+  <body>
+    <%- include('include/Sidebar') -%>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+      <%- include('include/Logo') -%> <%- include('include/Menu',{menu: ''}) -%>
+
+      <!-- start menu -->
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="product-status-wrap">
+              <h4>Configuration</h4>
+              <div class="add-product">
+                <a href="<%= rosta.web_link('admin/add-party') %>">Add Party</a>
+              </div>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Name</th>
+                    <th>#</th>
+                  </tr>
+                  <% configrations.forEach(function(configration){ %>
+                  <tr>
+                    <td><%- configration.name %></td>
+                    <td>
+                      <div class="col-md-6 form-group">
+                        <select
+                          name="changeStatus"
+                          data-type="configuration"
+                          data-id="<%= configration._id %>"
+                          class="form-control"
+                        >
+                          <option value="1">A-Z</option>
+                          <option value="-1">Z-A</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- end menu -->
+    </div>
+
+    <%- include('include/Footer') -%>
+  </body>
+</html>

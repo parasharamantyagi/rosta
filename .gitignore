@@ -1,0 +1,7 @@
+/node_modules
+/public/agent-files
+/public/agent-images
+/public/agent-signature
+/public/customer-images
+/public/operator-images
+.env

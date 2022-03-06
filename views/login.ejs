@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="<%= rosta.web_link('images/logo.png') %>" />
+    <title>Rosta</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-116706082-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-116706082-1');
+    </script>
+
+    <!-- Mobile Specific Meta -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <!-- Store CSRF token for AJAX calls -->
+
+    <meta
+      name="csrf-token"
+      content="fqrql2tKvMNjUZFrxoplHMJMSuo8oEWP1rRLLPw4"
+    />
+    <!-- Stylesheets -->
+    <link
+      href="<%= rosta.web_link('javascripts/bootstrap.min.css') %>"
+      rel="stylesheet"
+    />
+    <link
+      href="<%= rosta.web_link('javascripts/toaster.css') %>"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap core CSS -->
+    <link
+      href="<%= rosta.web_link('javascripts/font-awesome.min.css') %>"
+      rel="stylesheet"
+    />
+    <!-- font-awesome Bootstrap core CSS -->
+    <link
+      href="<%= rosta.web_link('javascripts/style.css') %>"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link
+      href="<%= rosta.web_link('javascripts/responsive.css') %>"
+      rel="stylesheet"
+    />
+    <!-- Custom responsive CSS -->
+    <link
+      href="<%= rosta.web_link('javascripts/font-awesome.min.css') %>"
+      rel="stylesheet"
+    />
+    <!-- Custom responsive CSS -->
+    <link
+      href="<%= rosta.web_link('javascripts/animate.min.css') %>"
+      rel="stylesheet"
+    />
+    <!-- Custom responsive CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="<%= rosta.web_link('javascripts/toastr.css') %>"
+    />
+    <!-- Favicon and Apple Icons -->
+    <link
+      rel="shortcut icon"
+      href="http://52.21.91.157/ctrl-icon/ctrl_title3x.png"
+    />
+  </head>
+  <body>
+    <div class="top_header"></div>
+    <!--/top_header-->
+    <style>
+      .top_header,
+      .header,
+      .user_breadcrumbs {
+        display: none !important;
+      }
+      .logo {
+        margin: 0px auto 30px;
+        width: 50%;
+      }
+    </style>
+    <section class="admin_login_panel">
+      <div class="login_details_admin_outer">
+        <div class="login_details">
+          <div class="logo">
+            <h1>Rosta Ratt</h1>
+          </div>
+          <div class="login_innerdetails">
+            <form
+              class="form-horizontal"
+              role="form"
+              method="POST"
+              id="general_form"
+              action="/login"
+            >
+              <input
+                type="hidden"
+                name="_token"
+                value="fqrql2tKvMNjUZFrxoplHMJMSuo8oEWP1rRLLPw4"
+              />
+              <div class="form-group input-group">
+                <!-- label for="email" class="col-md-4 control-label">E-Mail Address</label  -->
+                <div class="col-md-12">
+                  <span class="input-group-addon"
+                    ><img src="<%= rosta.web_link('images/email1.png') %>"
+                  /></span>
+                  <input
+                    id="email"
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    value=""
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-md-12">
+                  <span class="input-group-addon"
+                    ><img src="<%= rosta.web_link('images/lock1.png') %>"
+                  /></span>
+                  <input
+                    id="password"
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-12 txt_center">
+                  <button type="submit" class="hvr-sweep-to-right-bgcolor">
+                    Login
+                  </button>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-6 txt_right">
+                  <a
+                    class="btn btn-link"
+                    href="http://52.21.91.157/password/reset"
+                    >Forgot Your Password?</a
+                  >
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- JavaScript -->
+
+    <script src="<%= rosta.web_link('javascripts/jquery.min.js') %>"></script>
+    <script src="<%= rosta.web_link('javascripts/jquery.toast.js') %>"></script>
+    <script src="<%= rosta.web_link('javascripts/form-validate.js') %>"></script>
+    <script src="<%= rosta.web_link('javascripts/jquery.validate.js') %>"></script>
+    <script src="<%= rosta.web_link('javascripts/select2.min.js') %>"></script>
+    <script src="<%= rosta.web_link('javascripts/jquery-ui.js') %>"></script>
+    <script src="<%= rosta.web_link('javascripts/custom.js') %>"></script>
+  </body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Receipt</title>
+</head>
+<style type="text/css">
+    body{
+        font-family: monospace;
+    }
+    #invoice{
+        padding:0;
+    }
+    .invoice {
+        position: relative;
+        background-color: #FFF;
+        padding: 15px;
+    }
+
+    .invoice header {
+        padding: 10px 0;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #3989c6
+    }
+
+    .invoice .company-details {
+        text-align: right
+    }
+
+    .invoice .company-details .name {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+
+    .invoice .contacts {
+        margin-bottom: 20px
+    }
+
+    .invoice .invoice-to {
+        text-align: left
+    }
+
+    .invoice .invoice-to .to {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+
+    .invoice .invoice-details {
+        text-align: right
+    }
+
+    .invoice .invoice-details .invoice-id {
+        margin-top: 0;
+        color: #fdda42;
+    }
+
+    .invoice main {
+        padding-bottom: 50px
+    }
+
+    .invoice main .thanks {
+        margin-top: -100px;
+        font-size: 2em;
+        margin-bottom: 50px
+    }
+
+    .invoice main .notices {
+        padding-left: 6px;
+        border-left: 6px solid #3989c6
+    }
+
+    .invoice main .notices .notice {
+        font-size: 1.2em
+    }
+
+    .invoice table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        margin-bottom: 20px
+    }
+
+    .invoice table td,.invoice table th {
+        padding: 15px;
+        background: #eee;
+        border-bottom: 1px solid #fff
+    }
+
+    .invoice table th {
+        white-space: nowrap;
+        font-weight: 600;
+    }
+    .invoice table td {
+        font-size: 12px !important;
+    }
+
+    .invoice table td h3 {
+        margin: 0;
+        font-weight: 400;
+        color: #3989c6;
+        font-size: 1.2em
+    }
+
+    .invoice table .qty,.invoice table .total,.invoice table .unit {
+        text-align: right;
+        font-size: 1.2em
+    }
+
+    .invoice table .no {
+        color: #fff;
+        font-size: 1.6em;
+        background: #3989c6
+    }
+
+    .invoice table .unit {
+        background: #ddd
+    }
+
+    .invoice table .total {
+        background: #3989c6;
+        color: #fff
+    }
+
+    .invoice table tbody tr:last-child td {
+        border: none
+    }
+
+    .invoice table tfoot td {
+        background: 0 0;
+        border-bottom: none;
+        white-space: nowrap;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        border-top: 1px solid #aaa
+    }
+
+    .invoice table tfoot tr:first-child td {
+        border-top: none
+    }
+
+    .invoice table tfoot tr:last-child td {
+        color: #3989c6;
+        font-size: 1.4em;
+        border-top: 1px solid #3989c6
+    }
+
+    .invoice table tfoot tr td:first-child {
+        border: none
+    }
+
+    .invoice footer {
+        width: 100%;
+        text-align: center;
+        color: #777;
+        border-top: 1px solid #aaa;
+        padding: 8px 0
+    }
+    .pull-left{
+        float: left;
+    }
+    .pull-right{
+        float: right;
+    }
+    .clearfix{
+        clear: both;
+    }
+    .text-gray-light{
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .text-center{
+        text-align: center;
+    }
+    .text-right{
+        text-align: right;
+    }
+    h1, h2, h3, h4, h5, h6{
+        padding: 0;
+        margin: 0;
+    }
+    .header, .main, .footer, table{
+        font-size:12px;
+    }
+	
+	* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+<body>
+    <div id="invoice">
+        <div class="invoice overflow-auto">
+            <div>
+                <div class="header">
+                    <div class="pull-left">
+                        <img height="50px" src='assets/images/logo.jpg' />
+                    </div>
+                    <div class="pull-right">
+                        <h2 class="name">Be On Time</h2>
+                        <div>Be On Time SAS 13 rue Washington</div>
+                        <div>75008 Paris 01 83 62 52 14</div>
+                        <div>contact@ontimebe.com</div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <hr>
+                <div class="main">
+                    <div class="row contacts">
+                        <div class="pull-left invoice-to">
+                            <div class="text-gray-light">Customer Details:</div>
+                            <p class="to">{{data.first_name}} {{data.last_name}}</p>
+                            <div class="address">{{data.home_address}}</div>
+                            <div class="email"><a href="mailto:{{data.email}}">{{data.email}}</a></div>
+                        </div>
+                        <div class="pull-right">
+                            <h2 class="invoice-id">REC-000-{{data.id}}</h2>
+                            <div class="date">Date of Invoice: {{mission.start_date_time}}</div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                
+                <div class="container">
+					<div class="row">
+					  <div class="col-25">
+						<label for="fname">{{my_label.mission_title}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="fname" value="{{mission.title}}">
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.mission_ref}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="{{mission.id}}">
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.mission_location}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="{{mission.location}}">
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.agent_type_needed}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="{{agent_type}}">
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.vehicle_required}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="Yes">
+					  </div>
+					</div>
+					<div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.mission_hours}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="{{mission.total_hours}} Hour(s)">
+					  </div>
+					</div>
+                    {{#if my_statement.is_quick_book }}
+					<div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.mission_start_time}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="{{mission.start_date_time}}">
+					  </div>
+					</div>
+					{{/if}}
+                    {{#if my_statement.is_intervention }}
+					<div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.repetitive_mission}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="{{mission.repetitive_mission}}">
+					  </div>
+					</div>
+                    <div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.mission_finish_time}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="{{mission.mission_finish_time}}">
+					  </div>
+					</div>
+                    <div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.time_intervel}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="{{mission.time_intervel}}">
+					  </div>
+					</div>
+					{{/if}}
+                    <div class="row">
+					  <div class="col-25">
+						<label for="lname">{{my_label.mission_description}}</label>
+					  </div>
+					  <div class="col-75">
+						<input type="text" id="lname" value="{{mission.description}}">
+					  </div>
+					</div>
+                    <br /><br /><br />
+						<h3>{{my_label.payment_details}}</h3>
+					<br />
+					<div class="table">
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td class="text-center">{{my_label.total_amount}}</td>
+                                <td class="text-right">{{mission.amount}} €</td>
+                            </tr>
+							<tr>
+                                <td class="text-center">{{my_label.tva}} ({{mission.vat}}%)</td>
+                                <td class="text-right">{{mission.amount}} €</td>
+                            </tr>
+							<tr>
+                                <td class="text-center">{{my_label.total_mission_amount}}</td>
+                                <td class="text-right">{{mission.amount}} €</td>
+              </tr>
+                        </tbody>
+                    </table>
+				</div>
+                <hr>
+                <div class="footer text-center">
+                    <p>Copyright © 2020 - All rights reserved by BE ON TIME.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <%- include('include/Header') -%>
+  <body>
+    <%- include('include/Sidebar') -%>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+      <%- include('include/Logo') -%> <%- include('include/Menu',{menu: 'User'})
+      -%>
+      <!-- start menu -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="review-tab-pro-inner">
+              <div id="myTabContent" class="tab-content custom-product-edit">
+                <div
+                  class="product-tab-list tab-pane fade active in"
+                  id="description"
+                >
+                  <form
+                    method="POST"
+                    action=""
+                    accept-charset="UTF-8"
+                    id="general_form"
+                    novalidate="novalidate"
+                  >
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Name</label>
+                        <input
+                          class="form-control"
+                          name="user_name"
+                          type="text"
+                          aria-invalid="false"
+                        />
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Email</label>
+                        <input
+                          class="form-control"
+                          name="email"
+                          type="email"
+                          aria-invalid="false"
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Password</label>
+                        <input
+                          class="form-control"
+                          name="password"
+                          type="password"
+                          aria-invalid="false"
+                        />
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Hint</label>
+                        <input
+                          class="form-control"
+                          name="hint"
+                          type="text"
+                          aria-invalid="false"
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Gdpr</label>
+                        <input
+                          class="form-control"
+                          name="gdpr"
+                          type="text"
+                          aria-invalid="false"
+                        />
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>News frequency</label>
+                        <select name="frequency" class="form-control">
+                          <option value="every day">every day</option>
+                          <option value="every 2nd day">every 2nd day</option>
+                          <option value="once a week">once a week</option>
+                          <option value="every 2nd week">every 2nd week</option>
+                          <option value="once a month">once a month</option>
+                          <option value="once a month">once a month</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Date of birth</label>
+                        <input
+                          class="form-control"
+                          name="dob"
+                          type="date"
+                          aria-invalid="false"
+                        />
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Alias</label>
+                        <input
+                          class="form-control"
+                          name="alias"
+                          type="text"
+                          aria-invalid="false"
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="text-center custom-pro-edt-ds">
+                          <button
+                            type="submit"
+                            class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                          >
+                            Save
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-ctl-bt waves-effect waves-light"
+                          >
+                            Discard
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- end menu -->
+    </div>
+
+    <%- include('include/Footer') -%>
+  </body>
+</html>

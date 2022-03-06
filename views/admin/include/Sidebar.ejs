@@ -1,0 +1,137 @@
+<div class="left-sidebar-pro">
+  <nav id="sidebar" class="">
+    <div class="sidebar-header">
+      <a href="<%= rosta.web_link('admin') %>"
+        ><img
+          class="main-logo"
+          src="<%= rosta.web_link('images/imgpsh_fullsize_anim4.png') %>"
+          alt=""
+      /></a>
+      <strong
+        ><img src="http://3.8.11.214/admin/img/logo/logosn_11zon.png" alt=""
+      /></strong>
+    </div>
+    <div class="left-custom-menu-adp-wrap comment-scrollbar">
+      <nav class="sidebar-nav left-sidebar-menu-pro">
+        <ul class="metismenu" id="menu1">
+          <li>
+            <a
+              class=""
+              href="<%= rosta.web_link('admin') %>"
+              aria-expanded="false"
+              ><i class="fa fa-home"></i> Dashboard</a
+            >
+          </li>
+          <li
+            class="<%= rosta.active_menu(page_url,['/view-party','/add-party']) %>"
+          >
+            <a
+              class="has-arrow"
+              href="<%= rosta.web_link('admin/view-party') %>"
+              aria-expanded="false"
+              ><i class="fa fa-bars"></i>
+              <span class="mini-click-non">Party</span></a
+            >
+            <ul class="submenu-angle" aria-expanded="false">
+              <li>
+                <a title="Inbox" href="<%= rosta.web_link('admin/add-party') %>"
+                  ><span class="mini-sub-pro">Add Party</span></a
+                >
+              </li>
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/view-party') %>"
+                  ><span class="mini-sub-pro">View Party</span></a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li class="<%= rosta.active_menu(page_url,['/view-history']) %>">
+            <a
+              class="has-arrow"
+              href="<%= rosta.web_link('admin/view-history') %>"
+              aria-expanded="false"
+              ><i class="fa fa-user"></i>
+              <span class="mini-click-non">History</span></a
+            >
+            <ul class="submenu-angle" aria-expanded="false">
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/view-history') %>"
+                  ><span class="mini-sub-pro">View History</span></a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li
+            class="<%= rosta.active_menu(page_url,['/view-user','/add-user']) %>"
+          >
+            <a
+              class="has-arrow"
+              href="<%= rosta.web_link('admin/view-user') %>"
+              aria-expanded="false"
+              ><i class="fa fa-user"></i>
+              <span class="mini-click-non">User</span></a
+            >
+            <ul class="submenu-angle" aria-expanded="false">
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/add-user') %>"
+                  ><span class="mini-sub-pro">Add User</span></a
+                >
+              </li>
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/view-user') %>"
+                  ><span class="mini-sub-pro">View User</span></a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li
+            class="<%= rosta.active_menu(page_url,['/view-collaboration','/add-collaboration']) %>"
+          >
+            <a
+              class="has-arrow"
+              href="<%= rosta.web_link('admin/view-collaboration') %>"
+              aria-expanded="false"
+              ><i class="fa fa-user"></i>
+              <span class="mini-click-non">Collaboration</span></a
+            >
+            <ul class="submenu-angle" aria-expanded="false">
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/add-collaboration') %>"
+                  ><span class="mini-sub-pro">Add Collaboration</span></a
+                >
+              </li>
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/view-collaboration') %>"
+                  ><span class="mini-sub-pro">Party Collaboration</span></a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a
+              class=""
+              href="<%= rosta.web_link('admin/system-configuration') %>"
+              aria-expanded="false"
+              ><i class="fa fa-home"></i> Configuration</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </nav>
+</div>
