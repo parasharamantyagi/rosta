@@ -291,7 +291,7 @@ class apiController {
     try {
       let response = [];
       let configration = await Configration.getConfigrationByID(
-        '621d029a52530ad3ef749f16',
+        '622735955f343c97bb72aa23',
       );
       let resdata = await Party.getAllParty(configration.value);
       let userCount = await Voting.getVotingCount();
