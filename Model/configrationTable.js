@@ -14,12 +14,22 @@ const Configration = (module.exports = mongoose.model('configrations', configrat
 
 //get all users
 module.exports.getConfigration = function (limit, callback) {
-  Configration.find().limit(limit).exec(callback);
+  return Configration.find().limit(limit).exec(callback);
+};
+
+module.exports.getInfoConfigration = function (data, callback) {
+  return Configration.find({
+    name: { $in: data },
+  }).exec(callback);
+};
+
+module.exports.saveConfigration = function (data, callback) {
+  Configration.create(data, callback);
 };
 
 //get all users
-module.exports.getConfigrationByID = (id, callback) => {
-  return Configration.findById({ _id: id }, callback);
+module.exports.getConfigrationByID = (nameData, callback) => {
+  return Configration.findOne({ name: nameData }, callback);
   // return await Configration.find().sort({ name: 1 }).exec();
 };
 

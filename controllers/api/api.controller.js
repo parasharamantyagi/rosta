@@ -95,7 +95,7 @@ class apiController {
           .status(200)
           .json(halper.api_response(1, 'user set successfully', input));
       } else {
-		input.uuid = storeid;
+        input.uuid = storeid;
         User.addUser(input);
         return res
           .status(200)
@@ -114,16 +114,16 @@ class apiController {
     } finally {
     }
   }
-  
+
   async getUserInfo(req, res, next) {
     try {
       let storeid = req.params.store_id;
       let user_count = await User.getUserByUuid(storeid);
       if (check_obj(user_count)) {
-          return res
+        return res
           .status(200)
-         .json(halper.api_response(1, 'user get successfully', user_count));
-      }else{
+          .json(halper.api_response(1, 'user get successfully', user_count));
+      } else {
         return res
           .status(200)
           .json(halper.api_response(1, 'user get successfully', {}));
@@ -287,12 +287,32 @@ class apiController {
     }
   }
 
+  async getScreenInfo(req, res, next) {
+    try {
+      let response = await Configration.getInfoConfigration([
+        'Gratis',
+        'Integritet',
+        'Hej',
+      ]);
+      return res
+        .status(200)
+        .json(
+          halper.api_response(1, 'info list', response),
+        );
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(0, halper.request_message('invalid_request'), {}),
+        );
+    } finally {
+    }
+  }
+
   async getParty(req, res, next) {
     try {
       let response = [];
-      let configration = await Configration.getConfigrationByID(
-        '622735955f343c97bb72aa23',
-      );
+      let configration = await Configration.getConfigrationByID('party');
       let resdata = await Party.getAllParty(configration.value);
       let userCount = await Voting.getVotingCount();
       for (let resdat of resdata) {
