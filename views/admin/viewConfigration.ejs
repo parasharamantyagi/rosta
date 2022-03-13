@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
   <%- include('include/Header') -%>
+  <style type="text/css">
+    textarea {
+      color: #000000;
+      width: 100%;
+    }
+  </style>
   <body>
     <%- include('include/Sidebar') -%>
     <!-- Start Welcome area -->
@@ -22,16 +28,16 @@
                   <tr>
                     <th>Name</th>
                     <th>#</th>
+                    <th>#</th>
                   </tr>
-                  <% configrations.forEach(function(configration){ %>
                   <tr>
-                    <td><%- configration.name %></td>
+                    <td><%- configrations[0].name %></td>
                     <td>
                       <div class="col-md-6 form-group">
                         <select
                           name="changeStatus"
                           data-type="configuration"
-                          data-id="<%= configration._id %>"
+                          data-id="<%= configrations[0]._id %>"
                           class="form-control"
                         >
                           <option value="1">A-Z</option>
@@ -39,8 +45,84 @@
                         </select>
                       </div>
                     </td>
+                    <td></td>
                   </tr>
-                  <% }); %>
+                  <tr>
+                    <td><%- configrations[1].name %></td>
+                    <td>
+                      <textarea class="custom_text_<%- configrations[1]._id %>">
+<%- configrations[1].value %></textarea
+                      >
+                    </td>
+                    <td>
+                      <div class="custom-pro-edt-ds">
+                        <button
+                          type="submit"
+                          data-id="<%- configrations[1]._id %>"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><%- configrations[2].name %></td>
+                    <td>
+                      <textarea class="custom_text_<%- configrations[2]._id %>">
+<%- configrations[2].value %></textarea
+                      >
+                    </td>
+                    <td>
+                      <div class="custom-pro-edt-ds">
+                        <button
+                          type="submit"
+                          data-id="<%- configrations[2]._id %>"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><%- configrations[3].name %></td>
+                    <td>
+                      <textarea class="custom_text_<%- configrations[3]._id %>">
+<%- configrations[3].value %></textarea
+                      >
+                    </td>
+                    <td>
+                      <div class="custom-pro-edt-ds">
+                        <button
+                          type="submit"
+                          data-id="<%- configrations[3]._id %>"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><%- configrations[4].name %></td>
+                    <td>
+                      <textarea class="custom_text_<%- configrations[4]._id %>">
+<%- configrations[4].value %></textarea
+                      >
+                    </td>
+                    <td>
+                      <div class="custom-pro-edt-ds">
+                        <button
+                          type="submit"
+                          data-id="<%- configrations[4]._id %>"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>

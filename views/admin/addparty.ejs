@@ -95,6 +95,7 @@
                           class="form-control"
                           name="bar_in_diagram"
                           type="color"
+                          value="#D4D4D4"
                           aria-invalid="false"
                           value="<%= rosta.formData(partyData,'bar_in_diagram') %>"
                         />
@@ -103,13 +104,9 @@
                     <div class="row">
                       <div class="col-md-12 form-group">
                         <label>Description</label>
-                        <input
-                          class="form-control"
-                          name="description"
-                          type="text"
-                          aria-invalid="false"
-                          value="<%= rosta.formData(partyData,'description') %>"
-                        />
+                        <textarea class="form-control" name="description">
+<%= rosta.formData(partyData,'description') %></textarea
+                        >
                       </div>
                     </div>
                     <div class="row">

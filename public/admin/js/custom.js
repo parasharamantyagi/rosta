@@ -106,6 +106,34 @@ $('.toggle-switch').click(function() {
 });
 
 
+$('button[class="btn btn-ctl-bt waves-effect waves-light m-r-10"]').click(
+  function () {
+    let conf_id = $(this).data('id');
+    let conf_val = $('.custom_text_' + conf_id).val();
+    $.ajax({
+      type: 'POST',
+      url: '/admin/change-configration',
+      dataType: 'json',
+      data: {
+        id: conf_id,
+        type: 'configuration',
+        value: conf_val,
+      },
+      success: function (response) {
+        toastr.success(response.message, response.delayTime);
+        if (response.url) {
+          if (response.delayTime)
+            setTimeout(function () {
+              window.location.href = response.url;
+            }, response.delayTime);
+          else window.location.href = response.url;
+        }
+      },
+    });
+  },
+);
+
+
 $('.product-category').change(function() {
 	
 	window.location.href= "?cat_id="+$(this).val();

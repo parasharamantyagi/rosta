@@ -110,11 +110,21 @@ class adminController {
         'value'
       ]);
       if (input.type === 'configuration') {
+        // Configration.saveConfigration({ name: 'share', value: 'okkkkkkkkkkk' });
         Configration.updateConfigrationByID({
           id: input.id,
           value: input.value,
         },function(err, resData){
-          return res.status(200).json(resData);
+          return res
+            .status(200)
+            .json(
+              halper.web_response(
+                true,
+                false,
+                'Configuration update successfully',
+                halper.web_link('admin/system-configuration'),
+              ),
+            );
         });
       }
     } catch (err) {

@@ -334,6 +334,9 @@ class halper {
       object = object.toObject();
     }
     let return_val = '';
+    if (val === 'description') {
+      return_val = 'Detta parti har ännu inte uppgett alla uppgifter för att denna sida och dess knappar ska fungera. Vi ber om överinseende över det inträffade';
+    }
     if(this.check_obj(object, val) === true){
        return_val = object[val];
     }
