@@ -22,5 +22,4 @@ module.exports = function (app) {
 
   // let autoUrl = require('./auto-url');
   // app.use('/auto-url', autoUrl);
-  
 }
