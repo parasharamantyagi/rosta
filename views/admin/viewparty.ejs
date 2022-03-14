@@ -32,12 +32,21 @@
                     <td><%- party.name %></td>
                     <td><%- party.short_name %></td>
                     <td>
+					  <% if(rosta.check_obj(party,"image_link")) { %>
                       <img
                         src="<%= rosta.web_link(party.image_link) %>"
                         class="form-control"
                         alt=""
                         style="height: 60px; width: 150px"
                       />
+					  <% }else{ %>
+					  <img
+                        src="/party_image/no-party-singh.jpg"
+                        class="form-control"
+                        alt=""
+                        style="height: 60px; width: 150px"
+                      />
+					  <% } %>
                     </td>
                     <td><%- party.voters_estimated %></td>
                     <td>

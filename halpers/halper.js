@@ -315,7 +315,8 @@ class halper {
     if (key) {
       // console.log('iiii == ', Object.hasOwn(myObj, key));
       // return Object.hasOwn(myObj, key) ? true : false;
-      return Object.hasOwn(myObj, key);
+      // return Object.hasOwn(myObj, key);
+	  return (myObj[key] && myObj[key] !== undefined) ? true : false;
     } else {
       if (myObj != null && typeof myObj == 'object' && !Array.isArray(myObj)) {
         return myObj &&
