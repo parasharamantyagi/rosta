@@ -73,8 +73,8 @@
                       <div class="col-md-6 form-group">
                         <label>Small Party</label>
                         <select name="small_party" class="form-control">
-                          <option value="1">yes</option>
-                          <option value="0">No</option>
+                          <option value="1"  <%= (rosta.check_obj(partyData) && partyData.small_party === '1') ? 'selected' : '' %>>yes</option>
+                          <option value="0" <%= (rosta.check_obj(partyData) && partyData.small_party === '0') ? 'selected' : '' %>>No</option>
                         </select>
                       </div>
                       <div class="col-md-6 form-group">
