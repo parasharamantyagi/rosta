@@ -336,6 +336,8 @@ class halper {
     let return_val = '';
     if (val === 'description') {
       return_val = 'Detta parti har ännu inte uppgett alla uppgifter för att denna sida och dess knappar ska fungera. Vi ber om överinseende över det inträffade';
+    }else if (val === 'bar_in_diagram') {
+      return_val = '#D4D4D4';
     }
     if(this.check_obj(object, val) === true){
        return_val = object[val];

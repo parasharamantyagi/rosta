@@ -293,6 +293,7 @@ class apiController {
         'Gratis',
         'Integritet',
         'Hej',
+        'share',
       ]);
       return res
         .status(200)
