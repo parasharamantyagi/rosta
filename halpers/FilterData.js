@@ -26,11 +26,11 @@ class FilterData {
         answer_estimated: key.answer_estimated,
         created_at: key.createdAt,
         options: [
-          { option_1: key.option_1, select_1: key.select_1, value: 1 },
-          { option_2: key.option_2, select_1: key.select_2, value: 2 },
-          { option_3: key.option_3, select_1: key.select_3, value: 3 },
-          { option_4: key.option_4, select_1: key.select_4, value: 4 },
-          { option_5: key.option_5, select_1: key.select_5, value: 5 },
+          { option: key.option_1, select: key.select_1, value: 1 },
+          { option: key.option_2, select: key.select_2, value: 2 },
+          { option: key.option_3, select: key.select_3, value: 3 },
+          { option: key.option_4, select: key.select_4, value: 4 },
+          { option: key.option_5, select: key.select_5, value: 5 },
         ],
       };
     });
