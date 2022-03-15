@@ -1,6 +1,40 @@
-const { check , str_to_array, find_one, array_to_str, check_obj, convertTZ, change_time_format } = require('./halper');
+const { check , str_to_array, find_one, array_to_str, check_obj, convertTZ, change_time_format, current_date } = require('./halper');
 
 class FilterData {
+  
+  filterCsv(input) {
+    input = input.split(';');
+      return {
+        date: input[0],
+        question: input[1],
+        option_1: input[2],
+        option_2: input[3],
+        option_3: input[4],
+        option_4: input[5],
+        option_5: input[6],
+        createdAt: current_date(),
+      };
+  }
+
+  filterApiQuestion(input) {
+    // return input;
+    return input.map(function (key) {
+      return {
+        _id: key._id,
+        date: key.date,
+        question: key.question,
+        created_at: key.createdAt,
+        options: [
+          { option_1: key.option_1 },
+          { option_2: key.option_2 },
+          { option_3: key.option_3 },
+          { option_4: key.option_4 },
+          { option_5: key.option_5 },
+        ],
+      };
+    });
+  }
+
   getVehicleData(input) {
     return input.map(function (key) {
       return {

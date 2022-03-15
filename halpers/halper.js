@@ -17,6 +17,11 @@ class halper {
     return url;
   }
 
+  current_date() {
+    let now = new Date();
+    return moment(now).format('YYYY-MM-DD');
+  }
+
   custom_date(now = null) {
     if (now) {
       return moment(now).format(my_date_format);
@@ -117,7 +122,7 @@ class halper {
 
   merge_two_object(object1, object2) {
     //  const object3 = { ...object1, ...object2 };
-     return Object.assign(object1, object2);
+    return Object.assign(object1, object2);
   }
 
   web_response(success, error, message, url = null) {
@@ -316,7 +321,7 @@ class halper {
       // console.log('iiii == ', Object.hasOwn(myObj, key));
       // return Object.hasOwn(myObj, key) ? true : false;
       // return Object.hasOwn(myObj, key);
-	  return (myObj[key] && myObj[key] !== undefined) ? true : false;
+      return myObj[key] && myObj[key] !== undefined ? true : false;
     } else {
       if (myObj != null && typeof myObj == 'object' && !Array.isArray(myObj)) {
         return myObj &&
@@ -330,24 +335,25 @@ class halper {
     }
   }
 
-  formData(object,val){
+  formData(object, val) {
     if (this.check_obj(object)) {
       object = object.toObject();
     }
     let return_val = '';
     if (val === 'description') {
-      return_val = 'Detta parti har ännu inte uppgett alla uppgifter för att denna sida och dess knappar ska fungera. Vi ber om överinseende över det inträffade';
-    }else if (val === 'bar_in_diagram') {
+      return_val =
+        'Detta parti har ännu inte uppgett alla uppgifter för att denna sida och dess knappar ska fungera. Vi ber om överinseende över det inträffade';
+    } else if (val === 'bar_in_diagram') {
       return_val = '#D4D4D4';
     }
-    if(this.check_obj(object, val) === true){
-       return_val = object[val];
+    if (this.check_obj(object, val) === true) {
+      return_val = object[val];
     }
     return return_val;
   }
 
-  toggleSwitch(input){
-    return (input) ? 'checked':'';
+  toggleSwitch(input) {
+    return input ? 'checked' : '';
   }
 
   array_duplicates(chars) {

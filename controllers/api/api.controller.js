@@ -2,12 +2,14 @@ const halper = require('../../halpers/halper');
 const Party = require('./../../Model/partyTable');
 const Collaboration = require('./../../Model/collaborationTable');
 const User = require('./../../Model/userTable');
+const Question = require('./../../Model/questionTable');
 const Contact = require('./../../Model/contactTable');
 const Configration = require('./../../Model/configrationTable');
 const multer = require('multer');
 const { check_obj, custom_date, change_time_format } = require('../../halpers/halper');
 const { jwt, accessTokenSecret } = require('../../Model/module');
 const Voting = require('../../Model/votingTable');
+const { filterApiQuestion } = require('../../halpers/FilterData');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -287,6 +289,24 @@ class apiController {
     }
   }
 
+  async getQuestion(req, res, next) {
+    try {
+      let response = await Question.getQuestion();
+      return res
+        .status(200)
+        .json(
+          halper.api_response(1, 'Question list', filterApiQuestion(response)),
+        );
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(0, halper.request_message('invalid_request'), {}),
+        );
+    } finally {
+    }
+  }
+
   async getScreenInfo(req, res, next) {
     try {
       let response = await Configration.getInfoConfigration([
@@ -297,9 +317,7 @@ class apiController {
       ]);
       return res
         .status(200)
-        .json(
-          halper.api_response(1, 'info list', response),
-        );
+        .json(halper.api_response(1, 'info list', response));
     } catch (err) {
       return res
         .status(401)

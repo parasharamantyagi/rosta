@@ -10,6 +10,7 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
+    "csv-parser": "^3.0.0",
     "dateformat": "^4.4.1",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",

@@ -6,12 +6,12 @@
       color: #000000;
       width: 100%;
     }
-	.configuration_name {
-		text-transform: capitalize;
-	}
-	.share_menu {
-		margin-top: 2%;
-	}
+    .configuration_name {
+      text-transform: capitalize;
+    }
+    .share_menu {
+      margin-top: 2%;
+    }
   </style>
   <body>
     <%- include('include/Sidebar') -%>
@@ -54,7 +54,11 @@
                     <td></td>
                   </tr> -->
                   <tr>
-                    <td><div class="configuration_name"><%- configrations[1].name %></div></td>
+                    <td>
+                      <div class="configuration_name">
+                        <%- configrations[1].name %>
+                      </div>
+                    </td>
                     <td>
                       <textarea class="custom_text_<%- configrations[1]._id %>">
 <%- configrations[1].value %></textarea
@@ -65,7 +69,7 @@
                         <button
                           type="submit"
                           data-id="<%- configrations[1]._id %>"
-                          class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10 text-save"
                         >
                           Save
                         </button>
@@ -73,7 +77,11 @@
                     </td>
                   </tr>
                   <tr>
-                    <td><div class="configuration_name"><%- configrations[2].name %></div></td>
+                    <td>
+                      <div class="configuration_name">
+                        <%- configrations[2].name %>
+                      </div>
+                    </td>
                     <td>
                       <textarea class="custom_text_<%- configrations[2]._id %>">
 <%- configrations[2].value %></textarea
@@ -84,7 +92,7 @@
                         <button
                           type="submit"
                           data-id="<%- configrations[2]._id %>"
-                          class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10 text-save"
                         >
                           Save
                         </button>
@@ -92,7 +100,11 @@
                     </td>
                   </tr>
                   <tr>
-                    <td><div class="configuration_name"><%- configrations[3].name %></div></td>
+                    <td>
+                      <div class="configuration_name">
+                        <%- configrations[3].name %>
+                      </div>
+                    </td>
                     <td>
                       <textarea class="custom_text_<%- configrations[3]._id %>">
 <%- configrations[3].value %></textarea
@@ -103,16 +115,26 @@
                         <button
                           type="submit"
                           data-id="<%- configrations[3]._id %>"
-                          class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10 text-save"
                         >
                           Save
                         </button>
                       </div>
                     </td>
                   </tr>
-				  <tr><td colspan="2"><h4><div class="configuration_name share_menu">Share</div></h4></td></tr>
                   <tr>
-                    <td><div class="configuration_name"><%- configrations[4].name %></div></td>
+                    <td colspan="2">
+                      <h4>
+                        <div class="configuration_name share_menu">Share</div>
+                      </h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="configuration_name">
+                        <%- configrations[4].name %>
+                      </div>
+                    </td>
                     <td>
                       <textarea class="custom_text_<%- configrations[4]._id %>">
 <%- configrations[4].value %></textarea
@@ -123,12 +145,50 @@
                         <button
                           type="submit"
                           data-id="<%- configrations[4]._id %>"
-                          class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10 text-save"
                         >
                           Save
                         </button>
                       </div>
                     </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <h4>
+                        <div class="configuration_name share_menu">
+                          Question
+                        </div>
+                      </h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <form
+                      method="POST"
+                      action="question-upload"
+                      id="general_form"
+                      novalidate="novalidate"
+                    >
+                      <td>
+                        <div class="configuration_name">Upload csv file</div>
+                      </td>
+                      <td>
+                        <input
+                          class="form-control"
+                          type="file"
+                          name="question_file"
+                        />
+                      </td>
+                      <td>
+                        <div class="custom-pro-edt-ds">
+                          <button
+                            type="submit"
+                            class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                          >
+                            Save
+                          </button>
+                        </div>
+                      </td>
+                    </form>
                   </tr>
                 </tbody>
               </table>

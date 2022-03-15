@@ -6,6 +6,7 @@ router.use(bodyParser.json());
 // validater = require('./../../validation/adminValidate');
 // verifyUser = require('./../../middleware/verifyUser');
 adminController = require('./../../controllers/admin/admin.controller');
+adminFileController = require('./../../controllers/admin/admin.file.controller');
 
 router.get('/', adminController.dashboard); // Get list of user
 router.get('/view-party', adminController.viewParty); // Get list of user
@@ -19,6 +20,7 @@ router.get('/system-configuration', adminController.viewSystemConfiguration); //
 
 router.get('/party/:party_id', adminController.viewPartyPage); // Get list of user
 
+router.post('/question-upload', adminFileController.questionUploadPost); // Get list of user
 router.post('/add-collaboration', adminController.addCollaborationPost); // Get list of user
 router.post('/add-party', adminController.addPartyPost); // Get list of user
 router.post('/add-party/:party_id', adminController.updatePartyPost); // Get list of user

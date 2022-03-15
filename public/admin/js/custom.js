@@ -106,7 +106,7 @@ $('.toggle-switch').click(function() {
 });
 
 
-$('button[class="btn btn-ctl-bt waves-effect waves-light m-r-10"]').click(
+$('button[class="btn btn-ctl-bt waves-effect waves-light m-r-10 text-save"]').click(
   function () {
     let conf_id = $(this).data('id');
     let conf_val = $('.custom_text_' + conf_id).val();
