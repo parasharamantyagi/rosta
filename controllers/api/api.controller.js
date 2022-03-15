@@ -289,6 +289,26 @@ class apiController {
     }
   }
 
+  async postAnswer(req, res, next) {
+    try {
+      let submitted_answer = {};
+      let input = halper.obj_multi_select(req.body, ['question_id', 'value']);
+      submitted_answer.answer_estimated = 1;
+      submitted_answer[`select_${input.value}`] = 1;
+      Question.questionEstimatedPlus(input.question_id, submitted_answer);
+      return res
+        .status(200)
+        .json(halper.api_response(1, 'Answer submitted successfully', input));
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(0, halper.request_message('invalid_request'), {}),
+        );
+    } finally {
+    }
+  }
+
   async getQuestion(req, res, next) {
     try {
       let response = await Question.getQuestion();

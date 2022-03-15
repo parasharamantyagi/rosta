@@ -4,11 +4,17 @@ var questionSchema = mongoose.Schema(
   {
     date: { type: String, required: true },
     question: { type: String, required: true },
+    answer_estimated: { type: Number, default: 0 },
     option_1: { type: String, required: true },
     option_2: { type: String, required: true },
     option_3: { type: String, required: true },
     option_4: { type: String },
     option_5: { type: String },
+    select_1: { type: Number, default: 0 },
+    select_2: { type: Number, default: 0 },
+    select_3: { type: Number, default: 0 },
+    select_4: { type: Number, default: 0 },
+    select_5: { type: Number, default: 0 },
     createdAt: { type: String },
   },
   {
@@ -22,6 +28,21 @@ module.exports.getQuestion = async () => {
   return await Question.find().exec();
 };
 
+module.exports.questionEstimatedPlus = async (question_id,data) => {
+  return await Question.findOneAndUpdate(
+    { _id: question_id },
+    { $inc: data },
+    { new: true },
+  );
+};
+
+module.exports.questionEstimatedMinus = async (question_id, data) => {
+  return await Question.findOneAndUpdate(
+    { _id: question_id },
+    { $inc: data },
+    { new: true },
+  );
+};
 
 module.exports.saveQuestion = function (data, callback) {
   Question.create(data, callback);

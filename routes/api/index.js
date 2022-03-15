@@ -16,6 +16,7 @@ router.post('/user-info/:store_id', apiController.setUserInfo);
 
 router.post('/login', apiController.logIn);
 router.post('/sign-up', apiController.signUp);
+router.post('/answer', apiController.postAnswer);
 router.post('/voting', apiController.voting);
 router.post('/user', apiController.userList); // Get list of user
 router.post('/contact', apiController.contactAdd);

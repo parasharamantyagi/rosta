@@ -23,13 +23,14 @@ class FilterData {
         _id: key._id,
         date: key.date,
         question: key.question,
+        answer_estimated: key.answer_estimated,
         created_at: key.createdAt,
         options: [
-          { option_1: key.option_1 },
-          { option_2: key.option_2 },
-          { option_3: key.option_3 },
-          { option_4: key.option_4 },
-          { option_5: key.option_5 },
+          { option_1: key.option_1, select_1: key.select_1, value: 1 },
+          { option_2: key.option_2, select_1: key.select_2, value: 2 },
+          { option_3: key.option_3, select_1: key.select_3, value: 3 },
+          { option_4: key.option_4, select_1: key.select_4, value: 4 },
+          { option_5: key.option_5, select_1: key.select_5, value: 5 },
         ],
       };
     });
