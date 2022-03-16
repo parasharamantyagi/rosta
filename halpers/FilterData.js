@@ -1,9 +1,12 @@
-const { check , str_to_array, find_one, array_to_str, check_obj, convertTZ, change_time_format, current_date } = require('./halper');
+const { check , str_to_array, find_one, array_to_str, check_obj, convertTZ, change_time_format, current_date, check_array_length } = require('./halper');
 
 class FilterData {
   
   filterCsv(input) {
-    input = input.split(';');
+    if (!check_array_length(input)) {
+      input = input[0].split(';');
+    }
+    if (check(input[0]) && check(input[1]) && check(input[2]) && check(input[3])) {
       return {
         date: input[0],
         question: input[1],
@@ -14,6 +17,9 @@ class FilterData {
         option_5: input[6],
         createdAt: current_date(),
       };
+    }else{
+      return {};
+    }
   }
 
   filterApiQuestion(input) {

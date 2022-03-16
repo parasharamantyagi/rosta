@@ -30,12 +30,16 @@ class adminFileController {
         if (req.file) {
           inputData.question = 'public/questions/' + req.file.filename;
 
-          const data = [];
+          // const data = [];
+          let question_obj = {};
           fs.createReadStream(inputData.question)
             .pipe(csv())
             .on('data', (row) => {
-              Question.saveQuestion(filterCsv(Object.values(row)[0]));
-              data.push(filterCsv(Object.values(row)[0]));
+              question_obj = filterCsv(Object.values(row));
+                if (check_obj(question_obj)) {
+                  Question.saveQuestion(question_obj);
+                }
+                // data.push(filterCsv(Object.values(row)));
             })
             .on('end', () => {
               return res
