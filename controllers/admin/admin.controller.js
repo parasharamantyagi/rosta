@@ -3,6 +3,7 @@ const Party = require('./../../Model/partyTable');
 const Collaboration = require('./../../Model/collaborationTable');
 const User = require('./../../Model/userTable');
 const Configration = require('./../../Model/configrationTable');
+const Voting = require('./../../Model/votingTable');
 const multer = require('multer');
 const { check_obj } = require('../../halpers/halper');
 
@@ -221,6 +222,7 @@ class adminController {
       if (inputData.action === 'party') {
         Party.removeParty(inputData.id, async (err, resdata) => {
           if (check_obj(resdata)) {
+            Voting.removeVoting(inputData.id);
             return res
               .status(200)
               .json(

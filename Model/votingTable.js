@@ -51,13 +51,17 @@ module.exports.checkVoting = async (data) => {
   // }
 };
 
+module.exports.getVotingByParty = async (party_id) => {
+  return await Voting.find({ party_id: party_id }).exec();
+};
+
 module.exports.addVoting = function (data, callback) {
   Voting.create(data, callback);
 };
 
-module.exports.removeVoting = function (id, callback) {
-  var query = { _id: id };
-  Voting.deleteOne(query, callback);
+module.exports.removeVoting = async (party_id) => {
+  let query = { party_id: party_id };
+  Voting.remove(query).exec();
 };
 
 module.exports.updateVoting = async function (data, callback) {
