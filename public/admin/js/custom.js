@@ -133,6 +133,43 @@ $('button[class="btn btn-ctl-bt waves-effect waves-light m-r-10 text-save"]').cl
   },
 );
 
+ $('.image_link_plus').click(function () {
+	 let index_val = 2;
+   let my_html = '<div class="row image_link_multi_minus">';
+   my_html += '<div class="col-md-6 form-group">';
+	 my_html += '<div class="form-border">';
+	 my_html += '<input type="button" class="btn btn-light" data-id="image_link_'+index_val+'" value="Choose File">';
+	 my_html += '<span class="image_link_' + index_val + '"></span>';
+   my_html +=
+     '<input class="form-control image_link_'+index_val+'"  name="image_link[]" type="file" aria-invalid="false" style="display: none" />';
+   my_html += '</div></div><div class="col-md-6 form-group">';
+   my_html +=
+     '<button type="button" class="btn btn-ctl-bt waves-effect waves-light image_link_minus"><i class="fa fa-minus"></i></button>';
+   my_html += '</div></div>';
+   $('.image_link_multi_plus').after(my_html);
+	 index_val++;
+ });
+
+function readNAME(input, id) {
+  if (input.files && input.files[0]) {
+    $("span[class='" + id + "']").text(input.files[0].name);
+  }
+}
+
+$(document).on('click', 'input[class="btn btn-light"]', function () {
+	let current_btn_id = $(this).data('id');
+	console.log(current_btn_id);
+   $('input[class="form-control '+current_btn_id+'"]').click();
+});
+
+$(document).on('change', 'input[type="file"]', function () {
+	let cus_class = $(this).attr('class');
+  readNAME(this, cus_class.slice(13));
+});
+
+ $(document).on('click', '.image_link_minus', function () {
+   $(this).parent('div').parent('div').remove();
+ });
 
 $('.product-category').change(function() {
 	

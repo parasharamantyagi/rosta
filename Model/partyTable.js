@@ -7,7 +7,7 @@ var partySchema = mongoose.Schema(
     dd: { type: Number, enum: [1, 0], default: 0 },
     voters_estimated: { type: Number, default: 0 },
     votes: { type: Number, default: 0 },
-    image_link: { type: String },
+    image_link: [{ type: String }],
     email: { type: String },
     small_party: { type: String, enum: ['1', '0'], default: '0' },
     url: { type: String },

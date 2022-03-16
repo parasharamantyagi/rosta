@@ -93,6 +93,17 @@ class halper {
     return return_object;
   }
 
+  filter_by_id_party_image(target, input) {
+    // 👈 return single value in array format from multidimensional array
+    let return_object = [0];
+    if (target.length > 0) {
+      return_object = target.map(function (key) {
+        return 'party_image/' + key[input];
+      });
+    }
+    return return_object;
+  }
+
   encrypt(text, type = null) {
     // 👈 conver string to base64 fromat and it's reverse
     if (type && type == 'dec') {
@@ -350,6 +361,11 @@ class halper {
       return_val = object[val];
     }
     return return_val;
+  }
+
+  formDataArray(object, val) {
+    console.log(this.find_one(object.image_link));
+    return this.find_one(object.image_link).slice(-30);
   }
 
   toggleSwitch(input) {

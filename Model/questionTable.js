@@ -45,5 +45,10 @@ module.exports.questionEstimatedMinus = async (question_id, data) => {
 };
 
 module.exports.saveQuestion = function (data, callback) {
-  Question.create(data, callback);
+  var query = { createdAt: data.createdAt };
+  Question.remove(query, function(err, resData){
+    Question.create(data, callback);
+    // console.log(resData);
+  });
+  // Question.create(data, callback);
 };

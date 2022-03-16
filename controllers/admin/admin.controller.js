@@ -14,8 +14,8 @@ var storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname);
   },
 });
-
 var upload = multer({ storage: storage }).single('image_link');
+const multiUpload = multer({ storage: storage }).any('image_link');
 
 // const findUser = async function () { 
 //         try {  return await User.getUsersCount();
@@ -168,10 +168,10 @@ class adminController {
   }
   async addPartyPost(req, res, next) {
     try {
-      upload(req, res, async function (err) {
+      multiUpload(req, res, async function (err) {
         let inputData = req.body;
-        if (req.file) {
-          inputData.image_link = 'party_image/' + req.file.filename;
+        if (halper.check_array_length(req.files)) {
+          inputData.image_link = halper.filter_by_id_party_image(req.files, 'filename');
         }
         Party.addParty(inputData, async (err, resdata) => {
           if (check_obj(resdata)) {

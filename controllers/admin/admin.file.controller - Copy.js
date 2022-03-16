@@ -22,6 +22,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('question_file');
 
 class adminFileController {
+
   async questionUploadPost(req, res, next) {
     try {
       // const neatCsv = require('neat-csv');
@@ -29,27 +30,27 @@ class adminFileController {
         let inputData = req.body;
         if (req.file) {
           inputData.question = 'public/questions/' + req.file.filename;
-
-          const data = [];
-          fs.createReadStream(inputData.question)
-            .pipe(csv())
-            .on('data', (row) => {
-              Question.saveQuestion(filterCsv(Object.values(row)[0]));
-              data.push(filterCsv(Object.values(row)[0]));
-            })
-            .on('end', () => {
-              return res
-                .status(200)
-                .json(
-                  halper.web_response(
-                    true,
-                    false,
-                    'File upload successfully',
-                    halper.web_link('admin/system-configuration'),
-                  ),
-                );
-            });
-        } else {
+        
+        const data = [];
+        fs.createReadStream(inputData.question)
+          .pipe(csv())
+          .on('data', (row) => {
+            Question.saveQuestion(filterCsv(Object.values(row)[0]));
+            data.push(filterCsv(Object.values(row)[0]));
+          })
+          .on('end', () => {
+            return res
+              .status(200)
+              .json(
+                halper.web_response(
+                  true,
+                  false,
+                  'File upload successfully',
+                  halper.web_link('admin/system-configuration'),
+                ),
+              );
+          });
+        }else{
           return res
             .status(200)
             .json(
@@ -72,3 +73,4 @@ class adminFileController {
 }
 
 module.exports = new adminFileController();
+

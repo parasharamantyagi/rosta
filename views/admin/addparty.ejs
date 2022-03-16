@@ -60,12 +60,13 @@
                         />
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Logo (550x176 px, 825x264 px)</label>
+                        <label>Bar in diagram</label>
                         <input
                           class="form-control"
-                          name="image_link"
-                          type="file"
+                          name="bar_in_diagram"
+                          type="color"
                           aria-invalid="false"
+                          value="<%= rosta.formData(partyData,'bar_in_diagram') %>"
                         />
                       </div>
                     </div>
@@ -88,16 +89,28 @@
                         />
                       </div>
                     </div>
-                    <div class="row">
+                    <div class="row image_link_multi_plus">
                       <div class="col-md-6 form-group">
-                        <label>Bar in diagram</label>
+                        <label>Logo (550x176 px, 825x264 px)</label>
+                      <div class="form-border">
+                      <input type="button" class="btn btn-light" data-id="image_link_1" value="Choose File">
+                      <span class="image_link_1"><%- rosta.formDataArray(partyData,'image_link') %></span>
                         <input
-                          class="form-control"
-                          name="bar_in_diagram"
-                          type="color"
+                          class="form-control image_link_1"
+                          name="image_link[]"
+                          type="file"
                           aria-invalid="false"
-                          value="<%= rosta.formData(partyData,'bar_in_diagram') %>"
+                          style="display: none"
                         />
+                      </input>
+                      </div>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Multiple</label><br>
+                       <button
+                            type="button"
+                            class="btn btn-ctl-bt waves-effect waves-light image_link_plus"
+                          ><i class="fa fa-plus"></i></button>
                       </div>
                     </div>
                     <div class="row">

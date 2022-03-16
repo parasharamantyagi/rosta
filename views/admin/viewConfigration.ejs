@@ -12,6 +12,9 @@
     .share_menu {
       margin-top: 2%;
     }
+    .form-border {
+        color: #000000 !important;
+    }
   </style>
   <body>
     <%- include('include/Sidebar') -%>
@@ -172,11 +175,23 @@
                         <div class="configuration_name">Upload csv file</div>
                       </td>
                       <td>
-                        <input
-                          class="form-control"
-                          type="file"
+                        <div class="form-border">
+                          <input
+                            type="button"
+                            class="btn btn-light"
+                            data-id="image_link_1"
+                            value="Choose File"
+                          >
+                          <span class="image_link_1"></span>
+                          <input
+                          class="form-control image_link_1"
                           name="question_file"
+                          type="file"
+                          aria-invalid="false"
+                          style="display: none"
                         />
+                          </input>
+                        </div>
                       </td>
                       <td>
                         <div class="custom-pro-edt-ds">
