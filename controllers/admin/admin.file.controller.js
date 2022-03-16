@@ -30,18 +30,23 @@ class adminFileController {
         if (req.file) {
           inputData.question = 'public/questions/' + req.file.filename;
 
-          // const data = [];
+          const data = [];
           let question_obj = {};
           fs.createReadStream(inputData.question)
             .pipe(csv())
             .on('data', (row) => {
               question_obj = filterCsv(Object.values(row));
-                if (check_obj(question_obj)) {
-                  Question.saveQuestion(question_obj);
-                }
-                // data.push(filterCsv(Object.values(row)));
+              data.push(question_obj);
             })
             .on('end', () => {
+              if (halper.check_array_length(data,1)) {
+                Question.deleteQuestion(halper.current_date());
+              }
+              for(let my_data of data){
+                if (check_obj(my_data)) {
+                  Question.saveQuestion(my_data);
+                }
+              }
               return res
                 .status(200)
                 .json(

@@ -7,7 +7,7 @@ var questionSchema = mongoose.Schema(
     answer_estimated: { type: Number, default: 0 },
     option_1: { type: String, required: true },
     option_2: { type: String, required: true },
-    option_3: { type: String, required: true },
+    option_3: { type: String },
     option_4: { type: String },
     option_5: { type: String },
     select_1: { type: Number, default: 0 },
@@ -44,11 +44,11 @@ module.exports.questionEstimatedMinus = async (question_id, data) => {
   );
 };
 
+module.exports.deleteQuestion = function (data, callback) {
+  var query = { createdAt: data };
+  Question.remove(query, callback);
+};
+
 module.exports.saveQuestion = function (data, callback) {
-  var query = { createdAt: data.createdAt };
-  Question.remove(query, function(err, resData){
     Question.create(data, callback);
-    // console.log(resData);
-  });
-  // Question.create(data, callback);
 };
