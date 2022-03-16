@@ -364,8 +364,9 @@ class halper {
   }
 
   formDataArray(object, val) {
-    console.log(this.find_one(object.image_link));
-    return this.find_one(object.image_link).slice(-30);
+    // console.log(this.find_one(object.image_link));
+    // let return_val = '';
+    return (this.check_obj(object,val)) ? this.find_one(object.image_link).slice(-30) : '';
   }
 
   toggleSwitch(input) {
