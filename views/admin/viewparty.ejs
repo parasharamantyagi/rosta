@@ -18,8 +18,8 @@
               <div class="add-product">
                 <a href="<%= rosta.web_link('admin/add-party') %>">Add Party</a>
               </div>
-              <table>
-                <tbody>
+              <table id="example">
+                <thead>
                   <tr>
                     <th>Name</th>
                     <th>Short name</th>
@@ -27,6 +27,8 @@
                     <th>Voter</th>
                     <th>Action</th>
                   </tr>
+                </thead>
+                <tbody>
                   <% parties.forEach(function(party){ %>
                   <tr>
                     <td><%- party.name %></td>
@@ -82,5 +84,14 @@
     </div>
 
     <%- include('include/Footer') -%>
+    <script>
+      $(document).ready(function () {
+        $('#example').DataTable({
+          searching: false,
+          paging: false,
+          info: false,
+        });
+      });
+    </script>
   </body>
 </html>
