@@ -350,7 +350,8 @@ class apiController {
 
   async getParty(req, res, next) {
     try {
-      let response = [];
+      let small_party_response = [];
+      let big_party_response = [];
       let configration = await Configration.getConfigrationByID('party');
       let resdata = await Party.getAllParty(configration.value);
       let userCount = await Voting.getVotingCount();
@@ -362,12 +363,17 @@ class apiController {
         if (!check_obj(resdat.collaboration)) {
           resdat.collaboration = {};
         }
-        response.push(resdat);
+        if (resdat.small_party === "1"){
+          small_party_response.push(resdat);
+        }else{
+          big_party_response.push(resdat);
+        }
       }
       return res.status(200).json(
         halper.api_response(1, halper.request_message('all_party'), {
           total_voters: userCount,
-          party_list: response,
+          small_party: small_party_response,
+          big_party: big_party_response,
         }),
       );
     } catch (err) {

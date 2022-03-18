@@ -3,6 +3,7 @@ const { check , str_to_array, find_one, array_to_str, check_obj, convertTZ, chan
 class FilterData {
   
   filterCsv(input) {
+    // console.log(input);
     if (!check_array_length(input)) {
       input = input[0].split(';');
     }
