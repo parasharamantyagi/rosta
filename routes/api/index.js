@@ -12,6 +12,7 @@ router.get('/party', apiController.getParty); // Get list of user
 router.get('/info', apiController.getScreenInfo);
 router.get('/question', apiController.getQuestion);
 router.get('/user-info/:store_id', apiController.getUserInfo);
+router.get('/testing', apiController.getTesting);
 router.post('/user-info/:store_id', apiController.setUserInfo);
 
 router.post('/login', apiController.logIn);

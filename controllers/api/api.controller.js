@@ -380,6 +380,26 @@ class apiController {
     }
   }
 
+  async getTesting(req, res, next) {
+    try {
+      let response = [];
+      let checkVal = await Party.removePartyImage("62349988e733f58e8f44217b","party_image/1647614344148amex.jpg");
+      console.log(checkVal);
+      return res
+        .status(200)
+        .json(
+          halper.api_response(1, halper.request_message('all_party'), response),
+        );
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(0, halper.request_message('invalid_request'), {}),
+        );
+    } finally {
+    }
+  }
+
   async logIn(req, res, next) {
     try {
       let input = halper.obj_multi_select(req.body, ['email', 'password']);

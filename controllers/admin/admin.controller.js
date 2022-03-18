@@ -139,10 +139,10 @@ class adminController {
   async updatePartyPost(req, res, next) {
     try {
       let party_id = req.params.party_id;
-      upload(req, res, async function (err) {
+      multiUpload(req, res, async function (err) {
         let inputData = req.body;
-        if (req.file) {
-          inputData.image_link = 'party_image/' + req.file.filename;
+        if (halper.check_array_length(req.files)) {
+          inputData.image_link = halper.filter_by_id_party_image(req.files, 'filename');
         }
         inputData.id = party_id;
         Party.updateParty(inputData, async (err, resdata) => {
@@ -235,6 +235,21 @@ class adminController {
               );
           }
         });
+      } else if (inputData.action === 'party_image') {
+        Party.removePartyImage(inputData['id[image_id]'],inputData['id[image_link]']);
+        return true;
+        // if (check_obj(get_Perty)) {
+        //   return res
+        //     .status(200)
+        //     .json(
+        //       halper.web_response(
+        //         true,
+        //         false,
+        //         'Image delete succfully',
+        //         'view-party',
+        //       ),
+        //     );
+        // }
       } else if (inputData.action === 'collaboration') {
         Collaboration.removeCollaboration(
           inputData.id,

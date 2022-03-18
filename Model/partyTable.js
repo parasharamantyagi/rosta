@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const { check_obj } = require('../halpers/halper');
 
 var partySchema = mongoose.Schema(
   {
@@ -40,6 +41,13 @@ module.exports.getPartyCount = async function (callback) {
     } catch(err) { return err; }
 };
 
+//get all users
+module.exports.removePartyImage = async (id,value) => {
+  // return await Party.find().sort({ name: parseInt(value) }).exec();
+  return await Party.findOneAndUpdate({ _id: id }, { $pullAll: {image_link: [value] } });
+  // Favorite.updateOne( {cn: req.params.name}, { $pullAll: {uid: [req.params.deleteUid] } } )
+};
+
 //add admin
 module.exports.addParty = function (data, callback) {
   var query = { name: data.name };
@@ -67,13 +75,22 @@ module.exports.updateParty = function (data, callback) {
   var update = {
     name: data.name,
     short_name: data.short_name,
-    image_link: data.image_link,
+    // image_link: data.image_link,
     email: data.email,
     small_party: data.small_party,
     url: data.url,
     description: data.description,
     bar_in_diagram: data.bar_in_diagram,
   };
+  if(check_obj(data, 'image_link')){
+    Party.findOneAndUpdate(query, { $push: { image_link: data.image_link } },function(error,success){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(success);
+      }
+    });
+  }
   Party.findOneAndUpdate(query, update, { upsert: true, new: true }, callback);
 }
 
