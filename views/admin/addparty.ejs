@@ -30,7 +30,7 @@
                     <div class="row">
                       <% partyData.image_link.forEach(function(image_val){ %>
                       <div class="col-md-3 form-group">
-                        <img src="<%= rosta.web_link(image_val) %>" class="form-control" alt="" style="height: 58px; width: 171px">
+                        <img src="<%= rosta.web_link(image_val) %>" class="form-control" alt="" style="max-width: 170px;">
                       <button type="submit" class="btn data waves-effect waves-light m-r-10" onclick="deleteData({image_id: '<%= partyData._id %>',image_link: '<%= image_val %>'},'party_image')">
                         Delete
                       </button>
