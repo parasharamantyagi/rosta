@@ -3,7 +3,7 @@ const { check , str_to_array, find_one, array_to_str, check_obj, convertTZ, chan
 class FilterData {
   
   filterCsv(input) {
-    // console.log(input);
+    console.log(input);
     if (!check_array_length(input)) {
       input = input[0].split(';');
     }
@@ -32,6 +32,7 @@ class FilterData {
         question: key.question,
         answer_estimated: key.answer_estimated,
         created_at: key.createdAt,
+        is_user_answer: key.is_user_answer,
         options: [
           { option: key.option_1, select: key.select_1, value: 1 },
           { option: key.option_2, select: key.select_2, value: 2 },

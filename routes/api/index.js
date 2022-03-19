@@ -10,10 +10,9 @@ router.get('/check', apiController.viewCheck); // Get list of user
 router.get('/collaboration', apiController.collaboration); // Get list of user
 router.get('/party', apiController.getParty); // Get list of user
 router.get('/info', apiController.getScreenInfo);
-router.get('/question', apiController.getQuestion);
+router.post('/question', apiController.getQuestion);
 router.get('/user-info/:store_id', apiController.getUserInfo);
 router.get('/testing', apiController.getTesting);
-router.post('/user-info/:store_id', apiController.setUserInfo);
 
 router.post('/login', apiController.logIn);
 router.post('/sign-up', apiController.signUp);
@@ -22,6 +21,6 @@ router.post('/voting', apiController.voting);
 router.post('/user', apiController.userList); // Get list of user
 router.post('/contact', apiController.contactAdd);
 router.post('/store-uuid', apiController.storeUuid);
-
+router.post('/user-info/:store_id', apiController.setUserInfo);
 
 module.exports = router;

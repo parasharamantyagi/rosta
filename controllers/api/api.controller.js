@@ -5,8 +5,9 @@ const User = require('./../../Model/userTable');
 const Question = require('./../../Model/questionTable');
 const Contact = require('./../../Model/contactTable');
 const Configration = require('./../../Model/configrationTable');
+const QuestionAnswer = require('./../../Model/questionAnswerTable')
 const multer = require('multer');
-const { check_obj, custom_date, change_time_format } = require('../../halpers/halper');
+const { check_obj, custom_date, change_time_format, current_date } = require('../../halpers/halper');
 const { jwt, accessTokenSecret } = require('../../Model/module');
 const Voting = require('../../Model/votingTable');
 const { filterApiQuestion } = require('../../halpers/FilterData');
@@ -292,13 +293,50 @@ class apiController {
   async postAnswer(req, res, next) {
     try {
       let submitted_answer = {};
-      let input = halper.obj_multi_select(req.body, ['question_id', 'value']);
-      submitted_answer.answer_estimated = 1;
-      submitted_answer[`select_${input.value}`] = 1;
-      Question.questionEstimatedPlus(input.question_id, submitted_answer);
-      return res
-        .status(200)
-        .json(halper.api_response(1, 'Answer submitted successfully', input));
+      // QuestionAnswer;
+      let input = halper.obj_multi_select(req.body, ['question_id', 'value','device_id'],false);
+      if (check_obj(req.headers, 'authorization')) {
+        const user = await jwt.verify(
+          req.headers.authorization,
+          accessTokenSecret,
+        );
+        input.user_id = user.user_id;
+      }
+      input.answer_date = current_date();
+      let question_s = await Question.getQuestionFromID(input.question_id);
+      let question_data = await QuestionAnswer.checkQuestionAnswer(input);
+      let question_for_date = await QuestionAnswer.checkQuestionAnswerFromDate(input);
+      // console.log('question_data', question_for_date);
+      if (
+        check_obj(question_data) ||
+        (change_time_format(question_s.createdAt, 'YYYY-MM-DD') ===
+          input.answer_date &&
+          check_obj(question_for_date))
+      ) {
+        return res
+          .status(200)
+          .json(
+            halper.api_response(
+              0,
+              'You have already submitted answered',
+              input,
+            ),
+          );
+      } else {
+        submitted_answer.answer_estimated = 1;
+        submitted_answer[`select_${input.value}`] = 1;
+        Question.questionEstimatedPlus(input.question_id, submitted_answer);
+        let question_answer = halper.obj_multi_select(input, [
+          'user_id',
+          'question_id',
+          'device_id',
+          'answer_date',
+        ]);
+        QuestionAnswer.addQuestionAnswer(question_answer);
+        return res
+          .status(200)
+          .json(halper.api_response(1, 'Answer submitted successfully', input));
+      }
     } catch (err) {
       return res
         .status(401)
@@ -311,7 +349,18 @@ class apiController {
 
   async getQuestion(req, res, next) {
     try {
-      let response = await Question.getQuestion();
+      let response = [];
+      let input = halper.obj_multi_select(req.body, ['device_id']);
+      let all_questions = await Question.getQuestion();
+      for (let all_question of all_questions) {
+        all_question = all_question.toObject();
+        all_question.is_user_answer = await QuestionAnswer.checkQuestionAnswer({
+          question_id: all_question._id,
+          device_id: input.device_id,
+        });
+        all_question.is_user_answer = check_obj(all_question.is_user_answer) ? 1 : 0;
+        response.push(all_question);
+      }
       return res
         .status(200)
         .json(

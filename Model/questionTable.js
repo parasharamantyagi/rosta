@@ -28,6 +28,10 @@ module.exports.getQuestion = async () => {
   return await Question.find().exec();
 };
 
+module.exports.getQuestionFromID = async (id) => {
+  return await Question.findOne({ _id: id}).exec();
+};
+
 module.exports.questionEstimatedPlus = async (question_id,data) => {
   return await Question.findOneAndUpdate(
     { _id: question_id },
