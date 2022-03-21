@@ -25,7 +25,7 @@ const Question = (module.exports = mongoose.model('questions', questionSchema));
 
 //get all users
 module.exports.getQuestion = async () => {
-  return await Question.find().exec();
+  return await Question.find().sort({ date : 1}).exec();
 };
 
 module.exports.getQuestionFromID = async (id) => {
