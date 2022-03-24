@@ -4,6 +4,7 @@ const Collaboration = require('./../../Model/collaborationTable');
 const User = require('./../../Model/userTable');
 const Question = require('./../../Model/questionTable');
 const Contact = require('./../../Model/contactTable');
+const Feedback = require('./../../Model/feedbackTable');
 const Configration = require('./../../Model/configrationTable');
 const QuestionAnswer = require('./../../Model/questionAnswerTable')
 const multer = require('multer');
@@ -96,13 +97,17 @@ class apiController {
         );
         return res
           .status(200)
-          .json(halper.api_response(1, 'user set successfully', input));
+          .json(
+            halper.api_response(1, halper.request_message('user_set'), input),
+          );
       } else {
         input.uuid = storeid;
         User.addUser(input);
         return res
           .status(200)
-          .json(halper.api_response(1, 'user set successfully', input));
+          .json(
+            halper.api_response(1, halper.request_message('user_set'), input),
+          );
       }
     } catch (err) {
       return res
@@ -125,11 +130,17 @@ class apiController {
       if (check_obj(user_count)) {
         return res
           .status(200)
-          .json(halper.api_response(1, 'user get successfully', user_count));
+          .json(
+            halper.api_response(
+              1,
+              halper.request_message('user_get'),
+              user_count,
+            ),
+          );
       } else {
         return res
           .status(200)
-          .json(halper.api_response(1, 'user get successfully', {}));
+          .json(halper.api_response(1, halper.request_message('user_get'), {}));
       }
     } catch (err) {
       return res
@@ -150,7 +161,9 @@ class apiController {
       let input = halper.obj_multi_select(req.body, ['uuid']);
       return res
         .status(200)
-        .json(halper.api_response(1, 'uuid store successfully', input));
+        .json(
+          halper.api_response(1, halper.request_message('uuid_store'), input),
+        );
     } catch (err) {
       return res
         .status(401)
@@ -190,7 +203,11 @@ class apiController {
           return res
             .status(206)
             .json(
-              halper.api_response(0, 'You have already voted for today', {}),
+              halper.api_response(
+                0,
+                halper.request_message('have_already_voted'),
+                {},
+              ),
             );
         } else {
           if (voting_data.party_id !== input.party_id) {
@@ -267,6 +284,34 @@ class apiController {
     }
   }
 
+  async feedbackAdd(req, res, next) {
+    try {
+      let input = halper.obj_multi_select(
+        req.body,
+        ['party_id', 'select1', 'select2', 'description', 'email'],
+        false,
+      );
+      input.createdAt = custom_date();
+      Feedback.addFeedback(input);
+      return res
+        .status(200)
+        .json(
+          halper.api_response(1, halper.request_message('feedbackAdd'), input),
+        );
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(
+            0,
+            halper.request_message('invalid_request'),
+            err,
+          ),
+        );
+    } finally {
+    }
+  }
+
   async collaboration(req, res, next) {
     try {
       Collaboration.getCollaboration(10, (err, resdata) => {
@@ -294,7 +339,11 @@ class apiController {
     try {
       let submitted_answer = {};
       // QuestionAnswer;
-      let input = halper.obj_multi_select(req.body, ['question_id', 'value','device_id'],false);
+      let input = halper.obj_multi_select(
+        req.body,
+        ['question_id', 'value', 'device_id'],
+        false,
+      );
       if (check_obj(req.headers, 'authorization')) {
         const user = await jwt.verify(
           req.headers.authorization,
@@ -305,7 +354,9 @@ class apiController {
       input.answer_date = current_date();
       let question_s = await Question.getQuestionFromID(input.question_id);
       let question_data = await QuestionAnswer.checkQuestionAnswer(input);
-      let question_for_date = await QuestionAnswer.checkQuestionAnswerFromDate(input);
+      let question_for_date = await QuestionAnswer.checkQuestionAnswerFromDate(
+        input,
+      );
       // console.log('question_data', question_for_date);
       if (
         check_obj(question_data) ||
@@ -318,7 +369,7 @@ class apiController {
           .json(
             halper.api_response(
               0,
-              'You have already submitted answered',
+              halper.request_message('already_submitted_answered'),
               input,
             ),
           );
@@ -335,7 +386,13 @@ class apiController {
         QuestionAnswer.addQuestionAnswer(question_answer);
         return res
           .status(200)
-          .json(halper.api_response(1, 'Answer submitted successfully', input));
+          .json(
+            halper.api_response(
+              1,
+              halper.request_message('already_submitted'),
+              input,
+            ),
+          );
       }
     } catch (err) {
       return res
@@ -358,13 +415,19 @@ class apiController {
           question_id: all_question._id,
           device_id: input.device_id,
         });
-        all_question.is_user_answer = check_obj(all_question.is_user_answer) ? 1 : 0;
+        all_question.is_user_answer = check_obj(all_question.is_user_answer)
+          ? 1
+          : 0;
         response.push(all_question);
       }
       return res
         .status(200)
         .json(
-          halper.api_response(1, 'Question list', filterApiQuestion(response)),
+          halper.api_response(
+            1,
+            halper.request_message('question_list'),
+            filterApiQuestion(response),
+          ),
         );
     } catch (err) {
       return res
@@ -386,7 +449,9 @@ class apiController {
       ]);
       return res
         .status(200)
-        .json(halper.api_response(1, 'info list', response));
+        .json(
+          halper.api_response(1, halper.request_message('info_list'), response),
+        );
     } catch (err) {
       return res
         .status(401)
@@ -412,9 +477,9 @@ class apiController {
         if (!check_obj(resdat.collaboration)) {
           resdat.collaboration = {};
         }
-        if (resdat.small_party === "1"){
+        if (resdat.small_party === '1') {
           small_party_response.push(resdat);
-        }else{
+        } else {
           big_party_response.push(resdat);
         }
       }
@@ -438,7 +503,10 @@ class apiController {
   async getTesting(req, res, next) {
     try {
       let response = [];
-      let checkVal = await Party.removePartyImage("62349988e733f58e8f44217b","party_image/1647614344148amex.jpg");
+      let checkVal = await Party.removePartyImage(
+        '62349988e733f58e8f44217b',
+        'party_image/1647614344148amex.jpg',
+      );
       console.log(checkVal);
       return res
         .status(200)

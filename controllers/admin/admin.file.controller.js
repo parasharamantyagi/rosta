@@ -53,7 +53,7 @@ class adminFileController {
                   halper.web_response(
                     true,
                     false,
-                    'File upload successfully',
+                    halper.request_message('file_upload'),
                     halper.web_link('admin/system-configuration'),
                   ),
                 );
@@ -65,7 +65,7 @@ class adminFileController {
               halper.web_response(
                 false,
                 false,
-                "File does't exit",
+                halper.request_message('file_exit'),
                 halper.web_link('admin/system-configuration'),
               ),
             );
