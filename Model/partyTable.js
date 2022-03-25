@@ -14,6 +14,8 @@ var partySchema = mongoose.Schema(
     url: { type: String },
     description: { type: String },
     bar_in_diagram: { type: String },
+    eighteen_above: { type: Number, default: 0 },
+    eighteen_bellow: { type: Number, default: 0 },
     createdAt: { type: Date },
     UpdatedAt: { type: Date },
   },
@@ -93,6 +95,15 @@ module.exports.updateParty = function (data, callback) {
   }
   Party.findOneAndUpdate(query, update, { upsert: true, new: true }, callback);
 }
+
+module.exports.votersAgeEstimatedPlusInParty = async (id,key_name) => {
+  // { voters_estimated: 1 }
+  return await Party.findOneAndUpdate(
+    { _id: id },
+    { $inc: key_name },
+    { new: true },
+  );
+};
 
 module.exports.votersEstimatedPlusInParty = async (data) => {
   return await Party.findOneAndUpdate(

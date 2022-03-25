@@ -184,7 +184,7 @@ class apiController {
     try {
       let input = halper.obj_multi_select(
         req.body,
-        ['party_id', 'device_id'],
+        ['party_id', 'device_id', 'eighteen_above'],
         false,
       );
       if (check_obj(req.headers, 'authorization')) {
@@ -215,13 +215,42 @@ class apiController {
           if (voting_data.party_id !== input.party_id) {
             Party.votersEstimatedMinusInParty(voting_data.party_id);
             Party.votersEstimatedPlusInParty(input.party_id);
+            if (voting_data.eighteen_above === input.eighteen_above) {
+                Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
+                  eighteen_above: -1,
+                });
+                Party.votersAgeEstimatedPlusInParty(input.party_id, {
+                  eighteen_above: 1,
+                });
+            }
           }
+          if (voting_data.party_id.toHexString() === input.party_id) {
+            if (voting_data.eighteen_above !== input.eighteen_above) {
+              if (input.eighteen_above) {
+                Party.votersAgeEstimatedPlusInParty(input.party_id, {
+                  eighteen_above: 1,
+                });
+                Party.votersAgeEstimatedPlusInParty(input.party_id, {
+                  eighteen_bellow: -1,
+                });
+              } else {
+                Party.votersAgeEstimatedPlusInParty(input.party_id, {
+                  eighteen_above: -1,
+                });
+                Party.votersAgeEstimatedPlusInParty(input.party_id, {
+                  eighteen_bellow: 1,
+                });
+              }
+            }
+          }
+
           Voting.findOneAndUpdate(
             { _id: input.id },
             {
               $set: {
                 party_id: input.party_id,
                 voting_date: input.voting_date,
+                eighteen_above: input.eighteen_above,
               },
             },
             {
@@ -238,6 +267,11 @@ class apiController {
       } else {
         Voting.addVoting(input);
         Party.votersEstimatedPlusInParty(input.party_id);
+        if (input.eighteen_above) {
+          Party.votersAgeEstimatedPlusInParty(input.party_id,{ eighteen_above: 1 });
+        }else{
+          Party.votersAgeEstimatedPlusInParty(input.party_id,{ eighteen_bellow: 1 });
+        }
         return res
           .status(200)
           .json(

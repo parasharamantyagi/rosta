@@ -6,6 +6,7 @@ var votingSchema = mongoose.Schema(
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
     party_id: { type: mongoose.Schema.Types.ObjectId, ref: 'party' },
     device_id: { type: String },
+    eighteen_above: { type: Number, default: 1 },
     voting_date: { type: Date },
   },
   {
