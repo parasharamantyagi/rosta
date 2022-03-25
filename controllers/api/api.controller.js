@@ -6,7 +6,9 @@ const Question = require('./../../Model/questionTable');
 const Contact = require('./../../Model/contactTable');
 const Feedback = require('./../../Model/feedbackTable');
 const Configration = require('./../../Model/configrationTable');
-const QuestionAnswer = require('./../../Model/questionAnswerTable')
+const QuestionAnswer = require('./../../Model/questionAnswerTable');
+const mail = require('./../../halpers/mail');
+const MailTemplate = require('./../../halpers/mail_template');
 const multer = require('multer');
 const { check_obj, custom_date, change_time_format, current_date } = require('../../halpers/halper');
 const { jwt, accessTokenSecret } = require('../../Model/module');
@@ -293,6 +295,10 @@ class apiController {
       );
       input.createdAt = custom_date();
       Feedback.addFeedback(input);
+      Party.getPartyById(input.party_id, (err, resdata) => {
+        // console.log(resdata.email);
+      mail.sand(resdata.email,'Feedback',MailTemplate.user_registration({description: input.description}));
+      });
       return res
         .status(200)
         .json(

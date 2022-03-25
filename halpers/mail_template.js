@@ -31,15 +31,9 @@ class MailTemplate {
       '</style></head><body><div style="width: 100%; text-align: center;"><center>';
     dssss += '<div style="width: 500px;">';
     dssss +=
-      '<h4 style="font-family: sans-serif; background: #3b8160; margin: 0; text-transform: uppercase; padding: 11px; font-weight: 600;">Medicaar</h4>';
+      '<h4 style="font-family: sans-serif; background: #3b8160; margin: 0; text-transform: uppercase; padding: 11px; font-weight: 600;">ROSTA RATT</h4>';
     dssss +=
-      '<div style="width: 500px;"><p>Hello <b>' +
-      inputData.user_login_id +
-      '</b><br>Your account has been created successfully.<br>Your login credentials are:<br><br>Email: ' +
-      inputData.email_id +
-      '<br> Password: ' +
-      inputData.password +
-      ' <br><br>Thanks,</b></p></div>';
+      '<div style="width: 500px;"><p>' + inputData.description + '</p></div>';
     dssss +=
       '<h5 style="font-family: sans-serif; background: #3b8160; margin: 0;  padding: 10px; font-weight: 600;"></h5>';
     dssss += '</div></center></div></body></html>';
