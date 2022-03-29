@@ -84,7 +84,7 @@ class apiController {
   async setUserInfo(req, res, next) {
     try {
       let storeid = req.params.store_id;
-      let input = halper.obj_multi_select(req.body, ['email', 'dob']);
+      let input = halper.obj_multi_select(req.body, ['nick_name','email', 'dob']);
       let user_count = await User.getUserByUuid(storeid);
       if (check_obj(user_count)) {
         User.findOneAndUpdate(

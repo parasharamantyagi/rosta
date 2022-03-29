@@ -8,6 +8,7 @@ var userSchema = mongoose.Schema(
     age_verification: { type: Number, enum: [1, 0], default: 0 },
     physical_user: { type: Number, enum: [1, 0], default: 0 },
     user_name: { type: String },
+    nick_name: { type: String },
     password: { type: String, default: 'none' },
     hint: { type: String, default: '0' },
     alias: { type: String, default: 'none' },
