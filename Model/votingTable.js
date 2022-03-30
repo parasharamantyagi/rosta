@@ -32,16 +32,23 @@ module.exports.getVotingCount = async function (callback) {
 module.exports.checkVoting = async (data) => {
   // console.log(data);
   let checkVote = {};
+  let where_Vote = {};
   // let queryCheck = {};
   // let retun_status = {};
   if (check_obj(data, 'user_id')) {
     // queryCheck.user_id = data.user_id;
-    checkVote = await Voting.findOne({ user_id: data.user_id }).exec();
+    where_Vote = { user_id: data.user_id };
+    // checkVote = await Voting.findOne().exec();
   }
   if (check_obj(data, 'device_id')) {
     // queryCheck.device_id = data.device_id;
-    checkVote = await Voting.findOne({ device_id: data.device_id }).exec();
+    where_Vote = { device_id: data.device_id };
   }
+  where_Vote.party_id = data.party_id;
+  checkVote = await Voting.findOne(where_Vote).exec();
+  // if (!check_obj(voting_data)) {
+
+  // }
   return checkVote;
   // if (check_obj(checkVote)) {
   //   let return_object = await Voting.findOneAndUpdate(queryCheck, data).exec();

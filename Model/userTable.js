@@ -18,6 +18,7 @@ var userSchema = mongoose.Schema(
     createdAt: { type: Date },
     UpdatedAt: { type: Date },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    referral_code: [{ type: String }],
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false
@@ -44,6 +45,16 @@ module.exports.getUsersCount = async function (callback) {
 module.exports.addUser = function (data, callback) {
   User.create(data, callback);
 }
+
+module.exports.addReferralCode = function (data, callback) {
+  User.findOneAndUpdate({uuid: data.id}, { $push: { referral_code: data.referral_code } },function(error,success){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(success);
+      }
+    });
+};
 
 //get user by email
 module.exports.getUserByUuid = (data, callback) => {

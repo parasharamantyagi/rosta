@@ -97,14 +97,23 @@ class apiController {
           },
           function (err, docs) {},
         );
+        let input_referral_code = halper.obj_multi_select(req.body, ['referral_code']);
+        if (check_obj(input_referral_code)) {
+          input.referral_code = input_referral_code.referral_code.replace('https://rostaratt.com/app/', '');
+        }
         return res
           .status(200)
           .json(
             halper.api_response(1, halper.request_message('user_set'), input),
           );
       } else {
+        let input_referral_code = halper.obj_multi_select(req.body, ['referral_code']);
         input.uuid = storeid;
-        User.addUser(input);
+        User.addUser(input, async (err, resdata) => {
+          if (check_obj(input_referral_code)) {
+            User.addReferralCode({id: input_referral_code.referral_code.replace('https://rostaratt.com/app/', ''),referral_code: input.uuid});
+          }
+        });
         return res
           .status(200)
           .json(
