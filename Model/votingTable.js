@@ -44,7 +44,7 @@ module.exports.checkVoting = async (data) => {
     // queryCheck.device_id = data.device_id;
     where_Vote = { device_id: data.device_id };
   }
-  where_Vote.party_id = data.party_id;
+  // where_Vote.party_id = data.party_id;
   checkVote = await Voting.findOne(where_Vote).exec();
   // if (!check_obj(voting_data)) {
 

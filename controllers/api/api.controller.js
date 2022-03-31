@@ -223,15 +223,33 @@ class apiController {
         } else {
           if (voting_data.party_id !== input.party_id) {
             Party.votersEstimatedMinusInParty(voting_data.party_id);
+            if (voting_data.eighteen_above) {
+              Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
+                eighteen_above: -1,
+              });
+            }else{
+              Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
+                eighteen_bellow: -1,
+              });
+            }
             Party.votersEstimatedPlusInParty(input.party_id);
-            if (voting_data.eighteen_above === input.eighteen_above) {
-                Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
-                  eighteen_above: -1,
-                });
-                Party.votersAgeEstimatedPlusInParty(input.party_id, {
+            if(input.eighteen_above){
+              Party.votersAgeEstimatedPlusInParty(input.party_id, {
                   eighteen_above: 1,
                 });
+            }else{
+              Party.votersAgeEstimatedPlusInParty(input.party_id, {
+                eighteen_bellow: 1,
+              });
             }
+            // if (voting_data.eighteen_above === input.eighteen_above) {
+            //     Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
+            //       eighteen_above: -1,
+            //     });
+                
+            // }else{
+
+            // }
           }
           if (voting_data.party_id.toHexString() === input.party_id) {
             if (voting_data.eighteen_above !== input.eighteen_above) {
