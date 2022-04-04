@@ -84,7 +84,11 @@ class apiController {
   async setUserInfo(req, res, next) {
     try {
       let storeid = req.params.store_id;
-      let input = halper.obj_multi_select(req.body, ['nick_name','email', 'dob']);
+      let input = halper.obj_multi_select(req.body, [
+        'nick_name',
+        'email',
+        'dob',
+      ]);
       let user_count = await User.getUserByUuid(storeid);
       if (check_obj(user_count)) {
         User.findOneAndUpdate(
@@ -97,9 +101,14 @@ class apiController {
           },
           function (err, docs) {},
         );
-        let input_referral_code = halper.obj_multi_select(req.body, ['referral_code']);
+        let input_referral_code = halper.obj_multi_select(req.body, [
+          'referral_code',
+        ]);
         if (check_obj(input_referral_code)) {
-          input.referral_code = input_referral_code.referral_code.replace('https://rostaratt.com/app/', '');
+          input.referral_code = input_referral_code.referral_code.replace(
+            'https://rostaratt.com/app/',
+            '',
+          );
         }
         return res
           .status(200)
@@ -107,11 +116,19 @@ class apiController {
             halper.api_response(1, halper.request_message('user_set'), input),
           );
       } else {
-        let input_referral_code = halper.obj_multi_select(req.body, ['referral_code']);
+        let input_referral_code = halper.obj_multi_select(req.body, [
+          'referral_code',
+        ]);
         input.uuid = storeid;
         User.addUser(input, async (err, resdata) => {
           if (check_obj(input_referral_code)) {
-            User.addReferralCode({id: input_referral_code.referral_code.replace('https://rostaratt.com/app/', ''),referral_code: input.uuid});
+            User.addReferralCode({
+              id: input_referral_code.referral_code.replace(
+                'https://rostaratt.com/app/',
+                '',
+              ),
+              referral_code: input.uuid,
+            });
           }
         });
         return res
@@ -189,6 +206,37 @@ class apiController {
     }
   }
 
+  async checkUserVoting(req, res, next) {
+    try {
+      let input = halper.obj_multi_select(req.body,['device_id'],false);
+      let voting_data = await Voting.checkVoting(input);
+      if (check_obj(voting_data)) {
+        return res
+          .status(200)
+          .json(
+            halper.api_response(1, "You have been voted", voting_data),
+          );
+      }else{
+        return res
+          .status(200)
+          .json(
+            halper.api_response(0, "You have no vote", voting_data),
+          );
+      }
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(
+            0,
+            halper.request_message('invalid_request'),
+            err,
+          ),
+        );
+    } finally {
+    }
+  }
+
   async voting(req, res, next) {
     try {
       let input = halper.obj_multi_select(
@@ -227,17 +275,17 @@ class apiController {
               Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
                 eighteen_above: -1,
               });
-            }else{
+            } else {
               Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
                 eighteen_bellow: -1,
               });
             }
             Party.votersEstimatedPlusInParty(input.party_id);
-            if(input.eighteen_above){
+            if (input.eighteen_above) {
               Party.votersAgeEstimatedPlusInParty(input.party_id, {
-                  eighteen_above: 1,
-                });
-            }else{
+                eighteen_above: 1,
+              });
+            } else {
               Party.votersAgeEstimatedPlusInParty(input.party_id, {
                 eighteen_bellow: 1,
               });
@@ -246,7 +294,7 @@ class apiController {
             //     Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
             //       eighteen_above: -1,
             //     });
-                
+
             // }else{
 
             // }
@@ -295,9 +343,13 @@ class apiController {
         Voting.addVoting(input);
         Party.votersEstimatedPlusInParty(input.party_id);
         if (input.eighteen_above) {
-          Party.votersAgeEstimatedPlusInParty(input.party_id,{ eighteen_above: 1 });
-        }else{
-          Party.votersAgeEstimatedPlusInParty(input.party_id,{ eighteen_bellow: 1 });
+          Party.votersAgeEstimatedPlusInParty(input.party_id, {
+            eighteen_above: 1,
+          });
+        } else {
+          Party.votersAgeEstimatedPlusInParty(input.party_id, {
+            eighteen_bellow: 1,
+          });
         }
         return res
           .status(200)
@@ -358,7 +410,11 @@ class apiController {
       Feedback.addFeedback(input);
       Party.getPartyById(input.party_id, (err, resdata) => {
         // console.log(resdata.email);
-      mail.sand(resdata.email,'Feedback',MailTemplate.user_registration({description: input.description}));
+        mail.sand(
+          resdata.email,
+          'Feedback',
+          MailTemplate.user_registration({ description: input.description }),
+        );
       });
       return res
         .status(200)

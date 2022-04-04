@@ -18,6 +18,7 @@ router.post('/login', apiController.logIn);
 router.post('/sign-up', apiController.signUp);
 router.post('/answer', apiController.postAnswer);
 router.post('/voting', apiController.voting);
+router.post('/check-voting', apiController.checkUserVoting);
 router.post('/user', apiController.userList); // Get list of user
 router.post('/contact', apiController.contactAdd);
 router.post('/feedback', apiController.feedbackAdd);
