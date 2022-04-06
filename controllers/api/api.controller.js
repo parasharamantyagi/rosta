@@ -106,9 +106,8 @@ class apiController {
         ]);
         if (check_obj(input_referral_code)) {
           input.referral_code = input_referral_code.referral_code.replace(
-            'https://rostaratt.com/app/',
-            '',
-          );
+                'https://rostaratt.com?',
+                '');
         }
         return res
           .status(200)
@@ -122,11 +121,11 @@ class apiController {
         input.uuid = storeid;
         User.addUser(input, async (err, resdata) => {
           if (check_obj(input_referral_code)) {
+            input_referral_code.referral_code = input_referral_code.referral_code.replace(
+                'https://rostaratt.com?',
+                '');
             User.addReferralCode({
-              id: input_referral_code.referral_code.replace(
-                'https://rostaratt.com/app/',
-                '',
-              ),
+              id: input_referral_code.referral_code,
               referral_code: input.uuid,
             });
           }
