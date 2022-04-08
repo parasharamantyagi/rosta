@@ -7,6 +7,7 @@ const Contact = require('./../../Model/contactTable');
 const Feedback = require('./../../Model/feedbackTable');
 const Configration = require('./../../Model/configrationTable');
 const QuestionAnswer = require('./../../Model/questionAnswerTable');
+const VoteSchedule = require('./../../Model/voteSchedule');
 const mail = require('./../../halpers/mail');
 const MailTemplate = require('./../../halpers/mail_template');
 const multer = require('multer');
@@ -106,8 +107,9 @@ class apiController {
         ]);
         if (check_obj(input_referral_code)) {
           input.referral_code = input_referral_code.referral_code.replace(
-                'https://rostaratt.com?',
-                '');
+            'https://rostaratt.com?',
+            '',
+          );
         }
         return res
           .status(200)
@@ -121,9 +123,11 @@ class apiController {
         input.uuid = storeid;
         User.addUser(input, async (err, resdata) => {
           if (check_obj(input_referral_code)) {
-            input_referral_code.referral_code = input_referral_code.referral_code.replace(
+            input_referral_code.referral_code =
+              input_referral_code.referral_code.replace(
                 'https://rostaratt.com?',
-                '');
+                '',
+              );
             User.addReferralCode({
               id: input_referral_code.referral_code,
               referral_code: input.uuid,
@@ -207,20 +211,16 @@ class apiController {
 
   async checkUserVoting(req, res, next) {
     try {
-      let input = halper.obj_multi_select(req.body,['device_id'],false);
+      let input = halper.obj_multi_select(req.body, ['device_id'], false);
       let voting_data = await Voting.checkVoting(input);
       if (check_obj(voting_data)) {
         return res
           .status(200)
-          .json(
-            halper.api_response(1, "You have been voted", voting_data),
-          );
-      }else{
+          .json(halper.api_response(1, 'You have been voted', voting_data));
+      } else {
         return res
           .status(200)
-          .json(
-            halper.api_response(0, "You have no vote", voting_data),
-          );
+          .json(halper.api_response(0, 'You have no vote', voting_data));
       }
     } catch (err) {
       return res
@@ -526,6 +526,85 @@ class apiController {
     }
   }
 
+  async voteShedule(req, res, next) {
+    try {
+      let input = halper.obj_multi_select(req.body, ['device_id', 'voter_type'], false);
+      input.createdAt = new Date();
+      // addVoteSchedule;
+
+      // if (
+      //     change_time_format(input.voting_date, 'YYYY-MM-DD') ===
+      //     change_time_format(voting_data.voting_date, 'YYYY-MM-DD')
+      //   )
+
+      let checkVoteShedule = await VoteSchedule.getVoteSchedule(input.device_id);
+      if (
+        check_obj(checkVoteShedule) &&
+        change_time_format(input.createdAt, 'YYYY-MM-DD') ===
+          change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')
+      ) {
+        return res
+          .status(200)
+          .json(
+            halper.api_response(
+              0,
+              halper.request_message('voteSheduleCheck'),
+              input,
+            ),
+          );
+      } else {
+        if (check_obj(checkVoteShedule)) {
+          if (checkVoteShedule.voter_type === 'another_party') {
+            Configration.configrationPlusShedule('another_party', { count: -1 });
+          }
+          if (checkVoteShedule.voter_type === 'have_not_decided') {
+            Configration.configrationPlusShedule('have_not_decided', {
+              count: -1,
+            });
+          }
+          if (checkVoteShedule.voter_type === 'i_will_not_vote') {
+            Configration.configrationPlusShedule('i_will_not_vote', {
+              count: -1,
+            });
+          }
+        }
+        if (input.voter_type === 'another_party') {
+          Configration.configrationPlusShedule('another_party', { count: 1 });
+        }
+        if (input.voter_type === 'have_not_decided') {
+          Configration.configrationPlusShedule('have_not_decided', {
+            count: 1,
+          });
+        }
+        if (input.voter_type === 'i_will_not_vote') {
+          Configration.configrationPlusShedule('i_will_not_vote', { count: 1 });
+        }
+
+        VoteSchedule.addVoteSchedule(input);
+        return res
+          .status(200)
+          .json(
+            halper.api_response(
+              1,
+              halper.request_message('voteShedule'),
+              input,
+            ),
+          );
+      } 
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(
+            0,
+            halper.request_message('invalid_request'),
+            err,
+          ),
+        );
+    } finally {
+    }
+  }
+
   async getQuestion(req, res, next) {
     try {
       let response = [];
@@ -568,6 +647,9 @@ class apiController {
         'Integritet',
         'Hej',
         'share',
+        'another_party',
+        'have_not_decided',
+        'i_will_not_vote',
       ]);
       return res
         .status(200)

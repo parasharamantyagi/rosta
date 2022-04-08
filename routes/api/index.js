@@ -23,6 +23,7 @@ router.post('/user', apiController.userList); // Get list of user
 router.post('/contact', apiController.contactAdd);
 router.post('/feedback', apiController.feedbackAdd);
 router.post('/store-uuid', apiController.storeUuid);
+router.post('/vote-shedule', apiController.voteShedule);
 router.post('/user-info/:store_id', apiController.setUserInfo);
 
 module.exports = router;

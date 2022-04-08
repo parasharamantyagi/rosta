@@ -4,6 +4,7 @@ var configrationSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     value: { type: String, required: true },
+    count: { type: Number, default: 0 },
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false
@@ -21,6 +22,15 @@ module.exports.getInfoConfigration = function (data, callback) {
   return Configration.find({
     name: { $in: data },
   }).exec(callback);
+};
+
+
+module.exports.configrationPlusShedule = async (name,plusKey) => {
+  return await Configration.findOneAndUpdate({ name: name },{ $inc: plusKey },{ new: true });
+};
+
+module.exports.configrationMinusShedule = async (name,plusKey) => {
+  return await Configration.findOneAndUpdate({ name: name },{ $inc: plusKey },{ new: true });
 };
 
 module.exports.saveConfigration = function (data, callback) {

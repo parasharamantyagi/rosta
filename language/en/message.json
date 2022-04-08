@@ -24,6 +24,8 @@
   "updatePassword": "Password has been updated successfully",
   "file_upload": "File upload successfully",
   "feedbackAdd": "Feedback submitted successfully",
+  "voteShedule": "Vote Shedule submitted successfully",
+  "voteSheduleCheck": "You have aleready select Vote Shedule",
   "file_exit": "File does't exit",
   "user_set": "User set successfully",
   "user_get": "User get successfully",
