@@ -5,6 +5,8 @@ var configrationSchema = mongoose.Schema(
     name: { type: String, required: true },
     value: { type: String, required: true },
     count: { type: Number, default: 0 },
+    eighteen_above: { type: Number, default: 0 },
+    eighteen_bellow: { type: Number, default: 0 },
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false

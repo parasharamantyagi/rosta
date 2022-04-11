@@ -3,6 +3,7 @@ var voteScheduleSchema = mongoose.Schema(
   {
     voter_type: { type: String },
     device_id: { type: String },
+    eighteen_above: { type: Number, default: 1 },
     createdAt: { type: Date },
   },
   {
@@ -21,5 +22,9 @@ module.exports.getVoteSchedule = async (device_id) => {
 };
 
 module.exports.addVoteSchedule = function (data, callback) {
+  VoteSchedule.create(data, callback);
+};
+
+module.exports.updateVoteSchedule = function (data, callback) {
   VoteSchedule.create(data, callback);
 };
