@@ -716,6 +716,11 @@ class apiController {
       let configration = await Configration.getConfigrationByID('party');
       let resdata = await Party.getAllParty(configration.value);
       let userCount = await Voting.getVotingCount();
+	  let button_name = await Configration.getInfoConfigration([
+        'another_party',
+        'have_not_decided',
+        'i_will_not_vote',
+      ]);
       for (let resdat of resdata) {
         resdat = resdat.toObject();
         resdat.collaboration = await Collaboration.getCollaborationFromParty(
@@ -733,6 +738,7 @@ class apiController {
       return res.status(200).json(
         halper.api_response(1, halper.request_message('all_party'), {
           total_voters: userCount,
+		  button_name: button_name,
           small_party: small_party_response,
           big_party: big_party_response,
         }),
