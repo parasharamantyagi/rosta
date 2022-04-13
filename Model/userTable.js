@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+const { check_obj } = require('../halpers/halper');
 
 var userSchema = mongoose.Schema(
   {
@@ -57,11 +58,14 @@ module.exports.addReferralCode = function (data, callback) {
 };
 
 //get user by email
-module.exports.getUserByUuid = (data, callback) => {
+module.exports.getUserByUuid = async(data, callback) => {
   try {
-    var query = { _id: data };
-    // return User.findOne(query).exec(callback);
-    return User.findOne(query, callback);
+    var query = await User.findOne({ uuid: data }).exec(callback);
+    if (check_obj(query)){
+      return query;
+    }else{
+      return await User.findOne({ _id: data }).exec(callback);
+    }
   } catch (err) {
     return err;
   }
