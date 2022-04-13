@@ -59,7 +59,7 @@ module.exports.addReferralCode = function (data, callback) {
 //get user by email
 module.exports.getUserByUuid = (data, callback) => {
   try {
-    var query = { uuid: data };
+    var query = { _id: data };
     // return User.findOne(query).exec(callback);
     return User.findOne(query, callback);
   } catch (err) {

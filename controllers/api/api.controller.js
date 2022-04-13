@@ -171,7 +171,7 @@ class apiController {
       } else {
         return res
           .status(200)
-          .json(halper.api_response(1, halper.request_message('user_get'), {}));
+          .json(halper.api_response(0, halper.request_message('user_get'), {}));
       }
     } catch (err) {
       return res
