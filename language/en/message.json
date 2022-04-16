@@ -15,6 +15,7 @@
   "addParty": "Party created successfully",
   "contactAdd": "Contact add successfully",
   "vote_add": "Vote add successfully",
+  "addCompetition": "Competition add successfully",
   "vote_one_time": "You can vote for only one time",
   "addUser": "User created successfully",
   "deleteParty": "Party deleted successfully",

@@ -14,6 +14,7 @@ var partySchema = mongoose.Schema(
     url: { type: String },
     description: { type: String },
     bar_in_diagram: { type: String },
+    vote_percentage: { type: String },
     eighteen_above: { type: Number, default: 0 },
     eighteen_bellow: { type: Number, default: 0 },
     createdAt: { type: Date },

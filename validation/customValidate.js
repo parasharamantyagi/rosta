@@ -13,11 +13,12 @@ module.exports.validate  = (method) => {
         body('enabled', 'Invalid email').exists(),
       ];
     }
-    case 'createVehicle': {
+    case 'addCompetition': {
       return [
-        body('vehicle_code', 'vehicle_code doesn exists').exists(),
-        body('capability_id', 'capability_id doesn exists').exists(),
-        body('enabled', 'enabled doesn exists').exists(),
+        body('party_id', 'party_id doesn exists').exists(),
+        body('date', 'date doesn exists').exists(),
+        body('percentage_value', 'percentage_value doesn exists').exists(),
+        body('device_id', 'device_id doesn exists').exists(),
       ];
     }
     case 'createDriver': {

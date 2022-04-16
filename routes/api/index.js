@@ -3,7 +3,9 @@ var router = express.Router();
 const { bodyParser } = require('./../../Model/module');
 router.use(bodyParser.json());
 
+validater = require('../../validation/customValidate');
 apiController = require('./../../controllers/api/api.controller');
+apiCompetitionController = require('./../../controllers/api/api.competition.controller');
 
 router.get('/', apiController.dashboard); // Get list of user
 router.get('/check', apiController.viewCheck); // Get list of user
@@ -25,5 +27,6 @@ router.post('/feedback', apiController.feedbackAdd);
 router.post('/store-uuid', apiController.storeUuid);
 router.post('/vote-shedule', apiController.voteShedule);
 router.post('/user-info/:store_id', apiController.setUserInfo);
+router.post('/add-competition',validater.validate('addCompetition'), apiCompetitionController.addCompetition);
 
 module.exports = router;
