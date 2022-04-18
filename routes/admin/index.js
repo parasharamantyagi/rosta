@@ -6,6 +6,7 @@ router.use(bodyParser.json());
 // validater = require('./../../validation/adminValidate');
 // verifyUser = require('./../../middleware/verifyUser');
 adminController = require('./../../controllers/admin/admin.controller');
+addManagementSystemController = require('./../../controllers/admin/addManagementSystem.controller');
 adminFileController = require('./../../controllers/admin/admin.file.controller');
 
 router.get('/', adminController.dashboard); // Get list of user
@@ -17,6 +18,11 @@ router.get('/view-history', adminController.viewUser); // Get list of user
 router.get('/add-collaboration', adminController.addCollaboration); // Get list of user
 router.get('/view-collaboration', adminController.viewCollaboration); // Get list of user
 router.get('/system-configuration', adminController.viewSystemConfiguration); // Get list of user
+
+router.get('/view-deals', addManagementSystemController.viewDeals); // Get list of user
+router.get('/add-deals', addManagementSystemController.addDeals); // Get list of user
+router.post('/add-deals', addManagementSystemController.addDealPost); // Get list of user
+
 
 router.get('/party/:party_id', adminController.viewPartyPage); // Get list of user
 

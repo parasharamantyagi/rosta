@@ -122,6 +122,33 @@
               </li>
             </ul>
           </li>
+          <li
+            class="<%= rosta.active_menu(page_url,['/add-deals','/view-deals']) %>"
+          >
+            <a
+              class="has-arrow"
+              href="<%= rosta.web_link('admin/view-deals') %>"
+              aria-expanded="false"
+              ><i class="fa fa-user"></i>
+              <span class="mini-click-non">Deals</span></a
+            >
+            <ul class="submenu-angle" aria-expanded="false">
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/add-deals') %>"
+                  ><span class="mini-sub-pro">Add Deals</span></a
+                >
+              </li>
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/view-deals') %>"
+                  ><span class="mini-sub-pro">View Deals</span></a
+                >
+              </li>
+            </ul>
+          </li>
           <li>
             <a
               class=""

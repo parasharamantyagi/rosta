@@ -14,6 +14,8 @@
   "collaboration": "All collaboration",
   "addParty": "Party created successfully",
   "contactAdd": "Contact add successfully",
+  "addDealPost": "Deal created successfully",
+  "deleteDeals": "Deal deleted successfully",
   "vote_add": "Vote add successfully",
   "addCompetition": "Competition add successfully",
   "vote_one_time": "You can vote for only one time",
