@@ -24,12 +24,12 @@ class apiCompetitionController {
           .json(halper.api_response(0, 'Missing failed', errors.array()));
       }
       let inputDatas = halper.obj_multi_select(req.body);
-      for (let inputData of inputDatas) {
+      for (let inputData of inputDatas.competetionData) {
         Competition.addCompetition(inputData);
       }
       return res
         .status(200)
-        .json(halper.api_response(1, halper.request_message('addCompetition'), inputDatas));
+        .json(halper.api_response(1, halper.request_message('addCompetition'), inputDatas.competetionData));
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),
