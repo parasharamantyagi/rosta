@@ -27,6 +27,7 @@ router.post('/feedback', apiController.feedbackAdd);
 router.post('/store-uuid', apiController.storeUuid);
 router.post('/vote-shedule', apiController.voteShedule);
 router.post('/user-info/:store_id', apiController.setUserInfo);
-router.post('/add-competition',validater.validate('addCompetition'), apiCompetitionController.addCompetition);
+router.post('/add-competition', apiCompetitionController.addCompetition);
+// ,validater.validate('addCompetition')
 
 module.exports = router;
