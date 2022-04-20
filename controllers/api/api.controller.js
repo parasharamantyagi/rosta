@@ -3,6 +3,7 @@ const Party = require('./../../Model/partyTable');
 const Collaboration = require('./../../Model/collaborationTable');
 const User = require('./../../Model/userTable');
 const Question = require('./../../Model/questionTable');
+const Deals = require('./../../Model/dealsTable');
 const Contact = require('./../../Model/contactTable');
 const Feedback = require('./../../Model/feedbackTable');
 const Configration = require('./../../Model/configrationTable');
@@ -222,6 +223,29 @@ class apiController {
           .status(200)
           .json(halper.api_response(0, 'You have no vote', voting_data));
       }
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(
+            0,
+            halper.request_message('invalid_request'),
+            err,
+          ),
+        );
+    } finally {
+    }
+  }
+
+  async getDeals(req, res, next) {
+    try {
+      Deals.getDeals(100, (err, resdata) => {
+        return res
+          .status(200)
+          .json(
+            halper.api_response(1, halper.request_message('getDeals'), resdata),
+          );
+      });
     } catch (err) {
       return res
         .status(401)
@@ -528,7 +552,11 @@ class apiController {
 
   async voteShedule(req, res, next) {
     try {
-      let input = halper.obj_multi_select(req.body, ['device_id', 'voter_type','eighteen_above'], false);
+      let input = halper.obj_multi_select(
+        req.body,
+        ['device_id', 'voter_type', 'eighteen_above'],
+        false,
+      );
       input.createdAt = new Date();
       // addVoteSchedule;
 
@@ -537,7 +565,9 @@ class apiController {
       //     change_time_format(voting_data.voting_date, 'YYYY-MM-DD')
       //   )
 
-      let checkVoteShedule = await VoteSchedule.getVoteSchedule(input.device_id);
+      let checkVoteShedule = await VoteSchedule.getVoteSchedule(
+        input.device_id,
+      );
       if (
         check_obj(checkVoteShedule) &&
         change_time_format(input.createdAt, 'YYYY-MM-DD') ===
@@ -555,11 +585,17 @@ class apiController {
       } else {
         if (check_obj(checkVoteShedule)) {
           if (checkVoteShedule.voter_type === 'another_party') {
-            Configration.configrationPlusShedule('another_party', { count: -1 });
+            Configration.configrationPlusShedule('another_party', {
+              count: -1,
+            });
             if (checkVoteShedule.eighteen_above) {
-              Configration.configrationPlusShedule('another_party', { eighteen_above: -1 });
-            }else{
-              Configration.configrationPlusShedule('another_party', { eighteen_bellow: -1 });
+              Configration.configrationPlusShedule('another_party', {
+                eighteen_above: -1,
+              });
+            } else {
+              Configration.configrationPlusShedule('another_party', {
+                eighteen_bellow: -1,
+              });
             }
           }
           if (checkVoteShedule.voter_type === 'have_not_decided') {
@@ -567,9 +603,13 @@ class apiController {
               count: -1,
             });
             if (checkVoteShedule.eighteen_above) {
-              Configration.configrationPlusShedule('have_not_decided', { eighteen_above: -1 });
-            }else{
-              Configration.configrationPlusShedule('have_not_decided', { eighteen_bellow: -1 });
+              Configration.configrationPlusShedule('have_not_decided', {
+                eighteen_above: -1,
+              });
+            } else {
+              Configration.configrationPlusShedule('have_not_decided', {
+                eighteen_bellow: -1,
+              });
             }
           }
           if (checkVoteShedule.voter_type === 'i_will_not_vote') {
@@ -577,38 +617,56 @@ class apiController {
               count: -1,
             });
             if (checkVoteShedule.eighteen_above) {
-              Configration.configrationPlusShedule('i_will_not_vote', { eighteen_above: -1 });
-            }else{
-              Configration.configrationPlusShedule('i_will_not_vote', { eighteen_bellow: -1 });
+              Configration.configrationPlusShedule('i_will_not_vote', {
+                eighteen_above: -1,
+              });
+            } else {
+              Configration.configrationPlusShedule('i_will_not_vote', {
+                eighteen_bellow: -1,
+              });
             }
           }
         }
         if (input.voter_type === 'another_party') {
           Configration.configrationPlusShedule('another_party', { count: 1 });
           if (input.eighteen_above) {
-            Configration.configrationPlusShedule('another_party', { eighteen_above: 1 });
-          }else{
-            Configration.configrationPlusShedule('another_party', { eighteen_bellow: 1 });
+            Configration.configrationPlusShedule('another_party', {
+              eighteen_above: 1,
+            });
+          } else {
+            Configration.configrationPlusShedule('another_party', {
+              eighteen_bellow: 1,
+            });
           }
         }
         if (input.voter_type === 'have_not_decided') {
-          Configration.configrationPlusShedule('have_not_decided', { count: 1 });
+          Configration.configrationPlusShedule('have_not_decided', {
+            count: 1,
+          });
           if (input.eighteen_above) {
-            Configration.configrationPlusShedule('have_not_decided', { eighteen_above: 1 });
-          }else{
-            Configration.configrationPlusShedule('have_not_decided', { eighteen_bellow: 1 });
+            Configration.configrationPlusShedule('have_not_decided', {
+              eighteen_above: 1,
+            });
+          } else {
+            Configration.configrationPlusShedule('have_not_decided', {
+              eighteen_bellow: 1,
+            });
           }
         }
         if (input.voter_type === 'i_will_not_vote') {
           Configration.configrationPlusShedule('i_will_not_vote', { count: 1 });
           if (input.eighteen_above) {
-            Configration.configrationPlusShedule('i_will_not_vote', { eighteen_above: 1 });
-          }else{
-            Configration.configrationPlusShedule('i_will_not_vote', { eighteen_bellow: 1 });
+            Configration.configrationPlusShedule('i_will_not_vote', {
+              eighteen_above: 1,
+            });
+          } else {
+            Configration.configrationPlusShedule('i_will_not_vote', {
+              eighteen_bellow: 1,
+            });
           }
         }
-		
-        if(check_obj(checkVoteShedule)){
+
+        if (check_obj(checkVoteShedule)) {
           VoteSchedule.findOneAndUpdate(
             { _id: checkVoteShedule.id },
             {
@@ -619,11 +677,10 @@ class apiController {
             },
             function (err, docs) {},
           );
-
-        }else{
+        } else {
           VoteSchedule.addVoteSchedule(input);
         }
-        
+
         return res
           .status(200)
           .json(
@@ -633,7 +690,7 @@ class apiController {
               input,
             ),
           );
-      } 
+      }
     } catch (err) {
       return res
         .status(401)
@@ -716,7 +773,7 @@ class apiController {
       let configration = await Configration.getConfigrationByID('party');
       let resdata = await Party.getAllParty(configration.value);
       let userCount = await Voting.getVotingCount();
-	  let button_name = await Configration.getInfoConfigration([
+      let button_name = await Configration.getInfoConfigration([
         'another_party',
         'have_not_decided',
         'i_will_not_vote',
@@ -738,7 +795,7 @@ class apiController {
       return res.status(200).json(
         halper.api_response(1, halper.request_message('all_party'), {
           total_voters: userCount,
-		  button_name: button_name,
+          button_name: button_name,
           small_party: small_party_response,
           big_party: big_party_response,
         }),
