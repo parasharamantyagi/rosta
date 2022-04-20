@@ -4,6 +4,7 @@ const Collaboration = require('./../../Model/collaborationTable');
 const User = require('./../../Model/userTable');
 const Question = require('./../../Model/questionTable');
 const Deals = require('./../../Model/dealsTable');
+const Category = require('./../../Model/categoryTable');
 const Contact = require('./../../Model/contactTable');
 const Feedback = require('./../../Model/feedbackTable');
 const Configration = require('./../../Model/configrationTable');
@@ -239,7 +240,8 @@ class apiController {
 
   async getDeals(req, res, next) {
     try {
-      Deals.getDeals(100, (err, resdata) => {
+      // Deals.getDeals(100, (err, resdata) => {
+      Category.getCategoryWithDeals(100, (err, resdata) => {
         return res
           .status(200)
           .json(

@@ -23,6 +23,10 @@ router.get('/view-deals', addManagementSystemController.viewDeals); // Get list 
 router.get('/add-deals', addManagementSystemController.addDeals); // Get list of user
 router.post('/add-deals', addManagementSystemController.addDealPost); // Get list of user
 
+router.get('/view-category', addManagementSystemController.viewCategory); // Get list of user
+router.get('/add-category', addManagementSystemController.addCategory); // Get list of user
+router.post('/add-category', addManagementSystemController.addCategoryPost); // Get list of user
+
 
 router.get('/party/:party_id', adminController.viewPartyPage); // Get list of user
 

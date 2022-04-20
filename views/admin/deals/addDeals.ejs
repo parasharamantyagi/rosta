@@ -6,7 +6,7 @@
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">
       <%- include('./../include/Logo') -%> <%-
-      include('./../include/Menu',{menu: 'User'}) -%>
+      include('./../include/Menu',{menu: 'Deal'}) -%>
       <!-- start menu -->
       <div class="container-fluid">
         <div class="row">
@@ -93,6 +93,18 @@
                         />
                       </div>
                       <div class="col-md-6 form-group">
+                        <label>Category</label>
+                        <select name="category" class="form-control">
+                          <% categories.forEach(function(category){ %>
+                          <option value="<%= category._id %>">
+                            <%- category.name %>
+                          </option>
+                          <% }); %>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 form-group">
                         <label>Description</label>
                         <input
                           class="form-control"

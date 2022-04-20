@@ -15,6 +15,7 @@
   "addParty": "Party created successfully",
   "contactAdd": "Contact add successfully",
   "addDealPost": "Deal created successfully",
+  "addCategoryPost": "Category created successfully",
   "getDeals": "All Deals",
   "deleteDeals": "Deal deleted successfully",
   "vote_add": "Vote add successfully",

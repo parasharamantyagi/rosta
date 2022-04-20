@@ -149,6 +149,33 @@
               </li>
             </ul>
           </li>
+          <li
+            class="<%= rosta.active_menu(page_url,['/add-category','/view-category']) %>"
+          >
+            <a
+              class="has-arrow"
+              href="<%= rosta.web_link('admin/view-category') %>"
+              aria-expanded="false"
+              ><i class="fa fa-user"></i>
+              <span class="mini-click-non">Category</span></a
+            >
+            <ul class="submenu-angle" aria-expanded="false">
+              <li>
+                <a
+                  title="Add Category"
+                  href="<%= rosta.web_link('admin/add-category') %>"
+                  ><span class="mini-sub-pro">Add Category</span></a
+                >
+              </li>
+              <li>
+                <a
+                  title="View Categories"
+                  href="<%= rosta.web_link('admin/view-category') %>"
+                  ><span class="mini-sub-pro">View Categories</span></a
+                >
+              </li>
+            </ul>
+          </li>
           <li>
             <a
               class=""
