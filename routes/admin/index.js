@@ -22,6 +22,8 @@ router.get('/system-configuration', adminController.viewSystemConfiguration); //
 router.get('/view-deals', addManagementSystemController.viewDeals); // Get list of user
 router.get('/add-deals', addManagementSystemController.addDeals); // Get list of user
 router.post('/add-deals', addManagementSystemController.addDealPost); // Get list of user
+router.get('/deals/:deal_id', addManagementSystemController.viewDealPage); // Get list of user
+router.post('/add-deals/:deal_id', addManagementSystemController.updateDealPost); // Get list of user
 
 router.get('/view-category', addManagementSystemController.viewCategory); // Get list of user
 router.get('/add-category', addManagementSystemController.addCategory); // Get list of user

@@ -19,7 +19,7 @@
                 >
                   <form
                     method="POST"
-                    action=""
+                    action="<%= formAction %>"
                     accept-charset="UTF-8"
                     id="general_form"
                     novalidate="novalidate"
@@ -32,6 +32,7 @@
                           name="name"
                           type="text"
                           aria-invalid="false"
+                          value="<%= rosta.formData(dealData,'name') %>"
                         />
                       </div>
                       <div class="col-md-6 form-group">
@@ -41,6 +42,7 @@
                           name="email"
                           type="email"
                           aria-invalid="false"
+                          value="<%= rosta.formData(dealData,'email') %>"
                         />
                       </div>
                     </div>
@@ -61,6 +63,7 @@
                           name="url"
                           type="text"
                           aria-invalid="false"
+                          value="<%= rosta.formData(dealData,'url') %>"
                         />
                       </div>
                     </div>
@@ -72,13 +75,14 @@
                           name="price"
                           type="text"
                           aria-invalid="false"
+                          value="<%= rosta.formData(dealData,'price') %>"
                         />
                       </div>
                       <div class="col-md-6 form-group">
                         <label>Best seller</label>
                         <select name="best_seller" class="form-control">
-                          <option value="yes">yes</option>
-                          <option value="no">no</option>
+                          <option value="yes" <%= (rosta.check_obj(dealData) && dealData.best_seller === 'yes') ? 'selected' : '' %>>yes</option>
+                          <option value="no" <%= (rosta.check_obj(dealData) && dealData.best_seller === 'no') ? 'selected' : '' %>>no</option>
                         </select>
                       </div>
                     </div>
@@ -90,11 +94,12 @@
                           name="stock"
                           type="text"
                           aria-invalid="false"
+                          value="<%= rosta.formData(dealData,'stock') %>"
                         />
                       </div>
                       <div class="col-md-6 form-group">
                         <label>Category</label>
-                        <select name="category" class="form-control">
+                        <select name="category" class="form-control" <%= (rosta.check_obj(dealData) && dealData._id) ? 'disabled' : '' %>>
                           <% categories.forEach(function(category){ %>
                           <option value="<%= category._id %>">
                             <%- category.name %>

@@ -250,6 +250,22 @@ class adminController {
         //       ),
         //     );
         // }
+      } else if (inputData.action === 'category') {
+        const Category = require('./../../Model/categoryTable');
+        Category.removCategory(inputData.id, async (err, resdata) => {
+          if (check_obj(resdata)) {
+            return res
+              .status(200)
+              .json(
+                halper.web_response(
+                  true,
+                  false,
+                  halper.request_message('deleteCategory'),
+                  'view-category',
+                ),
+              );
+          }
+        });
       } else if (inputData.action === 'deals') {
         const Deals = require('./../../Model/dealsTable');
         Deals.removeDeals(inputData.id, async (err, resdata) => {

@@ -36,13 +36,77 @@ class addManagementSystemController {
     }
   }
 
+  viewDealPage(req, res, next) {
+    try {
+      Deals.getDealFromId(req.params.deal_id, (err, resdata) => {
+        Category.getCategory(100, (err, catdata) => {
+          return res.render('admin/deals/addDeals', {
+            formAction: `./../add-deals/${req.params.deal_id}`,
+            dealData: resdata,
+            rosta: halper,
+            page_url: req.url,
+            categories: catdata,
+          });
+        });
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
   async addDeals(req, res, next) {
     try {
       Category.getCategory(100, (err, resdata) => {
         return res.render('admin/deals/addDeals', {
+          formAction: 'add-deals',
+          dealData: {},
           rosta: halper,
           page_url: req.url,
           categories: resdata,
+        });
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
+  async updateDealPost(req, res, next) {
+    try {
+      let deal_id = req.params.deal_id;
+      upload(req, res, async function (err) {
+        let inputData = req.body;
+        if (req.file) {
+          inputData.image = 'public/deals/' + req.file.filename;
+        }
+        let delData = halper.obj_multi_select(inputData, [
+          'name',
+          'email',
+          'url',
+          'price',
+          'image',
+          'best_seller',
+          'stock',
+          'description',
+        ]);
+        Deals.updateDeals({ id: deal_id , data: delData}, async (err, resdata) => {
+          if (check_obj(resdata)) {
+            return res
+              .status(200)
+              .json(
+                halper.web_response(
+                  true,
+                  false,
+                  halper.request_message('updateDealPost'),
+                  halper.web_link('admin/view-deals'),
+                ),
+              );
+          }
         });
       });
     } catch (err) {
@@ -68,11 +132,11 @@ class addManagementSystemController {
           'image',
           'best_seller',
           'stock',
-          'description'
+          'description',
         ]);
         Deals.addDeals(delData, async (err, resdata) => {
           if (check_obj(resdata)) {
-            Category.addDealCategory(inputData.category,resdata._id);
+            Category.addDealCategory(inputData.category, resdata._id);
             return res
               .status(200)
               .json(
