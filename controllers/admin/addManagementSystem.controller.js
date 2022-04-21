@@ -82,7 +82,7 @@ class addManagementSystemController {
       upload(req, res, async function (err) {
         let inputData = req.body;
         if (req.file) {
-          inputData.image = 'public/deals/' + req.file.filename;
+          inputData.image = 'deals/' + req.file.filename;
         }
         let delData = halper.obj_multi_select(inputData, [
           'name',
@@ -122,7 +122,7 @@ class addManagementSystemController {
       upload(req, res, async function (err) {
         let inputData = req.body;
         if (req.file) {
-          inputData.image = 'public/deals/' + req.file.filename;
+          inputData.image = 'deals/' + req.file.filename;
         }
         let delData = halper.obj_multi_select(req.body, [
           'name',
