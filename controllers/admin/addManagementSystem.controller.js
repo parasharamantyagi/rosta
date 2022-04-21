@@ -1,5 +1,6 @@
 const halper = require('../../halpers/halper');
 const Deals = require('./../../Model/dealsTable');
+const Prize = require('./../../Model/prizesTable');
 const Category = require('./../../Model/categoryTable');
 const User = require('./../../Model/userTable');
 const multer = require('multer');
@@ -13,7 +14,17 @@ var storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname);
   },
 });
+
+var storage1 = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/prizes/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
 var upload = multer({ storage: storage }).single('deals');
+var uploadPrize = multer({ storage: storage1 }).single('image');
 // const multiUpload = multer({ storage: storage }).any('image_link');
 
 
@@ -76,6 +87,77 @@ class addManagementSystemController {
     }
   }
 
+  async viewPrize(req, res, next) {
+    try {
+      Prize.getPrize(100, (err, resdata) => {
+        return res.render('admin/prizes/viewPrizes', {
+          rosta: halper,
+          page_url: req.url,
+          prizes: resdata,
+        });
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), err),
+      );
+    } finally {
+    }
+  }
+
+  async addPrize(req, res, next) {
+    try {
+        return res.render('admin/prizes/addPrizes', {
+          formAction: 'add-prize',
+          dealData: {},
+          rosta: halper,
+          page_url: req.url,
+        });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
+  async addPrizePost(req, res, next) {
+    try {
+      uploadPrize(req, res, async function (err) {
+        let inputData = req.body;
+        if (req.file) {
+          inputData.image = 'prizes/' + req.file.filename;
+        }
+        let prizesData = halper.obj_multi_select(req.body, [
+          'name',
+          'email',
+          'url',
+          'price',
+          'image',
+          'description',
+        ]);
+        Prize.addPrize(prizesData, async (err, resdata) => {
+          if (check_obj(resdata)) {
+            return res
+              .status(200)
+              .json(
+                halper.web_response(
+                  true,
+                  false,
+                  halper.request_message('addPrizePost'),
+                  'view-prize',
+                ),
+              );
+          }
+        });
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
   async updateDealPost(req, res, next) {
     try {
       let deal_id = req.params.deal_id;
@@ -94,20 +176,23 @@ class addManagementSystemController {
           'stock',
           'description',
         ]);
-        Deals.updateDeals({ id: deal_id , data: delData}, async (err, resdata) => {
-          if (check_obj(resdata)) {
-            return res
-              .status(200)
-              .json(
-                halper.web_response(
-                  true,
-                  false,
-                  halper.request_message('updateDealPost'),
-                  halper.web_link('admin/view-deals'),
-                ),
-              );
-          }
-        });
+        Deals.updateDeals(
+          { id: deal_id, data: delData },
+          async (err, resdata) => {
+            if (check_obj(resdata)) {
+              return res
+                .status(200)
+                .json(
+                  halper.web_response(
+                    true,
+                    false,
+                    halper.request_message('updateDealPost'),
+                    halper.web_link('admin/view-deals'),
+                  ),
+                );
+            }
+          },
+        );
       });
     } catch (err) {
       return res.json(

@@ -25,6 +25,11 @@ router.post('/add-deals', addManagementSystemController.addDealPost); // Get lis
 router.get('/deals/:deal_id', addManagementSystemController.viewDealPage); // Get list of user
 router.post('/add-deals/:deal_id', addManagementSystemController.updateDealPost); // Get list of user
 
+router.get('/view-prize', addManagementSystemController.viewPrize); // Get list of user
+router.get('/add-prize', addManagementSystemController.addPrize); // Get list of user
+router.post('/add-prize', addManagementSystemController.addPrizePost); // Get list of user
+
+
 router.get('/view-category', addManagementSystemController.viewCategory); // Get list of user
 router.get('/add-category', addManagementSystemController.addCategory); // Get list of user
 router.post('/add-category', addManagementSystemController.addCategoryPost); // Get list of user

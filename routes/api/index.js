@@ -15,6 +15,7 @@ router.get('/info', apiController.getScreenInfo);
 router.post('/question', apiController.getQuestion);
 router.get('/user-info/:store_id', apiController.getUserInfo);
 router.get('/deals', apiController.getDeals);
+router.get('/prize', apiController.getPrize);
 router.get('/testing', apiController.getTesting);
 
 router.post('/login', apiController.logIn);

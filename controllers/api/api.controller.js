@@ -4,6 +4,7 @@ const Collaboration = require('./../../Model/collaborationTable');
 const User = require('./../../Model/userTable');
 const Question = require('./../../Model/questionTable');
 const Deals = require('./../../Model/dealsTable');
+const Prize = require('./../../Model/prizesTable');
 const Category = require('./../../Model/categoryTable');
 const Contact = require('./../../Model/contactTable');
 const Feedback = require('./../../Model/feedbackTable');
@@ -238,9 +239,31 @@ class apiController {
     }
   }
 
+  async getPrize(req, res, next) {
+    try {
+      Prize.getPrize(100, (err, resdata) => {
+        return res
+          .status(200)
+          .json(
+            halper.api_response(1, halper.request_message('getPrize'), resdata),
+          );
+      });
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(
+            0,
+            halper.request_message('invalid_request'),
+            err,
+          ),
+        );
+    } finally {
+    }
+  }
+
   async getDeals(req, res, next) {
     try {
-      // Deals.getDeals(100, (err, resdata) => {
       Category.getCategoryWithDeals(100, (err, resdata) => {
         return res
           .status(200)

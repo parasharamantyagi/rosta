@@ -150,6 +150,33 @@
             </ul>
           </li>
           <li
+            class="<%= rosta.active_menu(page_url,['/add-prize','/view-prize']) %>"
+          >
+            <a
+              class="has-arrow"
+              href="<%= rosta.web_link('admin/view-prize') %>"
+              aria-expanded="false"
+              ><i class="fa fa-user"></i>
+              <span class="mini-click-non">prize</span></a
+            >
+            <ul class="submenu-angle" aria-expanded="false">
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/add-prize') %>"
+                  ><span class="mini-sub-pro">Add Prize</span></a
+                >
+              </li>
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/view-prize') %>"
+                  ><span class="mini-sub-pro">View Prize</span></a
+                >
+              </li>
+            </ul>
+          </li>
+          <li
             class="<%= rosta.active_menu(page_url,['/add-category','/view-category']) %>"
           >
             <a
