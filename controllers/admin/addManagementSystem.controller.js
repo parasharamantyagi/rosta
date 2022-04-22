@@ -104,14 +104,74 @@ class addManagementSystemController {
     }
   }
 
-  async addPrize(req, res, next) {
+  viewPrizePage(req, res, next) {
     try {
+      Prize.getPrizeFromId(req.params.prize_id, (err, resdata) => {
         return res.render('admin/prizes/addPrizes', {
-          formAction: 'add-prize',
-          dealData: {},
+          formAction: `./../add-prize/${req.params.prize_id}`,
+          dealData: resdata,
           rosta: halper,
           page_url: req.url,
         });
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
+  async updatePrizePost(req, res, next) {
+    try {
+      let prize_id = req.params.prize_id;
+      upload(req, res, async function (err) {
+        let inputData = req.body;
+        if (req.file) {
+          inputData.image = 'prizes/' + req.file.filename;
+        }
+        let delData = halper.obj_multi_select(inputData, [
+          'name',
+          'email',
+          'url',
+          'price',
+          'image',
+          'description',
+        ]);
+        Prize.updatePrize(
+          { id: prize_id, data: delData },
+          async (err, resdata) => {
+            if (check_obj(resdata)) {
+              return res
+                .status(200)
+                .json(
+                  halper.web_response(
+                    true,
+                    false,
+                    halper.request_message('updatePrizePost'),
+                    halper.web_link('admin/view-prize'),
+                  ),
+                );
+            }
+          },
+        );
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
+  async addPrize(req, res, next) {
+    try {
+      return res.render('admin/prizes/addPrizes', {
+        formAction: 'add-prize',
+        dealData: {},
+        rosta: halper,
+        page_url: req.url,
+      });
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),

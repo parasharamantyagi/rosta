@@ -346,6 +346,17 @@ class halper {
     }
   }
 
+  singleFormData(object, val) {
+    if (this.check_obj(object)) {
+      object = object.toObject();
+    }
+    let return_val = '';
+    if (this.check_obj(object, val) === true) {
+      return_val = object[val];
+    }
+    return return_val;
+  }
+
   formData(object, val) {
     if (this.check_obj(object)) {
       object = object.toObject();
@@ -366,7 +377,9 @@ class halper {
   formDataArray(object, val) {
     // console.log(this.find_one(object.image_link));
     // let return_val = '';
-    return (this.check_obj(object,val)) ? this.find_one(object.image_link).slice(-30) : '';
+    return this.check_obj(object, val)
+      ? this.find_one(object.image_link).slice(-30)
+      : '';
   }
 
   toggleSwitch(input) {

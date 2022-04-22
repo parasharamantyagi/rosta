@@ -28,6 +28,8 @@ router.post('/add-deals/:deal_id', addManagementSystemController.updateDealPost)
 router.get('/view-prize', addManagementSystemController.viewPrize); // Get list of user
 router.get('/add-prize', addManagementSystemController.addPrize); // Get list of user
 router.post('/add-prize', addManagementSystemController.addPrizePost); // Get list of user
+router.get('/prize/:prize_id', addManagementSystemController.viewPrizePage); // Get list of user
+router.post('/add-prize/:prize_id', addManagementSystemController.updatePrizePost); // Get list of user
 
 
 router.get('/view-category', addManagementSystemController.viewCategory); // Get list of user

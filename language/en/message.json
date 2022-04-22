@@ -18,6 +18,7 @@
   "contactAdd": "Contact add successfully",
   "addDealPost": "Deal created successfully",
   "updateDealPost": "Deal updated successfully",
+  "updatePrizePost": "Prize updated successfully",
   "addCategoryPost": "Category created successfully",
   "getDeals": "All Deals",
   "getPrize": "All Prize",
