@@ -141,7 +141,7 @@ body {
 }
 #sidebar {
   min-width: 205px;
-  background: #1b2a47;
+  background: #103D76;
   color: #fff;
   position: fixed;
   transition: all 0.3s;
@@ -176,7 +176,7 @@ body {
   padding: 1px 0px;
   position: relative;
   z-index: 99999;
-  background: #1b2a47;
+  background: #103D76;
 }
 #sidebar .sidebar-header strong {
   display: none;
@@ -186,7 +186,7 @@ body {
   padding: 20px;
   position: relative;
   z-index: 99999;
-  background: #1b2a47;
+  background: #103D76;
 }
 .profile-dtl {
   text-align: center;
@@ -195,7 +195,7 @@ body {
   width: 75px;
   height: 75px;
   border-radius: 50%;
-  border: 2px solid #152036;
+  border: 2px solid #00295c;
 }
 .profile-dtl h2 {
   font-size: 16px;
@@ -209,10 +209,10 @@ ul.dtl-social {
 }
 ul.dtl-social li {
   padding: 0px 15px;
-  border-left: 1px solid #152036;
+  border-left: 1px solid #00295c;
 }
 ul.dtl-social li:first-child {
-  border-left: 0px solid #152036;
+  border-left: 0px solid #00295c;
 }
 ul.dtl-social li a {
   color: #fff;
@@ -365,7 +365,7 @@ ul.dtl-social li a {
   border: none;
 }
 .footer-copyright-area {
-  background: #1b2a47;
+  background: #103D76;
   padding: 20px 0px;
   text-align: center;
   /* text-align: center; */
@@ -681,7 +681,7 @@ ul.notification-menu li .notification-icon {
   float: left;
   width: 50px;
   height: 50px;
-  background: #152036;
+  background: #00295c;
   line-height: 50px;
   text-align: center;
   font-size: 16px;
@@ -929,7 +929,7 @@ ul.setting-panel-list li {
   ul.header-right-menu
   li
   .admintab-wrap.menu-setting-wrap.menu-setting-wrap-bg.dropdown-menu {
-  background: #1b2a47;
+  background: #103D76;
 }
 .header-top-menu .navbar-nav > li .dropdown-menu a:hover,
 .header-right-info
@@ -946,7 +946,7 @@ ul.setting-panel-list li {
   a:focus,
 .header-drl-controller-btn.btn-info:active:focus,
 .btn-info:active:hover {
-  background: #152036;
+  background: #00295c;
   color: #fff;
   outline: none;
 }
@@ -958,11 +958,11 @@ ul.setting-panel-list li {
 }
 .header-right-info ul.header-right-menu li .message-view a,
 .header-right-info ul.header-right-menu li .notification-view a {
-  border-top: 1px solid #152036;
+  border-top: 1px solid #00295c;
 }
 .message-single-top h1,
 .notification-single-top h1 {
-  border-bottom: 1px solid #152036;
+  border-bottom: 1px solid #00295c;
 }
 .header-top-menu .navbar-nav > li.open > a {
   color: #fff;
@@ -977,22 +977,22 @@ ul.setting-panel-list li {
   > li.active
   > a:hover
   .notes-img {
-  background: #152036;
+  background: #00295c;
 }
 .breadcome-list {
   padding: 20px;
-  background: #1b2a47;
+  background: #103D76;
   margin: 30px 0px;
 }
 .breadcome-heading .form-control,
 .breadcome-heading .form-control:focus {
-  border: 1px solid #152036;
+  border: 1px solid #00295c;
   font-size: 13px;
   height: 34px;
   color: #303030;
   padding-left: 20px;
   padding-right: 40px;
-  background: #152036;
+  background: #00295c;
   box-shadow: none;
   border-radius: 30px;
   width: 200px;
@@ -1078,7 +1078,7 @@ ul.breadcome-menu li a:hover {
   margin: 5px 0px;
 }
 .breadcomb-report button {
-  background: #152036;
+  background: #00295c;
 }
 .breadcomb-report button:active,
 .breadcomb-report button:hover,
@@ -1092,19 +1092,19 @@ ul.breadcome-menu li a:hover {
 }
 .tooltip-inner {
   padding: 5px 15px;
-  background: #152036;
+  background: #00295c;
 }
 .tooltip.right .tooltip-arrow {
-  border-right-color: #152036;
+  border-right-color: #00295c;
 }
 .tooltip.bottom .tooltip-arrow {
-  border-bottom-color: #152036;
+  border-bottom-color: #00295c;
 }
 .tooltip.top .tooltip-arrow {
-  border-top-color: #152036;
+  border-top-color: #00295c;
 }
 .tooltip.left .tooltip-arrow {
-  border-left-color: #152036;
+  border-left-color: #00295c;
 }
 .analysis-progrebar-ctn .progress {
   height: 5px;
@@ -1125,7 +1125,7 @@ ul.breadcome-menu li a:hover {
 }
 .analysis-progrebar-ctn {
   padding: 20px;
-  background: #1b2a47;
+  background: #103D76;
 }
 .product-sales-chart,
 .analytics-info-cs,
@@ -1162,7 +1162,7 @@ ul.breadcome-menu li a:hover {
 .sparkline15-list,
 .tinymce-single {
   padding: 20px;
-  background: #1b2a47;
+  background: #103D76;
 }
 .graph-rp {
   text-align: right;
@@ -1248,7 +1248,7 @@ ul.two-part-sp li {
   font-weight: 400;
 }
 .btn-small {
-  background: #152036;
+  background: #00295c;
   color: #fff !important;
   font-size: 12px;
   font-weight: 700;
@@ -1392,17 +1392,17 @@ ul.two-part-sp li {
   color: #fff;
 }
 .like-love-list a.btn-primary {
-  background: #152036;
-  border: 1px solid #152036;
+  background: #00295c;
+  border: 1px solid #00295c;
 }
 .like-love-list a.btn-primary:focus,
 .like-love-list a.btn-primary:active {
-  background: #152036;
+  background: #00295c;
 }
 .author-wiget-inner {
   text-align: center;
   padding: 20px;
-  background: #152036;
+  background: #00295c;
 }
 .fc-content .fc-title {
   color: #fff;
@@ -1421,7 +1421,7 @@ ul.two-part-sp li {
 }
 .header-top-area {
   position: fixed;
-  background: #1b2a47;
+  background: #103D76;
   z-index: 99;
   left: 200px;
   right: 0;
@@ -1441,7 +1441,7 @@ ul.two-part-sp li {
   position: absolute;
   top: 20px;
   right: 35px;
-  background: #152036;
+  background: #00295c;
   padding: 6px 20px;
   color: #fff;
   border-radius: 4px;
@@ -1461,11 +1461,11 @@ ul.two-part-sp li {
 .product-status-wrap table th {
   padding: 20px 5px;
   vertical-align: top;
-  border-top: 1px solid #152036;
+  border-top: 1px solid #00295c;
 }
 .product-status-wrap table th {
   vertical-align: bottom;
-  border-bottom: 2px solid #152036;
+  border-bottom: 2px solid #00295c;
   color: #fff;
 }
 .product-status-wrap th,
@@ -1476,7 +1476,7 @@ ul.two-part-sp li {
 }
 .product-status-wrap table td {
   padding: 9px 7px;
-  border-top: 1px solid #152036;
+  border-top: 1px solid #00295c;
   color: #fff;
   font-size: 14px;
 }
@@ -1485,8 +1485,8 @@ ul.two-part-sp li {
 }
 .custom-pagination ul.pagination li a {
   color: #fff;
-  background-color: #152036;
-  border: 1px solid #152036;
+  background-color: #00295c;
+  border: 1px solid #00295c;
 }
 .custom-pagination ul.pagination {
   margin-bottom: 0px;
@@ -1521,7 +1521,7 @@ button.pd-setting-ed {
   font-size: 14px;
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.12);
-  background: #152036;
+  background: #00295c;
 }
 button.pd-setting-ed {
   display: inline-block;
@@ -1582,7 +1582,7 @@ ul.tab-custon-design,
 ul.tab-review-design {
   padding-bottom: 20px;
   width: 100%;
-  background: #152036;
+  background: #00295c;
   margin-bottom: 20px;
 }
 .custom-product-edit {
@@ -1662,7 +1662,7 @@ ul.tab-review-design {
 4. single product tab CSS
 -------------------------*/
 #single-product-tab .active img {
-  border: 1px solid #152036;
+  border: 1px solid #00295c;
 }
 ul#single-product-tab {
   margin-top: 10px;
@@ -1747,11 +1747,11 @@ ul#single-product-tab li {
   border: 1px solid rgba(0, 0, 0, 0.12);
 }
 .single-product-pr {
-  background: #1b2a47;
+  background: #103D76;
   padding: 20px;
 }
 .single-tb-pr {
-  background: #1b2a47;
+  background: #103D76;
   padding: 20px;
 }
 .color-quality-details {
@@ -1838,7 +1838,7 @@ ul#single-product-tab li {
   line-height: 40px;
   text-align: center;
   width: 150px;
-  background: #152036;
+  background: #00295c;
   border-radius: 25px;
   transition: all 0.4s ease 0s;
 }
@@ -1877,7 +1877,7 @@ ul#single-product-tab li {
 .custom-pro-edt-ds .btn-ctl-bt,
 .product-edt-remove .btn-ctl-bt,
 .review-pro-edt .btn-ctl-bt {
-  background: #152036;
+  background: #00295c;
   color: #fff;
   border: none;
   outline: none;
@@ -1925,8 +1925,8 @@ ul#single-product-tab li {
   width: 33%;
 }
 .single-social-area a:hover {
-  background: #152036;
-  border: 1px solid #152036;
+  background: #00295c;
+  border: 1px solid #00295c;
 }
 .single-social-area a {
   border-radius: 50%;
@@ -1947,7 +1947,7 @@ ul.tab-custon-design,
 ul.tab-review-design {
   padding: 15px 35px;
   width: 100%;
-  background: #152036;
+  background: #00295c;
 }
 ul.tab-custon-design li,
 ul.tab-review-design li {
@@ -2059,7 +2059,7 @@ ul.tab-review-design li.active a {
 }
 #myTab3.tab-review-design {
   padding: 15px 15px;
-  background: #1b2a47;
+  background: #103D76;
 }
 #myTab3.tab-review-design li a {
   padding-right: 40px;
@@ -2069,7 +2069,7 @@ ul.tab-review-design li.active a {
   margin-right: 5px;
 }
 .custom-product-edit {
-  background: #1b2a47;
+  background: #103D76;
 }
 .input-group-addon {
   background-color: #e12503;
@@ -2164,7 +2164,7 @@ ul.tab-review-design li.active a {
     Wizard
 */
 .product-cart-inner {
-  background: #1b2a47;
+  background: #103D76;
   padding: 20px 20px;
 }
 .product-status-wrap.border-pdt-ct p {
@@ -2349,18 +2349,18 @@ ul.tab-review-design li.active a {
   padding: 10px 15px;
   line-height: 24px;
   font-size: 14px;
-  background: #152036;
+  background: #00295c;
   font-weight: 700;
 }
 .product-cart-inner .wizard > .steps .disabled a,
 .product-cart-inner .wizard > .steps .disabled a:hover,
 .product-cart-inner .wizard > .steps .disabled a:active {
-  background: #152036;
+  background: #00295c;
   color: #fff;
 }
 .product-cart-inner .wizard > .content > .body {
   width: 100%;
-  background: #1b2a47;
+  background: #103D76;
 }
 .product-cart-inner .wizard > .content > .body input {
   width: 35px;
@@ -2368,7 +2368,7 @@ ul.tab-review-design li.active a {
 .wizard > .actions a,
 .wizard > .actions a:hover,
 .wizard > .actions a:active {
-  background: #152036;
+  background: #00295c;
 }
 .product-list-cart .product-status-wrap {
   border: 0px solid rgba(0, 0, 0, 0.12);
@@ -2458,7 +2458,7 @@ ul.tab-review-design li.active a {
 }
 .product-payment-inner-st {
   padding: 20px;
-  background: #1b2a47;
+  background: #103D76;
 }
 .payment-inner-pro i {
   color: #24caa1;
@@ -2795,8 +2795,8 @@ ul.tab-review-design li.active a {
   border-bottom-right-radius: 0;
 }
 .input-group-addon {
-  background-color: #152036;
-  border: 1px solid #152036;
+  background-color: #00295c;
+  border: 1px solid #00295c;
   border-radius: 1px;
   color: inherit;
   font-size: 14px;
@@ -2819,9 +2819,9 @@ ul.tab-review-design li.active a {
   margin-bottom: 0;
 }
 .form-control {
-  /* background-color: #152036; */
+  /* background-color: #00295c; */
   /* background-image: none; */
-  border: 1px solid #152036;
+  border: 1px solid #00295c;
   border-radius: 1px;
   color: inherit;
   display: block;
@@ -2832,7 +2832,7 @@ ul.tab-review-design li.active a {
   /* color:#fff; */
 }
 table select.form-control {
-  background-color: #152036;
+  background-color: #00295c;
 }
 
 .custom-go-button .btn-primary,
@@ -3140,7 +3140,7 @@ table select.form-control {
   overflow: hidden;
 }
 .analytics-nalika {
-  background: #1b2a47;
+  background: #103D76;
   overflow: hidden;
 }
 .analytics-nalika .skill {
@@ -4131,8 +4131,8 @@ div#sparklinehome canvas {
 .fc th,
 .fc thead,
 .fc-row {
-  border-color: #1b2a47 !important;
-  background: #1b2a47 !important;
+  border-color: #103D76 !important;
+  background: #103D76 !important;
 }
 a.fc-day-number {
   color: #fff;
@@ -4144,10 +4144,10 @@ button.fc-month-button.fc-button.fc-state-default.fc-corner-left.fc-state-active
 button.fc-agendaWeek-button.fc-button.fc-state-default,
 button.fc-agendaDay-button.fc-button.fc-state-default,
 button.fc-listWeek-button.fc-button.fc-state-default.fc-corner-right {
-  background: #152036;
+  background: #00295c;
   box-shadow: none;
   color: #fff;
-  border: 0px solid #152036;
+  border: 0px solid #00295c;
 }
 .fc-center {
   color: #fff;
@@ -4220,7 +4220,7 @@ th.fc-day-header.fc-widget-header {
   color: #fff;
 }
 .fc-state-default.fc-corner-left {
-  background: #152036;
+  background: #00295c;
   color: #fff;
   border: none;
   box-shadow: none;
@@ -4263,21 +4263,21 @@ th.fc-day-header.fc-widget-header {
 }
 .review-pro-edt button {
   padding: 5px 15px;
-  background: #152036;
-  border-color: #152036;
+  background: #00295c;
+  border-color: #00295c;
 }
 .review-pro-edt button:hover,
 .review-pro-edt button:focus,
 .review-pro-edt button:active {
-  background: #152036 !important;
-  border-color: #152036 !important;
+  background: #00295c !important;
+  border-color: #00295c !important;
   outline: none;
 }
 .credit-card-custom .bg-btn-cl,
 .devit-card-custom .bg-btn-cl,
 .review-content-section .bg-btn-cl {
-  background: #152036;
-  border-color: #152036;
+  background: #00295c;
+  border-color: #00295c;
   color: #fff;
 }
 a i.fa {
@@ -4297,7 +4297,7 @@ img.main-logo {
   display: block;
 }
 .form-border {
-	border: 1px solid #152036;
+	border: 1px solid #00295c;
     border-radius: 1px;
     color: inherit;
     display: block;
@@ -4306,4 +4306,7 @@ img.main-logo {
     width: 100%;
     height: 40px;
     background-color: white;
+}
+a.link_white {
+    color: #fff;
 }
