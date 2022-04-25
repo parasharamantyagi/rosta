@@ -13,6 +13,7 @@ var partySchema = mongoose.Schema(
     small_party: { type: String, enum: ['1', '0'], default: '0' },
     url: { type: String },
     description: { type: String },
+    total_voters_estimated: { type: String },
     bar_in_diagram: { type: String },
     vote_percentage: { type: String },
     eighteen_above: { type: Number, default: 0 },
@@ -61,6 +62,7 @@ module.exports.addParty = function (data, callback) {
     email: data.email,
     small_party: data.small_party,
     bar_in_diagram: data.bar_in_diagram,
+    total_voters_estimated: data.total_voters_estimated,
     url: data.url,
     description: data.description,
     createdAt: new Date(),
@@ -84,6 +86,7 @@ module.exports.updateParty = function (data, callback) {
     url: data.url,
     description: data.description,
     bar_in_diagram: data.bar_in_diagram,
+    total_voters_estimated: data.total_voters_estimated,
   };
   if(check_obj(data, 'image_link')){
     Party.findOneAndUpdate(query, { $push: { image_link: data.image_link } },function(error,success){

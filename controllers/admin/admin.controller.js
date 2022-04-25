@@ -145,6 +145,7 @@ class adminController {
           inputData.image_link = halper.filter_by_id_party_image(req.files, 'filename');
         }
         inputData.id = party_id;
+        console.log(inputData);
         Party.updateParty(inputData, async (err, resdata) => {
           if (check_obj(resdata)) {
             return res
