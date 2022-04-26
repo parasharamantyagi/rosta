@@ -11,6 +11,8 @@
   "checkToken": "Token is verified",
   "getProfile": "My profile",
   "all_party": "All party",
+  "advertisersGet": "All advertisers",
+  "advertisersPost": "Advertisers created successfully",
   "addPrizePost": "Prize created successfully",
   "deletePrize": "Prize deleted successfully",
   "collaboration": "All collaboration",
