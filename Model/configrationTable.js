@@ -26,6 +26,12 @@ module.exports.getInfoConfigration = function (data, callback) {
   }).exec(callback);
 };
 
+module.exports.getInfoSelectConfigration = function (data,filed, callback) {
+  return Configration.find({
+    name: { $in: data },
+  }).select(filed).exec(callback);
+};
+
 
 module.exports.configrationPlusShedule = async (name,plusKey) => {
   return await Configration.findOneAndUpdate({ name: name },{ $inc: plusKey },{ new: true });

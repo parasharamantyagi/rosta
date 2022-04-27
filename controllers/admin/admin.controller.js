@@ -89,6 +89,7 @@ class adminController {
   async viewSystemConfiguration(req, res, next) {
     try {
       Configration.getConfigration(100, async (err, resdata) => {
+        console.log(resdata);
         return res.render('admin/viewConfigration', {
           rosta: halper,
           page_url: req.url,

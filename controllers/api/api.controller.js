@@ -817,10 +817,15 @@ class apiController {
           big_party_response.push(resdat);
         }
       }
+      let sifo_data = await Configration.getInfoSelectConfigration(
+        ['sifo_all_parties', 'sifo_yes'],
+        ['name', 'value'],
+      );
       return res.status(200).json(
         halper.api_response(1, halper.request_message('all_party'), {
           total_voters: userCount,
           button_name: button_name,
+          sifo_data: sifo_data,
           small_party: small_party_response,
           big_party: big_party_response,
         }),

@@ -115,6 +115,13 @@
                           value="<%= rosta.formData(partyData,'total_voters_estimated') %>"
                         />
                       </div>
+                      <div class="col-md-6 form-group">
+                        <label>SIFO factor</label>
+                        <select name="sifo_factor" class="form-control">
+                          <option value="0" <%= (rosta.check_obj(partyData) && partyData.sifo_factor == '0') ? 'selected' : '' %>>No</option>
+                          <option value="1"  <%= (rosta.check_obj(partyData) && partyData.sifo_factor == '1') ? 'selected' : '' %>>yes</option>
+                        </select>
+                      </div>
                     </div>
                     <div class="row image_link_multi_plus">
                       <div class="col-md-6 form-group">
