@@ -213,6 +213,81 @@
                   <tr>
                     <td colspan="2">
                       <h4>
+                        <div class="configuration_name share_menu">Deltaga</div>
+                      </h4>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="configuration_name">Deltaga text</div>
+                    </td>
+                    <td>
+                      <textarea class="custom_text_<%- configrations[10]._id %>">
+<%- configrations[10].value %></textarea
+                      >
+                    </td>
+                    <td>
+                      <div class="custom-pro-edt-ds">
+                        <button
+                          type="submit"
+                          data-id="<%- configrations[10]._id %>"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10 text-save"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="configuration_name">Deltaga image</div>
+                    </td>
+                    <form
+                      method="POST"
+                      action="deltaga_image-upload"
+                      id="general_form_2"
+                      novalidate="novalidate"
+                    >
+                    <td>
+                      <input
+                            type="hidden"
+                            name="id"
+                            value="<%- configrations[11]._id %>"
+                          >
+                      <div class="form-border">
+                          <input
+                            type="button"
+                            class="btn btn-light"
+                            data-id="deltaga_image_1"
+                            value="Choose File"
+                          >
+                          <span class="deltaga_image_1"><%- configrations[11].value %></span>
+                          <input
+                          class="form-control deltaga_image_1"
+                          name="deltaga_image"
+                          type="file"
+                          aria-invalid="false"
+                          style="display: none"
+                        />
+                          </input>
+                        </div>
+                    </td>
+                    <td>
+                      <div class="custom-pro-edt-ds">
+                          <button
+                            type="submit"
+                            class="btn btn-ctl-bt waves-effect waves-light m-r-10"
+                          >
+                            Save
+                          </button>
+                        </div>
+                    </td>
+                    </form>
+                  </tr>
+                  <tr>
+                  <tr>
+                    <td colspan="2">
+                      <h4>
                         <div class="configuration_name share_menu">
                           Question
                         </div>

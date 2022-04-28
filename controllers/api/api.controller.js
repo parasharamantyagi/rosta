@@ -241,12 +241,18 @@ class apiController {
 
   async getPrize(req, res, next) {
     try {
+      let deltaga_data = await Configration.getInfoSelectConfigration(
+        ['deltaga_text', 'deltaga_image'],
+        ['name', 'value'],
+      );
+
       Prize.getPrize(100, (err, resdata) => {
-        return res
-          .status(200)
-          .json(
-            halper.api_response(1, halper.request_message('getPrize'), resdata),
-          );
+        return res.status(200).json(
+          halper.api_response(1, halper.request_message('getPrize'), {
+            deltaga: deltaga_data,
+            prize_data: resdata,
+          }),
+        );
       });
     } catch (err) {
       return res

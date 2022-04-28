@@ -40,6 +40,7 @@ router.post('/add-category', addManagementSystemController.addCategoryPost); // 
 router.get('/party/:party_id', adminController.viewPartyPage); // Get list of user
 
 router.post('/question-upload', adminFileController.questionUploadPost); // Get list of user
+router.post('/deltaga_image-upload', adminFileController.deltagaImageUploadPost); // Get list of user
 router.post('/add-collaboration', adminController.addCollaborationPost); // Get list of user
 router.post('/add-party', adminController.addPartyPost); // Get list of user
 router.post('/add-party/:party_id', adminController.updatePartyPost); // Get list of user
