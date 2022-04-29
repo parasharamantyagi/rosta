@@ -20,6 +20,7 @@ var userSchema = mongoose.Schema(
     UpdatedAt: { type: Date },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     referral_code: [{ type: String }],
+    competetion: { type: mongoose.Schema.Types.ObjectId, ref: 'competitions' },
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false
@@ -35,6 +36,11 @@ module.exports.getUsers = function (limit, callback) {
   User.find().limit(limit).exec(callback);
 };
 
+//get all users
+module.exports.getUsersWithCompetition = async function (limit, callback) {
+  return User.find({ competetion: { $ne: null } }).select(['_id','uuid', 'role','gdpr','alias','age_verification','competetion']).populate({ path: 'competetion' }).limit(limit).exec(callback);
+};
+
 //get all users count
 module.exports.getUsersCount = async function (callback) {
   try {  return await User.count().exec(callback);
@@ -42,6 +48,18 @@ module.exports.getUsersCount = async function (callback) {
 };
 
 //add admin
+
+module.exports.addCompetetion = function (user_id, competetion, callback) {
+  var query = { _id: user_id };
+  var update = { competetion: competetion };
+  User.findOneAndUpdate(
+    query,
+    update,
+    { upsert: true, fields: { password: 0 }, new: true },
+    callback,
+  );
+};
+
 
 module.exports.addUser = function (data, callback) {
   User.create(data, callback);
