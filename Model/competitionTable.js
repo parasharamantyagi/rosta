@@ -8,6 +8,7 @@ var CompetitionSchema = mongoose.Schema(
   {
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
     date: { type: String },
+    giltiga_roster: { type: Number, default: 0 },
     competetionData: [{party_id: { type: mongoose.Schema.Types.ObjectId, ref: 'party' },percentage_value:{ type: String }}],
     createdAt: { type: Date, default: Date.now() },
     UpdatedAt: { type: Date, default: Date.now() },

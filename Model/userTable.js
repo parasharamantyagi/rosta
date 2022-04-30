@@ -38,7 +38,7 @@ module.exports.getUsers = function (limit, callback) {
 
 //get all users
 module.exports.getUsersWithCompetition = async function (limit, callback) {
-  return User.find({ competetion: { $ne: null } }).select(['_id','uuid', 'role','gdpr','alias','age_verification','competetion']).populate({ path: 'competetion' }).limit(limit).exec(callback);
+  return User.find({ competetion: { $ne: null } }).select(['_id','uuid', 'role','gdpr','alias','age_verification','referral_code','competetion']).populate({ path: 'competetion' }).limit(limit).exec(callback);
 };
 
 //get all users count
