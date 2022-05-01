@@ -18,6 +18,7 @@ var userSchema = mongoose.Schema(
     frequency: { type: String },
     createdAt: { type: Date },
     UpdatedAt: { type: Date },
+    is_premium: { type: Number, default: 0 },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     referral_code: [{ type: String }],
     competetion: { type: mongoose.Schema.Types.ObjectId, ref: 'competitions' },
@@ -60,6 +61,16 @@ module.exports.addCompetetion = function (user_id, competetion, callback) {
   );
 };
 
+
+//add is_premium
+
+module.exports.addPremiumUser = async function (user_id, callback) {
+  var query = { _id: user_id };
+  console.log(query);
+  let uuu = await User.findOneAndUpdate(query, { is_premium:1 }, callback);
+  console.log(uuu);
+  return true;
+};
 
 module.exports.addUser = function (data, callback) {
   User.create(data, callback);

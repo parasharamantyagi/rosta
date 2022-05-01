@@ -20,6 +20,11 @@ router.get('/prize', apiController.getPrize);
 router.get('/testing', apiController.getTesting);
 router.get('/get-competition', apiCompetitionController.getCompetition);
 
+
+router.post('/get-generate-token', apiCompetitionController.getGenerateTokens);
+router.post('/generate-token', apiCompetitionController.addGenerateTokens);
+
+
 router.post('/login', apiController.logIn);
 router.post('/sign-up', apiController.signUp);
 router.post('/answer', apiController.postAnswer);
