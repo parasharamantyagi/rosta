@@ -1,5 +1,6 @@
-
-
+let competition_point = 10000;
+let joined_point = 30;
+let premium_point = 30;
 
 function findPoitCal(partyData,party_id = null) {
   if (party_id){
@@ -43,9 +44,14 @@ function dateDifference(input){
 }
 
 function total_sum(competitionData, partyData) {
-  let sum_val = parseFloat(sumOfArray(competitionParty(competitionData.competetion, partyData))) +
-      parseFloat(dateDifference(competitionData.competetion.date) * 2) + parseFloat(competitionData.referral_code.length) + parseFloat(dateDifference(competitionData.competetion.date))/100;
-  return parseFloat(sum_val).toFixed(2);;
+  let minutes_point = parseFloat(sumOfArray(competitionParty(competitionData.competetion, partyData)));
+  let point_per_day = parseFloat(dateDifference(competitionData.competetion.date) * 2);
+
+  let cal_uuid_1 = (joined_point + (competitionData.is_premium * premium_point)) * (parseFloat(dateDifference(competitionData.competetion.date))/100);
+  let cal_uuid_2 = (joined_point + (competitionData.is_premium * premium_point)) * (parseFloat(dateDifference(competitionData.competetion.date))/100);
+  let plus_point = competition_point + point_per_day + cal_uuid_1 + cal_uuid_2;
+  let final_point = plus_point - minutes_point;
+  return parseFloat(final_point).toFixed(2);
 }
 
 function competitionCalculation(competitionDatas,partyData) {
