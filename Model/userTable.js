@@ -39,7 +39,7 @@ module.exports.getUsers = function (limit, callback) {
 
 //get all users
 module.exports.getUsersWithCompetition = async function (limit, callback) {
-  return User.find({ competetion: { $ne: null } }).select(['_id','uuid', 'role','gdpr','alias','age_verification','referral_code','competetion']).populate({ path: 'competetion' }).limit(limit).exec(callback);
+  return User.find({ competetion: { $ne: null } }).select(['_id','uuid', 'role','gdpr','alias','age_verification','is_premium','referral_code','competetion']).populate({ path: 'competetion' }).limit(limit).exec(callback);
 };
 
 //get all users count
@@ -66,9 +66,7 @@ module.exports.addCompetetion = function (user_id, competetion, callback) {
 
 module.exports.addPremiumUser = async function (user_id, callback) {
   var query = { _id: user_id };
-  console.log(query);
   let uuu = await User.findOneAndUpdate(query, { is_premium:1 }, callback);
-  console.log(uuu);
   return true;
 };
 

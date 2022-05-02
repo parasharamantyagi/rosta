@@ -91,7 +91,9 @@ class apiCompetitionController {
   async addGenerateTokens(req, res, next) {
     try {
       let inputData = halper.obj_multi_select(req.body);
-      GenerateToken.addGenerateToken(inputData);
+      for (let input_del of inputData.deal_id) {
+        GenerateToken.addGenerateToken({ user_id: inputData.user_id, deal_id: input_del });
+      }
       return res
         .status(200)
         .json(
