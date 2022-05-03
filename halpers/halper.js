@@ -194,6 +194,11 @@ class halper {
     return result;
   }
 
+  sum_array(input) {
+    let intValue = input.reduce((a, b) => a + b, 0);
+    return intValue;
+  }
+
   time_diff_in_minuts(start_date_time, end_date_time) {
     let today = new Date(end_date_time);
     let endDate = new Date(start_date_time);

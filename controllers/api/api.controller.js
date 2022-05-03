@@ -803,7 +803,7 @@ class apiController {
       let big_party_response = [];
       let configration = await Configration.getConfigrationByID('party');
       let resdata = await Party.getAllParty(configration.value);
-      let userCount = await Voting.getVotingCount();
+      // let userCount = await Voting.getVotingCount();
       let button_name = await Configration.getInfoConfigration([
         'another_party',
         'have_not_decided',
@@ -827,9 +827,14 @@ class apiController {
         ['sifo_all_parties', 'sifo_yes'],
         ['name', 'value'],
       );
+      let small_party_response_count = halper.sum_array(halper.filter_by_id(small_party_response,'voters_estimated'));
+      let big_party_response_count = halper.sum_array(
+        halper.filter_by_id(big_party_response, 'voters_estimated'),
+      );
+      let userCount = small_party_response_count + big_party_response_count;
       return res.status(200).json(
         halper.api_response(1, halper.request_message('all_party'), {
-          total_voters: (userCount + 31),
+          total_voters: userCount,
           button_name: button_name,
           sifo_data: sifo_data,
           small_party: small_party_response,
