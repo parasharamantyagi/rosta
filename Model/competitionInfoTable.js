@@ -5,7 +5,6 @@ require('mongoose-double')(mongoose);
 var CompetitionSchema = mongoose.Schema(
   {
     name: { type: String },
-    point: { type: String },
     from_date: { type: Date, required: true, trim: true },
     to_date: { type: Date, required: true, trim: true },
     description: { type: String },

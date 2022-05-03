@@ -18,7 +18,6 @@
                 <tbody>
                   <tr>
                     <th>Name</th>
-                    <th>Point</th>
                     <th>From date</th>
                     <th>To date</th>
                     <th>Action</th>
@@ -26,7 +25,6 @@
                   <% competitions.forEach(function(competition){ %>
                   <tr>
                     <td><%- competition.name %></td>
-                    <td><%- competition.point %></td>
                     <td>
                       <%-
                       rosta.change_time_format(competition.from_date,'YYYY-MM-DD')

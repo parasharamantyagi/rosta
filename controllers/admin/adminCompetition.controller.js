@@ -79,7 +79,6 @@ class adminCompetitionController {
       upload(req, res, async function (err) {
         let inputData = halper.obj_multi_select(req.body, [
           'name',
-          'point',
           'from_date',
           'to_date',
           'description',
