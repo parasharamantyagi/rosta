@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <%- include('./../include/Header') -%>
+  <link rel="stylesheet" href="<%= rosta.web_link('admin/css/toggle.css') %>" />
+  <body>
+    <%- include('./../include/Sidebar') -%>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+      <%- include('./../include/Logo') -%> <%-
+      include('./../include/Menu',{menu: 'Competition'}) -%>
+      <!-- start menu -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="product-status-wrap">
+              <h4>All Competition</h4>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Name</th>
+                    <th>Point</th>
+                    <th>From date</th>
+                    <th>To date</th>
+                    <th>Action</th>
+                  </tr>
+                  <% competitions.forEach(function(competition){ %>
+                  <tr>
+                    <td><%- competition.name %></td>
+                    <td><%- competition.point %></td>
+                    <td>
+                      <%-
+                      rosta.change_time_format(competition.from_date,'YYYY-MM-DD')
+                      %>
+                    </td>
+                    <td>
+                      <%-
+                      rosta.change_time_format(competition.to_date,'YYYY-MM-DD')
+                      %>
+                    </td>
+                    <td>
+                      <button
+                        data-toggle="tooltip"
+                        title=""
+                        class="pd-setting-ed"
+                        onclick="deleteButton('<%= competition._id %>','view-competition')"
+                        data-original-title="Trash"
+                      >
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end menu -->
+    </div>
+
+    <%- include('./../include/Footer') -%>
+  </body>
+</html>

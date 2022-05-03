@@ -47,12 +47,26 @@ function deleteData(id,action){
 						else
 							window.location.href=response.url;
 					}
-					// if(response.success){
-						
-						// $('.'+current_class+' input[name="amount[]"]').val(response.amount);
-						// let sum_amount = $("input[id='amount']").map(function(){return parseFloat($(this).val());}).get();
-						// $("#process_to_paid").html(sum_amount.reduce((a, b) => a + b));
-					// }
+				}
+			});
+	}
+}
+
+function deleteButton(id,action){
+	if(confirm('Are you sure to delete this ..??')){
+		$.ajax({
+				type: 'delete',
+				url: action+'/'+id,
+				success: function (response) {
+					
+					toastr.success(response.message,response.delayTime);
+					if(response.url)
+					{
+						if(response.delayTime)
+							setTimeout(function() { window.location.href=response.url;}, response.delayTime);
+						else
+							window.location.href=response.url;
+					}
 				}
 			});
 	}

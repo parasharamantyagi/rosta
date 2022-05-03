@@ -8,6 +8,7 @@ router.use(bodyParser.json());
 adminController = require('./../../controllers/admin/admin.controller');
 addManagementSystemController = require('./../../controllers/admin/addManagementSystem.controller');
 adminFileController = require('./../../controllers/admin/admin.file.controller');
+adminCompetitionController = require('./../../controllers/admin/adminCompetition.controller');
 
 router.get('/', adminController.dashboard); // Get list of user
 router.get('/view-party', adminController.viewParty); // Get list of user
@@ -36,6 +37,12 @@ router.get('/view-category', addManagementSystemController.viewCategory); // Get
 router.get('/add-category', addManagementSystemController.addCategory); // Get list of user
 router.post('/add-category', addManagementSystemController.addCategoryPost); // Get list of user
 
+
+
+router.get('/view-competition', adminCompetitionController.viewCompetition); // Get list of user
+router.get('/add-competition', adminCompetitionController.addCompetition); // Get list of user
+router.post('/add-competition', adminCompetitionController.addCompetitionPost); // Get list of user
+router.delete('/view-competition/:competition_id', adminCompetitionController.deleteCompetitionId); // Get list of user
 
 router.get('/party/:party_id', adminController.viewPartyPage); // Get list of user
 

@@ -203,6 +203,33 @@
               </li>
             </ul>
           </li>
+          <li
+            class="<%= rosta.active_menu(page_url,['/add-competition','/view-competition']) %>"
+          >
+            <a
+              class="has-arrow"
+              href="<%= rosta.web_link('admin/view-competition') %>"
+              aria-expanded="false"
+              ><i class="fa fa-user"></i>
+              <span class="mini-click-non">Competition info</span></a
+            >
+            <ul class="submenu-angle" aria-expanded="false">
+              <li>
+                <a
+                  title="Add Competition"
+                  href="<%= rosta.web_link('admin/add-competition') %>"
+                  ><span class="mini-sub-pro">Add Competition</span></a
+                >
+              </li>
+              <li>
+                <a
+                  title="View Competition"
+                  href="<%= rosta.web_link('admin/view-competition') %>"
+                  ><span class="mini-sub-pro">View Competition</span></a
+                >
+              </li>
+            </ul>
+          </li>
           <li>
             <a
               class=""

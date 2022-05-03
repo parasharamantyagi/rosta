@@ -18,6 +18,7 @@ router.get('/user-info/:store_id', apiController.getUserInfo);
 router.get('/deals', apiController.getDeals);
 router.get('/prize', apiController.getPrize);
 router.get('/testing', apiController.getTesting);
+router.get('/all-competition', apiCompetitionController.getAllUpcomingCompetition);
 router.get('/get-competition', apiCompetitionController.getCompetition);
 
 
