@@ -21,7 +21,7 @@ var userSchema = mongoose.Schema(
     is_premium: { type: Number, default: 0 },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     referral_code: [{ type: String }],
-    competetion: { type: mongoose.Schema.Types.ObjectId, ref: 'competitions' },
+    competetion: [{ type: mongoose.Schema.Types.ObjectId, ref: 'competitions' }],
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false
@@ -42,6 +42,12 @@ module.exports.getUsersWithCompetition = async function (limit, callback) {
   return User.find({ competetion: { $ne: null } }).select(['_id','uuid', 'role','gdpr','alias','age_verification','is_premium','referral_code','competetion']).populate({ path: 'competetion' }).limit(limit).exec(callback);
 };
 
+
+//get user by email
+module.exports.getUserCompetitionByUuid = async(data, callback) => {
+  return User.find({ competetion: { $ne: null },_id: data }).select(['_id','uuid', 'role','gdpr','alias','age_verification','is_premium','referral_code','competetion']).populate({ path: 'competetion' }).exec(callback);
+}
+
 //get all users count
 module.exports.getUsersCount = async function (callback) {
   try {  return await User.count().exec(callback);
@@ -52,13 +58,13 @@ module.exports.getUsersCount = async function (callback) {
 
 module.exports.addCompetetion = function (user_id, competetion, callback) {
   var query = { _id: user_id };
-  var update = { competetion: competetion };
-  User.findOneAndUpdate(
-    query,
-    update,
-    { upsert: true, fields: { password: 0 }, new: true },
-    callback,
-  );
+  User.findOneAndUpdate(query, { $push: { competetion: competetion } },function(error,success){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(success);
+      }
+    });
 };
 
 

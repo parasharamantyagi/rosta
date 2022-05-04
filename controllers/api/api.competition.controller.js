@@ -9,7 +9,6 @@ const { competitionCalculation } = require('../../trait/competition_algorithm');
 
 
 class apiCompetitionController {
-
   async getAllUpcomingCompetition(req, res, next) {
     try {
       CompetitionInfo.getCompetitionInfo(1000, (err, resdata) => {
@@ -56,34 +55,45 @@ class apiCompetitionController {
     }
   }
 
+  async myCompetition(req, res, next) {
+    try {
+      let inputData = halper.obj_multi_select(req.body, ['user_id']);
+      let partyData = await Party.getAllParty('1');
+      const competitionDatas = await User.getUserCompetitionByUuid(inputData.user_id);
+      const myCompetitionDatas = competitionCalculation(
+        competitionDatas,
+        partyData,
+      );
+      return res
+        .status(200)
+        .json(
+          halper.api_response(
+            1,
+            halper.request_message('getCompetition'),
+            myCompetitionDatas,
+          ),
+        );
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
   async addCompetition(req, res, next) {
     try {
       let inputData = halper.obj_multi_select(req.body);
-      let checkCompetition = await Competition.checkCompetition(
-        inputData.user_id,
-      );
-      if (check_obj(checkCompetition)) {
-        return res
-          .status(200)
-          .json(
-            halper.api_response(
-              0,
-              halper.request_message('checkCompetition'),
-              checkCompetition,
-            ),
-          );
-      } else {
-        Competition.addCompetition(inputData);
-        return res
-          .status(200)
-          .json(
-            halper.api_response(
-              1,
-              halper.request_message('addCompetition'),
-              inputData,
-            ),
-          );
-      }
+      Competition.addCompetition(inputData);
+      return res
+        .status(200)
+        .json(
+          halper.api_response(
+            1,
+            halper.request_message('addCompetition'),
+            inputData,
+          ),
+        );
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),
