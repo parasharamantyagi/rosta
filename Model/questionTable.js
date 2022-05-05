@@ -28,6 +28,11 @@ module.exports.getQuestion = async () => {
   return await Question.find().sort({ date : -1}).exec();
 };
 
+
+module.exports.checkQuestionFromDate = async (getDate) => {
+  return await Question.findOne({ createdAt: getDate }).exec();
+};
+
 module.exports.getQuestionFromID = async (id) => {
   return await Question.findOne({ _id: id}).exec();
 };

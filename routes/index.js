@@ -1,10 +1,4 @@
 module.exports = function (app) {
-  
-  // app.use((req, res, next) => {
-  //   let testingRoute = require('./../trait/testing');
-  //   testingRoute.myCheck(req.url);
-  //   next();
-  // });
 
   let authRoute = require('./auth');
   app.use('/', authRoute);

@@ -6,8 +6,10 @@ router.use(bodyParser.json());
 // validater = require('./../../validation/userValidate');
 // verifyUser = require('./../../middleware/verifyUser');
 authController = require('./../../controllers/auth.controller');
+cronJobController = require('./../../controllers/cronJob.controller');
 
-router.get('/',authController.indexRoute);
+router.get('/cron-job', cronJobController.myCronJob);
+router.get('/', authController.indexRoute);
 router.post('/login', authController.logIn);
 
 router.post('/user-add', authController.userAdd);

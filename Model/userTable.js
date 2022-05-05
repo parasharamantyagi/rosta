@@ -16,6 +16,7 @@ var userSchema = mongoose.Schema(
     gdpr: { type: String, default: '0' },
     uuid: { type: String, default: '0' },
     my_id: { type: String, default: '0' },
+    device_token: { type: String },
     frequency: { type: String },
     createdAt: { type: Date },
     UpdatedAt: { type: Date },
@@ -95,6 +96,8 @@ module.exports.addReferralCode = function (data, callback) {
 };
 
 //get user by email
+
+
 module.exports.getUserByUuid = async(data, callback) => {
   try {
     var query = await User.findOne({ uuid: data }).exec(callback);
@@ -111,6 +114,15 @@ module.exports.getUserByUuid = async(data, callback) => {
     return err;
   }
 }
+
+
+module.exports.getUserByOnlyUuid = async (data, callback) => {
+  try {
+      return await User.findOne({ uuid: data }).exec(callback);
+  } catch (err) {
+    return err;
+  }
+};
 
 //get user by email
 module.exports.getUserByEmail = (data, callback) => {

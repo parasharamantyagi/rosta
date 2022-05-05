@@ -194,12 +194,24 @@ class apiController {
 
   async storeUuid(req, res, next) {
     try {
-      let input = halper.obj_multi_select(req.body, ['uuid']);
-      return res
-        .status(200)
-        .json(
-          halper.api_response(1, halper.request_message('uuid_store'), input),
-        );
+      let input = halper.obj_multi_select(req.body, ['uuid', 'device_token']);
+      let checkUser = await User.getUserByOnlyUuid(input.uuid);
+      if (check_obj(checkUser)) {
+        User.updateUserData(checkUser._id, input);
+        return res
+          .status(200)
+          .json(
+            halper.api_response(1, halper.request_message('uuid_store'), input),
+          );
+      }else{
+        User.addUser(input, async (err, resdata) => {
+          return res
+          .status(200)
+          .json(
+            halper.api_response(1, halper.request_message('uuid_store'), input),
+          );
+        });
+      }
     } catch (err) {
       return res
         .status(401)

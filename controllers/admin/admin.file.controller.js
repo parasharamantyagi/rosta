@@ -1,10 +1,6 @@
 const halper = require('../../halpers/halper');
 const csv = require('csv-parser');
 const fs = require('fs');
-// const Party = require('./../../Model/partyTable');
-// const Collaboration = require('./../../Model/collaborationTable');
-// const User = require('./../../Model/userTable');
-// const Configration = require('./../../Model/configrationTable');
 const Question = require('./../../Model/questionTable');
 const Configration = require('./../../Model/configrationTable');
 const multer = require('multer');
