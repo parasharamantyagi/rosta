@@ -1,5 +1,6 @@
-const { crypto } = require('./../Model/module');
-const { encrypted, dencrypted } = require('./crypto');
+// const { crypto } = require('./../Model/module');
+// const { encrypted, dencrypted } = require('./crypto');
+const crypto = require('crypto');
 const my_date_format = 'YYYY-MM-DD HH:mm:00';
 const moment = require('moment-timezone');
 var algorithm = 'aes256';
@@ -68,6 +69,12 @@ class halper {
     // if (link === menu) {
 
     // }
+  }
+
+  randomValueHex () {
+      return crypto.randomBytes(Math.ceil(6/2))
+          .toString('hex') // convert to hexadecimal format
+          .slice(0,6).toUpperCase();   // return required number of characters
   }
 
   find_one(inputArray, my_key = null) {

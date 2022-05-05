@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-const { check_obj } = require('../halpers/halper');
+const { check_obj, randomValueHex } = require('../halpers/halper');
 
 var userSchema = mongoose.Schema(
   {
@@ -15,13 +15,16 @@ var userSchema = mongoose.Schema(
     alias: { type: String, default: 'none' },
     gdpr: { type: String, default: '0' },
     uuid: { type: String, default: '0' },
+    my_id: { type: String, default: '0' },
     frequency: { type: String },
     createdAt: { type: Date },
     UpdatedAt: { type: Date },
     is_premium: { type: Number, default: 0 },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     referral_code: [{ type: String }],
-    competetion: [{ type: mongoose.Schema.Types.ObjectId, ref: 'competitions' }],
+    competetion: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'competitions' },
+    ],
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false
@@ -77,6 +80,7 @@ module.exports.addPremiumUser = async function (user_id, callback) {
 };
 
 module.exports.addUser = function (data, callback) {
+  data.my_id = randomValueHex();
   User.create(data, callback);
 }
 
@@ -97,7 +101,11 @@ module.exports.getUserByUuid = async(data, callback) => {
     if (check_obj(query)){
       return query;
     }else{
-      return await User.findOne({ _id: data }).exec(callback);
+      if (data.match(/^[0-9a-fA-F]{24}$/)) {
+        return await User.findOne({ _id: data }).exec(callback);
+      } else {
+        return {};
+      }
     }
   } catch (err) {
     return err;
@@ -108,7 +116,6 @@ module.exports.getUserByUuid = async(data, callback) => {
 module.exports.getUserByEmail = (data, callback) => {
   try {
     var query = { email: data };
-    // return User.findOne(query).exec(callback);
     return User.findOne(query, callback);
   } catch (err) {
     return err;
@@ -147,48 +154,15 @@ module.exports.updateStatus = function (data, callback) {
     User.findOneAndUpdate(query, update, { upsert: true, fields: { password: 0 }, new: true }, callback)
 }
 
-module.exports.updateUserData = function (id ,update, callback) {
-     var query = { _id: id };
-    User.findOneAndUpdate(query, update, { upsert: true, fields: { password: 0 }, new: true }, callback)
+module.exports.updateUserData = async(id ,update, callback) => {
+    return await User.findOneAndUpdate({ _id: id }, update, { upsert: true, fields: { password: 0 }, new: true }, callback);
+}
+
+module.exports.findUserByMyId = async(id, callback) => {
+  return User.findOne({ my_id: id }, callback);
 }
 
 module.exports.adminLogin = function (data, callback) {
     var query = { email: data.email, password: data.password };
-    // return User.findOne(query, 'walletCredit', callback);
     return User.findOne(query, callback);
 }
-
-
-// module.exports.getUsersWithFilter = function (obj,sortByField,sortOrder,paged,pageSize, callback) {
-//     User.aggregate([{$match:obj},
-//         {$match:{role:{$ne :"ADMIN"}}},
-//         {$sort :{[sortByField]:  parseInt(sortOrder)}},
-//         {$skip: (paged-1)*pageSize},
-//         {$limit: parseInt(pageSize) },
-//       ],callback);
-// }
-
-//add user 
-// module.exports.addUser = function (data, callback) {
-//     console.log("Inside update");
-//     var query = { mobileNumber: data.mobileNumber };
-//     var update = {
-//         name: data.name,
-//         email: data.email,
-//         mobileNumber: data.mobileNumber,
-//         password: data.password,
-//         address: data.address,
-//         //languageId: data.languageId,
-//         //languageDetails: data.languageDetails,
-//         profileImage: data.profileImage,
-//         city: data.city,
-//         countryCode: data.countryCode,
-//         fbid: data.fbid,
-//         gid: data.gid,
-//         aid: data.aid,
-//         token: data.token,
-//         createdAt: new Date(),
-//         role: "USER"
-//     }
-//     User.findOneAndUpdate(query, update, { upsert: true, fields: { password: 0 }, new: true }, callback)
-// }

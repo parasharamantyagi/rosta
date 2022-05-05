@@ -14,7 +14,7 @@ const VoteSchedule = require('./../../Model/voteSchedule');
 const mail = require('./../../halpers/mail');
 const MailTemplate = require('./../../halpers/mail_template');
 const multer = require('multer');
-const { check_obj, custom_date, change_time_format, current_date } = require('../../halpers/halper');
+const { check_obj, custom_date, change_time_format, current_date, randomValueHex } = require('../../halpers/halper');
 const { jwt, accessTokenSecret } = require('../../Model/module');
 const Voting = require('../../Model/votingTable');
 const { filterApiQuestion } = require('../../halpers/FilterData');
@@ -105,15 +105,15 @@ class apiController {
           },
           function (err, docs) {},
         );
-        let input_referral_code = halper.obj_multi_select(req.body, [
-          'referral_code',
-        ]);
-        if (check_obj(input_referral_code)) {
-          input.referral_code = input_referral_code.referral_code.replace(
-            'https://rostaratt.com?',
-            '',
-          );
-        }
+        // let input_referral_code = halper.obj_multi_select(req.body, [
+        //   'referral_code',
+        // ]);
+        // if (check_obj(input_referral_code)) {
+        //   input.referral_code = input_referral_code.referral_code.replace(
+        //     'https://rostaratt.com?',
+        //     '',
+        //   );
+        // }
         return res
           .status(200)
           .json(
@@ -124,19 +124,21 @@ class apiController {
           'referral_code',
         ]);
         input.uuid = storeid;
-        User.addUser(input, async (err, resdata) => {
-          if (check_obj(input_referral_code)) {
+        if (check_obj(input_referral_code)) {
             input_referral_code.referral_code =
               input_referral_code.referral_code.replace(
                 'https://rostaratt.com?',
                 '',
               );
+        let user_my_id = await User.findUserByMyId(input_referral_code.referral_code);
+        input_referral_code.referral_code = user_my_id.uuid;
+        User.addUser(input, async (err, resdata) => {
             User.addReferralCode({
               id: input_referral_code.referral_code,
               referral_code: input.uuid,
             });
-          }
         });
+        }
         return res
           .status(200)
           .json(
@@ -858,7 +860,7 @@ class apiController {
         '62349988e733f58e8f44217b',
         'party_image/1647614344148amex.jpg',
       );
-      console.log(checkVal);
+      // console.log(checkVal);
       return res
         .status(200)
         .json(
@@ -956,50 +958,18 @@ class apiController {
 
   async userList(req, res, next) {
     try {
-      let data = req.body;
-      const pageSize = data.limit || 10;
-      const sortByField = data.orderBy || 'createdAt';
-      const sortOrder = data.order || -1;
-      const paged = data.page || 1;
-      let obj = {};
-      if (data.fieldName && data.fieldValue)
-        obj[data.fieldName] = { $regex: data.fieldValue || '', $options: 'i' };
-      if (data.startDate) obj.createdAt = { $gte: new Date(data.startDate) };
-      if (data.endDate) obj.createdAt = { $lte: new Date(data.endDate) };
-      if (data.filter) {
-        obj['$and'] = [];
-        obj['$and'].push({
-          name: { $regex: data.filter || '', $options: 'i' },
-        });
-      }
-      let count = await User.aggregate([
-        { $match: { role: { $ne: 'admin' } } },
-        { $match: obj },
-        { $group: { _id: null, count: { $sum: 1 } } },
-      ]);
-      let totalcount = count.length > 0 ? count[0].count : 0;
-
-      User.getUsersWithFilter(
-        obj,
-        sortByField,
-        sortOrder,
-        paged,
-        pageSize,
-        (err, data) => {
-          if (err) {
-            return res
-              .status(200)
-              .json({ message: 'Error in user query', data: {}, error: err });
-          } else {
-            return res.status(200).json({
-              message: 'All User',
-              totalcount: totalcount,
-              data: data,
-              error: {},
-            });
-          }
-        },
-      );
+      let myrsData = [];
+      // console.log(randomValueHex());
+      User.getUsers(100, (err, resdatas) => {
+        for (let resdata of resdatas){
+          // User.updateUserData(resdata._id, { $inc: { my_id: 1 } });
+          // User.updateUserData(resdata._id, { my_id: randomValueHex() });
+          myrsData.push(resdata);
+        }
+          return res
+            .status(200)
+            .json(halper.api_response(1, 'user list', myrsData));
+      });
     } catch (err) {
       return res
         .status(401)
