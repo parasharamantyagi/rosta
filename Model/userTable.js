@@ -47,6 +47,11 @@ module.exports.getUsersWithCompetition = async function (limit, callback) {
 };
 
 
+//get all users
+module.exports.getUsersDeviceToken = async function (limit, callback) {
+  return User.find({ device_token: { $ne: null } }).select(['device_token']).limit(limit).exec(callback);
+};
+
 //get user by email
 module.exports.getUserCompetitionByUuid = async(data, callback) => {
   return User.find({ competetion: { $ne: null },_id: data }).select(['_id','uuid', 'role','gdpr','alias','age_verification','is_premium','referral_code','competetion']).populate({ path: 'competetion' }).exec(callback);

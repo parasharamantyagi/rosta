@@ -30,7 +30,7 @@ module.exports.getQuestion = async () => {
 
 
 module.exports.checkQuestionFromDate = async (getDate) => {
-  return await Question.findOne({ createdAt: getDate }).exec();
+  return await Question.findOne({date: new RegExp(getDate,'i')}).exec();
 };
 
 module.exports.getQuestionFromID = async (id) => {

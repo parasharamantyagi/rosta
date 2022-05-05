@@ -18,6 +18,12 @@ class halper {
     return url;
   }
 
+  rosta_current_date() {
+    let now = new Date();
+    return moment(now).format('YYYY/MM/DD');
+  }
+
+
   current_date() {
     let now = new Date();
     return moment(now).format('YYYY-MM-DD');
@@ -71,10 +77,12 @@ class halper {
     // }
   }
 
-  randomValueHex () {
-      return crypto.randomBytes(Math.ceil(6/2))
-          .toString('hex') // convert to hexadecimal format
-          .slice(0,6).toUpperCase();   // return required number of characters
+  randomValueHex() {
+    return crypto
+      .randomBytes(Math.ceil(6 / 2))
+      .toString('hex') // convert to hexadecimal format
+      .slice(0, 6)
+      .toUpperCase(); // return required number of characters
   }
 
   find_one(inputArray, my_key = null) {
