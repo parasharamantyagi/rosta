@@ -4,6 +4,7 @@ const { check_obj } = require('../halpers/halper');
 var CronJobSchema = mongoose.Schema(
   {
     date: { type: String, required: true },
+    createdAt: { type: Date ,default: new Date()},
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false
@@ -11,6 +12,12 @@ var CronJobSchema = mongoose.Schema(
 );
 const CronJob = (module.exports = mongoose.model('cron_jobs', CronJobSchema));
 
+
+
+module.exports.getCronJob = async () => {
+  let getCron = await CronJob.findOne().sort({ createdAt: -1 }).exec();
+  return getCron;
+};
 
 module.exports.setCronJob = async (today,callback) => {
   // today = '2022/05/270';

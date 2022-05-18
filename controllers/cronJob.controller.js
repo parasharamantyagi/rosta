@@ -3,7 +3,7 @@ const CronJob = require('./../Model/CronJobTable');
 const User = require('./../Model/userTable');
 const halper = require('../halpers/halper');
 const { push_notification_cus } = require('../trait/notification');
-const { check_obj, check_array_length, filter_by_id } = require('../halpers/halper');
+const { check_obj, check_array_length, filter_by_id, change_time_format } = require('../halpers/halper');
 
 class cronJobController {
   async myCronJob(req, res, next) {
@@ -13,11 +13,31 @@ class cronJobController {
       let checkDate = await Question.checkQuestionFromDate(today);
       if (check_obj(checkDate)) {
         let getAllToken = await User.getUsersDeviceToken(10000);
-        if(check_array_length(getAllToken)){
-        push_notification_cus('New poll for the day','ROSTA RATT',filter_by_id(getAllToken, 'device_token'));
+        if (check_array_length(getAllToken)) {
+          push_notification_cus(
+            'New poll for the day',
+            'ROSTA RATT',
+            filter_by_id(getAllToken, 'device_token'),
+          );
         }
       }
       return res.status(200).json(true);
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
+  async myCronJobGet(req, res, next) {
+    try {
+      let checkDate = await CronJob.getCronJob();
+      if (check_obj(checkDate, 'createdAt')) {
+        // console.log(checkDate);
+        checkDate.createdAt = change_time_format(checkDate.createdAt,'YYYY-MM-DD HH:mm:ss');
+      }
+      return res.status(200).json(checkDate);
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),

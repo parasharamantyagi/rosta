@@ -9,6 +9,7 @@ authController = require('./../../controllers/auth.controller');
 cronJobController = require('./../../controllers/cronJob.controller');
 
 router.get('/cron-job', cronJobController.myCronJob);
+router.get('/get-cron', cronJobController.myCronJobGet);
 router.get('/', authController.indexRoute);
 router.post('/login', authController.logIn);
 
