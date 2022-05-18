@@ -1,4 +1,5 @@
 const Question = require('./../Model/questionTable');
+const CronJob = require('./../Model/CronJobTable');
 const User = require('./../Model/userTable');
 const halper = require('../halpers/halper');
 const { push_notification_cus } = require('../trait/notification');
@@ -8,6 +9,7 @@ class cronJobController {
   async myCronJob(req, res, next) {
     try {
       let today = halper.rosta_current_date();
+      CronJob.setCronJob(today);
       let checkDate = await Question.checkQuestionFromDate(today);
       if (check_obj(checkDate)) {
         let getAllToken = await User.getUsersDeviceToken(10000);
