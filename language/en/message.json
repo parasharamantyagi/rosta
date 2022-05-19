@@ -29,6 +29,7 @@
   "addGenerateTokens": "Token Generate successfully",
   "getGenerateTokens": "Token get successfully",
   "vote_add": "Vote add successfully",
+  "storeVersion": "Version set successfully",
   "getCompetition": "Competition get successfully",
   "getAllUpcomingCompetition": "All Upcoming Competition get successfully",
   "deleteCompetitionId": "Competition delete successfully",

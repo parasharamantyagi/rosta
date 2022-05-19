@@ -28,6 +28,7 @@ router.post('/generate-token', apiCompetitionController.addGenerateTokens);
 
 router.post('/login', apiController.logIn);
 router.post('/sign-up', apiController.signUp);
+router.post('/store-version', apiController.storeVersion);
 router.post('/answer', apiController.postAnswer);
 router.post('/voting', apiController.voting);
 router.post('/check-voting', apiController.checkUserVoting);

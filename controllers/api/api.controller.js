@@ -785,6 +785,35 @@ class apiController {
     }
   }
 
+  async storeVersion(req, res, next) {
+    try {
+      let input = halper.obj_multi_select(req.body, ['version']);
+      let configration = await Configration.getConfigrationByID('version');
+      if (check_obj(configration)) {
+        Configration.updateConfigrationByID(
+          { id: configration._id.toString(), value: input.version },
+          function (err, resData) {
+            return resData;
+          },
+        );
+      }else{
+        Configration.saveConfigration({ name: 'version', value: input.version });
+      }
+      return res
+        .status(200)
+        .json(
+          halper.api_response(1, halper.request_message('storeVersion'), input),
+        );
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(0, halper.request_message('invalid_request'), {}),
+        );
+    } finally {
+    }
+  }
+
   async getScreenInfo(req, res, next) {
     try {
       let response = await Configration.getInfoConfigration([
@@ -795,6 +824,7 @@ class apiController {
         'another_party',
         'have_not_decided',
         'i_will_not_vote',
+        'version',
       ]);
       return res
         .status(200)
