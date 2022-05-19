@@ -9,10 +9,11 @@ class cronJobController {
   async myCronJob(req, res, next) {
     try {
       let today = halper.rosta_current_date();
+      let getAllToken = [];
       CronJob.setCronJob(today);
       let checkDate = await Question.checkQuestionFromDate(today);
       if (check_obj(checkDate)) {
-        let getAllToken = await User.getUsersDeviceToken(10000);
+        getAllToken = await User.getUsersDeviceToken(10000);
         if (check_array_length(getAllToken)) {
           push_notification_cus(
             'New poll for the day',
@@ -21,7 +22,7 @@ class cronJobController {
           );
         }
       }
-      return res.status(200).json(true);
+      return res.status(200).json({ question: checkDate, token: getAllToken });
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),
