@@ -20,8 +20,7 @@ module.exports.getMyCronJob = function (callback) {
 
 
 module.exports.getCronJob = async () => {
-  let getCron = await CronJob.findOne().sort({ createdAt: -1 }).exec();
-  return getCron;
+  return await CronJob.findOne().sort({ _id: -1 }).exec();
 };
 
 module.exports.setCronJob = async (today,callback) => {
@@ -31,7 +30,7 @@ module.exports.setCronJob = async (today,callback) => {
   // if (check_obj(getCron)) {
   //   CronJob.findOneAndUpdate({_id: getCron._id.toString()}, { date: today }, { upsert: true }, callback);
   // }else{
-  CronJob.create({ date: today }, callback);
+  CronJob.create({ date: today, createdAt: new Date()}, callback);
   // }
   return true;
 };
