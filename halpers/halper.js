@@ -23,6 +23,9 @@ class halper {
     return moment(now).format('YYYY/MM/DD');
   }
 
+  rosta_change_current_date(now) {
+    return moment(now).format('YYYY/MM/DD');
+  }
 
   current_date() {
     let now = new Date();

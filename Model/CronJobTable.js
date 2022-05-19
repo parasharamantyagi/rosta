@@ -14,6 +14,11 @@ const CronJob = (module.exports = mongoose.model('cron_jobs', CronJobSchema));
 
 
 
+module.exports.getMyCronJob = function (callback) {
+  CronJob.findOne().sort({ createdAt: -1 }).exec(callback);
+};
+
+
 module.exports.getCronJob = async () => {
   let getCron = await CronJob.findOne().sort({ createdAt: -1 }).exec();
   return getCron;

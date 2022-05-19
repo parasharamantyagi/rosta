@@ -32,9 +32,14 @@ class cronJobController {
 
   async myCronJobGet(req, res, next) {
     try {
+      // CronJob.getMyCronJob((err, resdata) => {
+      //   resdata = resdata.toObject();
+      //   resdata.createdAt = halper.rosta_change_current_date(resdata.createdAt);
+      //   return res.status(200).json(resdata);
+      // });
       let checkDate = await CronJob.getCronJob();
       if (check_obj(checkDate, 'createdAt')) {
-        // console.log(checkDate);
+        checkDate = checkDate.toObject();
         checkDate.createdAt = change_time_format(checkDate.createdAt,'YYYY-MM-DD HH:mm:ss');
       }
       return res.status(200).json(checkDate);
