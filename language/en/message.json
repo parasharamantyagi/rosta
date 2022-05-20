@@ -32,6 +32,7 @@
   "storeVersion": "Version set successfully",
   "getCompetition": "Competition get successfully",
   "invalid_referral_code": "This is invalid referral code",
+  "use_referral_code": "You have aleready use referral code",
   "verifyVersion": "This app version no longer work. You need to upgrade.",
   "getAllUpcomingCompetition": "All Upcoming Competition get successfully",
   "deleteCompetitionId": "Competition delete successfully",

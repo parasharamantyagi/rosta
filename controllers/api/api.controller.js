@@ -97,22 +97,36 @@ class apiController {
       let user_count = await User.getUserByUuid(storeid);
       if (check_obj(user_count)) {
         let checkUserReferralCode = await User.getUserByReferralCode(storeid);
-        if (!check_obj(checkUserReferralCode)) {
-          let input_referral_code = halper.obj_multi_select(req.body, [
+        let input_referral_code = halper.obj_multi_select(req.body, [
             'referral_code',
           ]);
-          input_referral_code.referral_code =
-            input_referral_code.referral_code.replace(
-              'https://rostaratt.com?',
-              '',
+        if (!check_obj(checkUserReferralCode)) {
+          if (check_obj(input_referral_code)) {
+            input_referral_code.referral_code =
+              input_referral_code.referral_code.replace(
+                'https://rostaratt.com?',
+                '',
+              );
+            let user_my_id = await User.findUserByMyId(
+              input_referral_code.referral_code,
             );
-          let user_my_id = await User.findUserByMyId(
-            input_referral_code.referral_code,
-          );
-          User.addReferralCode({
-            id: user_my_id.uuid,
-            referral_code: storeid,
-          });
+            User.addReferralCode({
+              id: user_my_id.uuid,
+              referral_code: storeid,
+            });
+          }
+        }else{
+          if (check_obj(input_referral_code)) {
+            return res
+              .status(200)
+              .json(
+                halper.api_response(
+                  0,
+                  halper.request_message('use_referral_code'),
+                  input,
+                ),
+              );
+          }
         }
         User.findOneAndUpdate(
           { uuid: storeid },
