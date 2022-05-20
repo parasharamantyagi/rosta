@@ -235,7 +235,7 @@ class addManagementSystemController {
           'best_seller',
           'stock',
           'description',
-        ]);
+        ],false);
         Deals.updateDeals(
           { id: deal_id, data: delData },
           async (err, resdata) => {
