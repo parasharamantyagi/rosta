@@ -21,6 +21,7 @@ var userSchema = mongoose.Schema(
     createdAt: { type: Date },
     UpdatedAt: { type: Date },
     is_premium: { type: Number, default: 0 },
+    is_use_referral_code: { type: Number, default: 0 },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     referral_code: [{ type: String }],
     competetion: [
@@ -95,9 +96,12 @@ module.exports.addReferralCode = function (data, callback) {
       if (error) {
         console.log(error);
       } else {
-        console.log(success);
+        User.findOneAndUpdate({ uuid: data.referral_code }, { is_use_referral_code : 1}, { upsert: true }, function(err,successss){
+          console.log(successss);
+        });
       }
     });
+  
 };
 
 //get user by email

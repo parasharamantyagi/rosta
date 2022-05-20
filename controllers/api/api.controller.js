@@ -110,6 +110,17 @@ class apiController {
             let user_my_id = await User.findUserByMyId(
               input_referral_code.referral_code,
             );
+            if (!check_obj(user_my_id)) {
+              return res
+                .status(200)
+                .json(
+                  halper.api_response(
+                    0,
+                    halper.request_message('invalid_referral_code'),
+                    input,
+                  ),
+                );
+            }
             User.addReferralCode({
               id: user_my_id.uuid,
               referral_code: storeid,
