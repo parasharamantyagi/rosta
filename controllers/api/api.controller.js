@@ -843,7 +843,11 @@ class apiController {
   async verifyVersion(req, res, next) {
     try {
       let input = halper.obj_multi_select(req.body, ['device_token']);
-      push_notification_single("This app version no longer work. You need to upgrade.","ROSTA RATT",input.device_token);
+      push_notification_single(
+        'Det finns en nyare version av appen som du kommer att uppskatta. Denna måste du uppgradera till för att appen ska fungera',
+        'ROSTA RATT',
+        input.device_token,
+      );
       return res
         .status(200)
         .json(
