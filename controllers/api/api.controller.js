@@ -15,6 +15,7 @@ const mail = require('./../../halpers/mail');
 const MailTemplate = require('./../../halpers/mail_template');
 const multer = require('multer');
 const { check_obj, custom_date, change_time_format, current_date, randomValueHex } = require('../../halpers/halper');
+const { push_notification_single } = require('../../trait/notification');
 const { jwt, accessTokenSecret } = require('../../Model/module');
 const Voting = require('../../Model/votingTable');
 const { filterApiQuestion } = require('../../halpers/FilterData');
@@ -125,19 +126,32 @@ class apiController {
         ]);
         input.uuid = storeid;
         if (check_obj(input_referral_code)) {
-            input_referral_code.referral_code =
-              input_referral_code.referral_code.replace(
-                'https://rostaratt.com?',
-                '',
+          input_referral_code.referral_code =
+            input_referral_code.referral_code.replace(
+              'https://rostaratt.com?',
+              '',
+            );
+          let user_my_id = await User.findUserByMyId(
+            input_referral_code.referral_code,
+          );
+          if (!check_obj(user_my_id)) {
+            return res
+              .status(200)
+              .json(
+                halper.api_response(
+                  0,
+                  halper.request_message('invalid_referral_code'),
+                  input,
+                ),
               );
-        let user_my_id = await User.findUserByMyId(input_referral_code.referral_code);
-        input_referral_code.referral_code = user_my_id.uuid;
-        User.addUser(input, async (err, resdata) => {
+          }
+          input_referral_code.referral_code = user_my_id.uuid;
+          User.addUser(input, async (err, resdata) => {
             User.addReferralCode({
               id: input_referral_code.referral_code,
               referral_code: input.uuid,
             });
-        });
+          });
         }
         return res
           .status(200)
@@ -203,13 +217,17 @@ class apiController {
           .json(
             halper.api_response(1, halper.request_message('uuid_store'), input),
           );
-      }else{
+      } else {
         User.addUser(input, async (err, resdata) => {
           return res
-          .status(200)
-          .json(
-            halper.api_response(1, halper.request_message('uuid_store'), input),
-          );
+            .status(200)
+            .json(
+              halper.api_response(
+                1,
+                halper.request_message('uuid_store'),
+                input,
+              ),
+            );
         });
       }
     } catch (err) {
@@ -785,6 +803,25 @@ class apiController {
     }
   }
 
+  async verifyVersion(req, res, next) {
+    try {
+      let input = halper.obj_multi_select(req.body, ['device_token']);
+      push_notification_single("This app version no longer work. You need to upgrade.","ROSTA RATT",input.device_token);
+      return res
+        .status(200)
+        .json(
+          halper.api_response(1, halper.request_message('verifyVersion'), input),
+        );
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(0, halper.request_message('invalid_request'), {}),
+        );
+    } finally {
+    }
+  }
+
   async storeVersion(req, res, next) {
     try {
       let input = halper.obj_multi_select(req.body, ['version']);
@@ -796,8 +833,11 @@ class apiController {
             return resData;
           },
         );
-      }else{
-        Configration.saveConfigration({ name: 'version', value: input.version });
+      } else {
+        Configration.saveConfigration({
+          name: 'version',
+          value: input.version,
+        });
       }
       return res
         .status(200)
@@ -871,7 +911,9 @@ class apiController {
         ['sifo_all_parties', 'sifo_yes'],
         ['name', 'value'],
       );
-      let small_party_response_count = halper.sum_array(halper.filter_by_id(small_party_response,'voters_estimated'));
+      let small_party_response_count = halper.sum_array(
+        halper.filter_by_id(small_party_response, 'voters_estimated'),
+      );
       let big_party_response_count = halper.sum_array(
         halper.filter_by_id(big_party_response, 'voters_estimated'),
       );
@@ -1003,14 +1045,14 @@ class apiController {
       let myrsData = [];
       // console.log(randomValueHex());
       User.getUsers(100, (err, resdatas) => {
-        for (let resdata of resdatas){
+        for (let resdata of resdatas) {
           // User.updateUserData(resdata._id, { $inc: { my_id: 1 } });
           // User.updateUserData(resdata._id, { my_id: randomValueHex() });
           myrsData.push(resdata);
         }
-          return res
-            .status(200)
-            .json(halper.api_response(1, 'user list', myrsData));
+        return res
+          .status(200)
+          .json(halper.api_response(1, 'user list', myrsData));
       });
     } catch (err) {
       return res
