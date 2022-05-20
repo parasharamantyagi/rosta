@@ -103,6 +103,14 @@ module.exports.addReferralCode = function (data, callback) {
 //get user by email
 
 
+module.exports.getUserByReferralCode = async (data, callback) => {
+  try {
+    return await User.findOne({ referral_code: data }).exec(callback);
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports.getUserByUuid = async(data, callback) => {
   try {
     var query = await User.findOne({ uuid: data }).exec(callback);

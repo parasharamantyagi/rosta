@@ -92,10 +92,28 @@ class apiController {
       let input = halper.obj_multi_select(req.body, [
         'nick_name',
         'email',
-        'dob',
+        'dob'
       ]);
       let user_count = await User.getUserByUuid(storeid);
       if (check_obj(user_count)) {
+        let checkUserReferralCode = await User.getUserByReferralCode(storeid);
+        if (!check_obj(checkUserReferralCode)) {
+          let input_referral_code = halper.obj_multi_select(req.body, [
+            'referral_code',
+          ]);
+          input_referral_code.referral_code =
+            input_referral_code.referral_code.replace(
+              'https://rostaratt.com?',
+              '',
+            );
+          let user_my_id = await User.findUserByMyId(
+            input_referral_code.referral_code,
+          );
+          User.addReferralCode({
+            id: user_my_id.uuid,
+            referral_code: storeid,
+          });
+        }
         User.findOneAndUpdate(
           { uuid: storeid },
           {
@@ -106,15 +124,6 @@ class apiController {
           },
           function (err, docs) {},
         );
-        // let input_referral_code = halper.obj_multi_select(req.body, [
-        //   'referral_code',
-        // ]);
-        // if (check_obj(input_referral_code)) {
-        //   input.referral_code = input_referral_code.referral_code.replace(
-        //     'https://rostaratt.com?',
-        //     '',
-        //   );
-        // }
         return res
           .status(200)
           .json(
@@ -151,6 +160,9 @@ class apiController {
               id: input_referral_code.referral_code,
               referral_code: input.uuid,
             });
+          });
+        }else{
+          User.addUser(input, async (err, resdata) => {
           });
         }
         return res
