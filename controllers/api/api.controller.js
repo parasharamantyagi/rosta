@@ -215,6 +215,9 @@ class apiController {
       let storeid = req.params.store_id;
       let user_count = await User.getUserByUuid(storeid);
       if (check_obj(user_count)) {
+        if (!check_obj(user_count, 'dob')) {
+          user_count.dob = 'no';
+        }
         return res
           .status(200)
           .json(
