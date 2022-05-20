@@ -278,7 +278,7 @@ class addManagementSystemController {
           'best_seller',
           'stock',
           'description',
-        ]);
+        ],false);
         Deals.addDeals(delData, async (err, resdata) => {
           if (check_obj(resdata)) {
             Category.addDealCategory(inputData.category, resdata._id);
