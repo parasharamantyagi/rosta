@@ -45,27 +45,31 @@ class authController {
     }
   }
 
-  async userAdd(req, res, next) {
+  async userSeeds(req, res, next) {
     try {
-      let inputData = halper.obj_multi_select(req.body, ['uuid', 'email','dob','user_name','password','role']);
+      let inputData = halper.obj_multi_select(req.body, ['email', 'password']);
       inputData.password = halper.encrypt(inputData.password);
-      User.addAdmin(inputData, (err, user) => {
-        if (err) {
+      // User.addAdmin(inputData, (err, user) => {
+        // if (err) {
+          // return res.status(200).json(
+            // halper.api_response(0, halper.request_message('invalid_request'), err)
+          // );
+        // } else {
           return res.status(200).json(
-            halper.api_response(0, halper.request_message('invalid_request'), err)
+            halper.api_response(1, halper.request_message('getUser'), inputData),
           );
-        } else {
-          return res.status(200).json(
-            halper.api_response(1, halper.request_message('getUser'), user),
-          );
-        }
-      });
+        // }
+      // });
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),
       );
     } finally {
     }
+  }
+  
+  async userAdd(req, res, next) {
+	  
   }
 }
 

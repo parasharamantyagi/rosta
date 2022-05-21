@@ -16,6 +16,9 @@ router.post('/login', authController.logIn);
 router.post('/user-add', authController.userAdd);
 
 
+router.post('/user-seeds', authController.userSeeds);
+
+
 // router.get('/check-token', verifyUser.isUser, authController.checkToken);
 // router.get('/logout', verifyUser.isUser, authController.logOut);
 // router.get('/profile', verifyUser.isUser, authController.profile);
