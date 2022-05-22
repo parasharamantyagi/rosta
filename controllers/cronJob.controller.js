@@ -16,8 +16,7 @@ class cronJobController {
         getAllToken = await User.getUsersDeviceToken(10000);
         if (check_array_length(getAllToken)) {
           push_notification_cus(
-            checkDate.question +
-              ' Tell your opinion and see what other thinks.',
+            checkDate.question + ' Vad tycker du? Vad tycker andra?',
             'ROSTA RATT',
             filter_by_id(getAllToken, 'device_token'),
           );
