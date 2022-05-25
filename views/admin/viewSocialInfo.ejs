@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <%- include('include/Header') -%>
+  <style type="text/css">
+    textarea {
+      color: #000000;
+      width: 100%;
+    }
+    .configuration_name {
+      text-transform: capitalize;
+    }
+    .form-control {
+      color: #090101;
+    }
+    .share_menu {
+      margin-top: 2%;
+    }
+    .form-border {
+      color: #000000 !important;
+    }
+  </style>
+  <body>
+    <%- include('include/Sidebar') -%>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+      <%- include('include/Logo') -%> <%- include('include/Menu',{menu: ''}) -%>
+
+      <!-- start menu -->
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="product-status-wrap">
+              <h4>Social info</h4>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Name</th>
+                    <th>Link</th>
+                    <th>Action</th>
+                  </tr>
+                  <% socialInfos.forEach(function(socialInfo){ %>
+                  <tr>
+                    <td><%- socialInfo.name %></td>
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control socialInfo_name_<%- socialInfo._id %>"
+                        value="<%- socialInfo.value %>"
+                      />
+                    </td>
+                    <td>
+                      <div class="custom-pro-edt-ds">
+                        <button
+                          type="submit"
+                          data-id="<%- socialInfo._id %>"
+                          class="btn btn-ctl-bt waves-effect waves-light m-r-10 social-text-save"
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- end menu -->
+    </div>
+
+    <%- include('include/Footer') -%>
+  </body>
+</html>

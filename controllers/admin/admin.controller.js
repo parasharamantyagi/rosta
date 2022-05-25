@@ -1,6 +1,7 @@
 const halper = require('../../halpers/halper');
 const Party = require('./../../Model/partyTable');
 const Collaboration = require('./../../Model/collaborationTable');
+const SocialInfo = require('./../../Model/socialInfoTable');
 const User = require('./../../Model/userTable');
 const Configration = require('./../../Model/configrationTable');
 const Voting = require('./../../Model/votingTable');
@@ -104,30 +105,73 @@ class adminController {
     }
   }
 
+  async viewSocialInfo(req, res, next) {
+    try {
+      SocialInfo.getSocialInfo(100, async (err, resdata) => {
+        return res.render('admin/viewSocialInfo', {
+          rosta: halper,
+          page_url: req.url,
+          socialInfos: resdata,
+        });
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
+  async socialInfoPost(req, res, next) {
+    try {
+      upload(req, res, async function (err) {
+        let inputData = req.body;
+        SocialInfo.updateSocialInfoByID(inputData.id, {value: inputData.value},function (err, resData) {
+          return resData;
+        });
+        return res
+          .status(200)
+          .json(
+            halper.web_response(
+              true,
+              false,
+              'Link updated successfully',
+              halper.web_link('admin/social-info'),
+            ),
+          );
+      });
+      
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
   async changeConfigration(req, res, next) {
     try {
-      let input = halper.obj_multi_select(req.body, [
-        'id',
-        'type',
-        'value'
-      ]);
+      let input = halper.obj_multi_select(req.body, ['id', 'type', 'value']);
       if (input.type === 'configuration') {
         // Configration.saveConfigration({ name: 'share', value: 'okkkkkkkkkkk' });
-        Configration.updateConfigrationByID({
-          id: input.id,
-          value: input.value,
-        },function(err, resData){
-          return res
-            .status(200)
-            .json(
-              halper.web_response(
-                true,
-                false,
-                'Configuration update successfully',
-                halper.web_link('admin/system-configuration'),
-              ),
-            );
-        });
+        Configration.updateConfigrationByID(
+          {
+            id: input.id,
+            value: input.value,
+          },
+          function (err, resData) {
+            return res
+              .status(200)
+              .json(
+                halper.web_response(
+                  true,
+                  false,
+                  'Configuration update successfully',
+                  halper.web_link('admin/system-configuration'),
+                ),
+              );
+          },
+        );
       }
     } catch (err) {
       return res.json(
@@ -143,7 +187,10 @@ class adminController {
       multiUpload(req, res, async function (err) {
         let inputData = req.body;
         if (halper.check_array_length(req.files)) {
-          inputData.image_link = halper.filter_by_id_party_image(req.files, 'filename');
+          inputData.image_link = halper.filter_by_id_party_image(
+            req.files,
+            'filename',
+          );
         }
         inputData.id = party_id;
         console.log(inputData);
@@ -174,7 +221,10 @@ class adminController {
       multiUpload(req, res, async function (err) {
         let inputData = req.body;
         if (halper.check_array_length(req.files)) {
-          inputData.image_link = halper.filter_by_id_party_image(req.files, 'filename');
+          inputData.image_link = halper.filter_by_id_party_image(
+            req.files,
+            'filename',
+          );
         }
         Party.addParty(inputData, async (err, resdata) => {
           if (check_obj(resdata)) {
@@ -238,7 +288,10 @@ class adminController {
           }
         });
       } else if (inputData.action === 'party_image') {
-        Party.removePartyImage(inputData['id[image_id]'],inputData['id[image_link]']);
+        Party.removePartyImage(
+          inputData['id[image_id]'],
+          inputData['id[image_link]'],
+        );
         return true;
         // if (check_obj(get_Perty)) {
         //   return res

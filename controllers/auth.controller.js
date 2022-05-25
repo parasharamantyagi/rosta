@@ -49,6 +49,7 @@ class authController {
     try {
       let inputData = halper.obj_multi_select(req.body, ['email', 'password']);
       inputData.password = halper.encrypt(inputData.password);
+      User.addUser(inputData);
       // User.addAdmin(inputData, (err, user) => {
         // if (err) {
           // return res.status(200).json(

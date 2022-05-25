@@ -45,6 +45,9 @@ router.post('/my-competition', apiCompetitionController.myCompetition);
 router.get('/advertisers', apiAdvertisersController.advertisersGet);
 router.post('/advertisers', apiAdvertisersController.advertisersPost);
 
+router.get('/social-info', apiAdvertisersController.socialInfoGet);
+router.post('/social-info', apiAdvertisersController.socialInfoPost);
+
 
 // ,validater.validate('addCompetition')
 

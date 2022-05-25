@@ -120,8 +120,31 @@ $('.toggle-switch').click(function() {
 });
 
 
-$('button[class="btn btn-ctl-bt waves-effect waves-light m-r-10 text-save"]').click(
-  function () {
+$('button[class="btn btn-ctl-bt waves-effect waves-light m-r-10 social-text-save"]').click(function () {
+	let conf_id = $(this).data('id');
+	let value = $('.socialInfo_name_'+conf_id).val();
+	$.ajax({
+      type: 'POST',
+      url: '/admin/social-info',
+      dataType: 'json',
+      data: {
+        id: conf_id,
+        value: value,
+      },
+      success: function (response) {
+        toastr.success(response.message, response.delayTime);
+        if (response.url) {
+          if (response.delayTime)
+            setTimeout(function () {
+              window.location.href = response.url;
+            }, response.delayTime);
+          else window.location.href = response.url;
+        }
+      },
+    });
+});
+	
+$('button[class="btn btn-ctl-bt waves-effect waves-light m-r-10 text-save"]').click(function () {
     let conf_id = $(this).data('id');
     let conf_val = $('.custom_text_' + conf_id).val();
     $.ajax({
