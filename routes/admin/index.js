@@ -21,6 +21,8 @@ router.get('/view-collaboration', adminController.viewCollaboration); // Get lis
 router.get('/system-configuration', adminController.viewSystemConfiguration); // Get list of user
 router.get('/social-info', adminController.viewSocialInfo); // Get list of user
 router.post('/social-info', adminController.socialInfoPost); // Get list of user
+router.get('/add-social-info', adminController.addSocialInfo); // Get list of user
+router.post('/add-social-info', adminController.addSocialInfoPost); // Get list of user
 
 router.get('/view-deals', addManagementSystemController.viewDeals); // Get list of user
 router.get('/add-deals', addManagementSystemController.addDeals); // Get list of user

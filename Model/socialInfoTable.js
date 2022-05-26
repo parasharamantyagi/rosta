@@ -26,6 +26,10 @@ module.exports.getSocialInfoByID = (nameData, callback) => {
   // return await Configration.find().sort({ name: 1 }).exec();
 };
 
+module.exports.removeSocialInfo = (id, callback) => {
+  var query = { _id: id };
+  SocialInfo.remove(query, callback);
+};
 
 //get all party count
 module.exports.updateSocialInfoByID = function (id,data, callback) {

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-  <%- include('include/Header') -%>
+  <%- include('./../include/Header') -%>
   <style type="text/css">
     textarea {
       color: #000000;
@@ -20,10 +20,11 @@
     }
   </style>
   <body>
-    <%- include('include/Sidebar') -%>
+    <%- include('./../include/Sidebar') -%>
     <!-- Start Welcome area -->
     <div class="all-content-wrapper">
-      <%- include('include/Logo') -%> <%- include('include/Menu',{menu: ''}) -%>
+      <%- include('./../include/Logo') -%> <%-
+      include('./../include/Menu',{menu: ''}) -%>
 
       <!-- start menu -->
 
@@ -32,6 +33,11 @@
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="product-status-wrap">
               <h4>Social info</h4>
+              <div class="add-product">
+                <a href="<%= rosta.web_link('admin/add-social-info') %>"
+                  >Add Social Info</a
+                >
+              </div>
               <table>
                 <tbody>
                   <tr>
@@ -58,6 +64,15 @@
                         >
                           Save
                         </button>
+                        <button
+                          data-toggle="tooltip"
+                          title=""
+                          class="pd-setting-ed"
+                          onclick="deleteData('<%- socialInfo._id %>','socialInfo')"
+                          data-original-title="Trash"
+                        >
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -72,6 +87,6 @@
       <!-- end menu -->
     </div>
 
-    <%- include('include/Footer') -%>
+    <%- include('./../include/Footer') -%>
   </body>
 </html>

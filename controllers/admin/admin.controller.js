@@ -105,10 +105,48 @@ class adminController {
     }
   }
 
+  async addSocialInfo(req, res, next) {
+    try {
+      return res.render('admin/socialInfo/addSocialInfo', {
+        rosta: halper,
+        page_url: req.url,
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
+  async addSocialInfoPost(req, res, next) {
+    try {
+      upload(req, res, async function (err) {
+        let inputData = req.body;
+        SocialInfo.saveSocialInfo(inputData);
+        return res
+          .status(200)
+          .json(
+            halper.web_response(
+              true,
+              false,
+              'Link add successfully',
+              halper.web_link('admin/social-info'),
+            ),
+          );
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
   async viewSocialInfo(req, res, next) {
     try {
       SocialInfo.getSocialInfo(100, async (err, resdata) => {
-        return res.render('admin/viewSocialInfo', {
+        return res.render('admin/socialInfo/viewSocialInfo', {
           rosta: halper,
           page_url: req.url,
           socialInfos: resdata,
@@ -126,9 +164,13 @@ class adminController {
     try {
       upload(req, res, async function (err) {
         let inputData = req.body;
-        SocialInfo.updateSocialInfoByID(inputData.id, {value: inputData.value},function (err, resData) {
-          return resData;
-        });
+        SocialInfo.updateSocialInfoByID(
+          inputData.id,
+          { value: inputData.value },
+          function (err, resData) {
+            return resData;
+          },
+        );
         return res
           .status(200)
           .json(
@@ -140,7 +182,6 @@ class adminController {
             ),
           );
       });
-      
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),
@@ -305,6 +346,22 @@ class adminController {
         //       ),
         //     );
         // }
+      } else if (inputData.action === 'socialInfo') {
+        SocialInfo.removeSocialInfo(inputData.id, async (err, resdata) => {
+          if (check_obj(resdata)) {
+            return res
+              .status(200)
+              .json(
+                halper.web_response(
+                  true,
+                  false,
+                  halper.request_message('deleteSocialInfo'),
+                  'social-info',
+                ),
+              );
+          }
+        });
+
       } else if (inputData.action === 'prize') {
         const Prize = require('./../../Model/prizesTable');
         Prize.removePrize(inputData.id, async (err, resdata) => {

@@ -43,6 +43,7 @@
   "deleteParty": "Party deleted successfully",
   "updatePartyPost": "Party updated successfully",
   "deleteCollaboration": "Collaboration deleted successfully",
+  "deleteSocialInfo": "Social Info deleted successfully",
   "addCollaboration": "Collaboration created successfully",
   "updatePassword": "Password has been updated successfully",
   "file_upload": "File upload successfully",
