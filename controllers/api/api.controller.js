@@ -871,12 +871,14 @@ class apiController {
       let input = halper.obj_multi_select(req.body, ['version']);
       let configration = await Configration.getConfigrationByID('version');
       if (check_obj(configration)) {
-        Configration.updateConfigrationByID(
-          { id: configration._id.toString(), value: input.version },
-          function (err, resData) {
-            return resData;
-          },
-        );
+        if(parseFloat(configration.value) < parseFloat(input.version)){
+          Configration.updateConfigrationByID(
+            { id: configration._id.toString(), value: input.version },
+            function (err, resData) {
+              return resData;
+            },
+          );
+        }
       } else {
         Configration.saveConfigration({
           name: 'version',
