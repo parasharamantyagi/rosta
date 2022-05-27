@@ -288,7 +288,8 @@ class apiController {
     try {
       let input = halper.obj_multi_select(req.body, ['device_id'], false);
       let voting_data = await Voting.checkVoting(input);
-      if (check_obj(voting_data)) {
+      let checkVoteShedule = await VoteSchedule.getVoteSchedule(input.device_id);
+      if (check_obj(voting_data) || check_obj(checkVoteShedule)) {
         return res
           .status(200)
           .json(halper.api_response(1, 'You have been voted', voting_data));
@@ -379,11 +380,13 @@ class apiController {
       }
       input.voting_date = new Date();
       let voting_data = await Voting.checkVoting(input);
+      let checkVoteShedule = await VoteSchedule.getVoteSchedule(input.device_id);
       if (check_obj(voting_data)) {
         input.id = voting_data._id;
         if (
-          change_time_format(input.voting_date, 'YYYY-MM-DD') ===
-          change_time_format(voting_data.voting_date, 'YYYY-MM-DD')
+          (change_time_format(input.voting_date, 'YYYY-MM-DD') ===
+          change_time_format(voting_data.voting_date, 'YYYY-MM-DD')) || (check_obj(checkVoteShedule) && change_time_format(input.voting_date, 'YYYY-MM-DD') ===
+          change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD'))
         ) {
           return res
             .status(206)
@@ -466,6 +469,18 @@ class apiController {
             );
         }
       } else {
+        if (check_obj(checkVoteShedule) && change_time_format(input.voting_date, 'YYYY-MM-DD') ===
+          change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')) {
+            return res
+              .status(206)
+              .json(
+                halper.api_response(
+                  0,
+                  halper.request_message('have_already_voted'),
+                  {},
+                ),
+              );
+        }else{
         Voting.addVoting(input);
         Party.votersEstimatedPlusInParty(input.party_id);
         if (input.eighteen_above) {
@@ -482,6 +497,7 @@ class apiController {
           .json(
             halper.api_response(1, halper.request_message('vote_add'), input),
           );
+        }
       }
     } catch (err) {
       return res
