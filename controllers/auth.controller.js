@@ -49,16 +49,22 @@ class authController {
     try {
       let inputData = halper.obj_multi_select(req.body, ['email', 'password']);
       inputData.password = halper.encrypt(inputData.password);
-      User.addUser(inputData);
+      let my_user = await User.addUserAsync(inputData);
       // User.addAdmin(inputData, (err, user) => {
         // if (err) {
           // return res.status(200).json(
             // halper.api_response(0, halper.request_message('invalid_request'), err)
           // );
         // } else {
-          return res.status(200).json(
-            halper.api_response(1, halper.request_message('getUser'), inputData),
-          );
+          return res
+            .status(200)
+            .json(
+              halper.api_response(
+                1,
+                halper.request_message('getUser'),
+                my_user,
+              ),
+            );
         // }
       // });
     } catch (err) {

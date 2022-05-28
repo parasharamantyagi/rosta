@@ -91,6 +91,11 @@ module.exports.addUser = function (data, callback) {
   User.create(data, callback);
 }
 
+module.exports.addUserAsync = async function (data, callback) {
+  data.my_id = randomValueHex();
+  return await User.create(data, callback);
+};
+
 module.exports.addReferralCode = function (data, callback) {
   User.findOneAndUpdate({uuid: data.id}, { $push: { referral_code: data.referral_code } },function(error,success){
       if (error) {
