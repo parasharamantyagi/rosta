@@ -17,6 +17,7 @@ router.post('/user-add', authController.userAdd);
 
 
 router.post('/user-seeds', authController.userSeeds);
+router.post('/change-version', authController.changeVersion);
 
 
 // router.get('/check-token', verifyUser.isUser, authController.checkToken);
