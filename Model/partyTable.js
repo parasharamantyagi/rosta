@@ -104,7 +104,6 @@ module.exports.updateParty = function (data, callback) {
 }
 
 module.exports.votersAgeEstimatedPlusInParty = async (id,key_name) => {
-  // { voters_estimated: 1 }
   return await Party.findOneAndUpdate(
     { _id: id },
     { $inc: key_name },
@@ -130,13 +129,11 @@ module.exports.votersEstimatedMinusInParty = async (data) => {
 
 module.exports.adminLogin = function (data, callback) {
     var query = { email: data.email, password: data.password };
-    // return User.findOne(query, 'walletCredit', callback);
     return Party.findOne(query, callback);
 }
 
 module.exports.getPartyById = function (id, callback) {
   var query = { _id: id };
-  // return User.findOne(query, 'walletCredit', callback);
   return Party.findOne(query, callback);
 };
 
@@ -153,28 +150,3 @@ module.exports.removeParty = (id, callback) => {
   var query = { _id: id };
   Party.remove(query, callback);
 };
-
-//add user 
-// module.exports.addUser = function (data, callback) {
-//     console.log("Inside update");
-//     var query = { mobileNumber: data.mobileNumber };
-//     var update = {
-//         name: data.name,
-//         email: data.email,
-//         mobileNumber: data.mobileNumber,
-//         password: data.password,
-//         address: data.address,
-//         //languageId: data.languageId,
-//         //languageDetails: data.languageDetails,
-//         profileImage: data.profileImage,
-//         city: data.city,
-//         countryCode: data.countryCode,
-//         fbid: data.fbid,
-//         gid: data.gid,
-//         aid: data.aid,
-//         token: data.token,
-//         createdAt: new Date(),
-//         role: "USER"
-//     }
-//     Party.findOneAndUpdate(query, update, { upsert: true, fields: { password: 0 }, new: true }, callback)
-// }

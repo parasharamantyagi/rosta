@@ -399,6 +399,7 @@ class apiController {
             );
         } else {
           if (check_obj(checkVoteShedule)) {
+              VoteSchedule.removeVoteSchedule(checkVoteShedule._id);
               Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
                 count: -1,
               });
@@ -475,20 +476,6 @@ class apiController {
             );
         }
       } else {
-        if (check_obj(checkVoteShedule)) {
-            Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
-              count: -1,
-            });
-            if (checkVoteShedule.eighteen_above && checkVoteShedule.eighteen_above === 1) {
-              Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
-                eighteen_above: -1,
-              });
-            }else{
-              Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
-                eighteen_bellow: -1,
-              });
-            }
-        }
         if (check_obj(checkVoteShedule) && change_time_format(input.voting_date, 'YYYY-MM-DD') ===
           change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')) {
             return res
@@ -501,6 +488,30 @@ class apiController {
                 ),
               );
         }else{
+          if (check_obj(checkVoteShedule)) {
+            VoteSchedule.removeVoteSchedule(checkVoteShedule._id);
+            Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+              count: -1,
+            });
+            if (
+              checkVoteShedule.eighteen_above &&
+              checkVoteShedule.eighteen_above === 1
+            ) {
+              Configration.configrationPlusShedule(
+                checkVoteShedule.voter_type,
+                {
+                  eighteen_above: -1,
+                },
+              );
+            } else {
+              Configration.configrationPlusShedule(
+                checkVoteShedule.voter_type,
+                {
+                  eighteen_bellow: -1,
+                },
+              );
+            }
+          }
         Party.votersEstimatedPlusInParty(input.party_id);
         if (input.eighteen_above) {
           Party.votersAgeEstimatedPlusInParty(input.party_id, {
@@ -696,20 +707,14 @@ class apiController {
         false,
       );
       input.createdAt = new Date();
-      // addVoteSchedule;
-
-      // if (
-      //     change_time_format(input.voting_date, 'YYYY-MM-DD') ===
-      //     change_time_format(voting_data.voting_date, 'YYYY-MM-DD')
-      //   )
-
+      let voting_data = await Voting.checkVoting(input);
       let checkVoteShedule = await VoteSchedule.getVoteSchedule(
         input.device_id,
       );
       if (
-        check_obj(checkVoteShedule) &&
+        (check_obj(checkVoteShedule) &&
         change_time_format(input.createdAt, 'YYYY-MM-DD') ===
-          change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')
+          change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')) || (check_obj(voting_data) && change_time_format(voting_data.voting_date, 'YYYY-MM-DD') === change_time_format(input.createdAt, 'YYYY-MM-DD'))
       ) {
         return res
           .status(200)
@@ -721,6 +726,19 @@ class apiController {
             ),
           );
       } else {
+        if (check_obj(voting_data)) {
+          Voting.removeUserVoting(voting_data._id);
+          Party.votersEstimatedMinusInParty(voting_data.party_id);
+          if (voting_data.eighteen_above && voting_data.eighteen_above === 1) {
+            Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
+              eighteen_above: -1,
+            });
+          }else{
+            Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
+              eighteen_bellow: -1,
+            });
+          }
+        }
         if (check_obj(checkVoteShedule)) {
           if (checkVoteShedule.voter_type === 'another_party') {
             Configration.configrationPlusShedule('another_party', {

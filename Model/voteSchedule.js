@@ -25,6 +25,10 @@ module.exports.addVoteSchedule = function (data, callback) {
   VoteSchedule.create(data, callback);
 };
 
+module.exports.removeVoteSchedule = async (id) => {
+  VoteSchedule.remove({ _id: id }).exec();
+};
+
 module.exports.updateVoteSchedule = function (data, callback) {
   VoteSchedule.create(data, callback);
 };

@@ -50,6 +50,10 @@ module.exports.addVoting = function (data, callback) {
   Voting.create(data, callback);
 };
 
+module.exports.removeUserVoting = async (id) => {
+  Voting.remove({ _id: id }).exec();
+};
+
 module.exports.removeVoting = async (party_id) => {
   let query = { party_id: party_id };
   Voting.remove(query).exec();
