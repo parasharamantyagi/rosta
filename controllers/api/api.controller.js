@@ -92,14 +92,14 @@ class apiController {
       let input = halper.obj_multi_select(req.body, [
         'nick_name',
         'email',
-        'dob'
+        'dob',
       ]);
       let user_count = await User.getUserByUuid(storeid);
       if (check_obj(user_count)) {
         let checkUserReferralCode = await User.getUserByReferralCode(storeid);
         let input_referral_code = halper.obj_multi_select(req.body, [
-            'referral_code',
-          ]);
+          'referral_code',
+        ]);
         if (!check_obj(checkUserReferralCode)) {
           if (check_obj(input_referral_code)) {
             input_referral_code.referral_code =
@@ -126,7 +126,7 @@ class apiController {
               referral_code: storeid,
             });
           }
-        }else{
+        } else {
           if (check_obj(input_referral_code)) {
             return res
               .status(200)
@@ -186,9 +186,8 @@ class apiController {
               referral_code: input.uuid,
             });
           });
-        }else{
-          User.addUser(input, async (err, resdata) => {
-          });
+        } else {
+          User.addUser(input, async (err, resdata) => {});
         }
         return res
           .status(200)
@@ -288,7 +287,9 @@ class apiController {
     try {
       let input = halper.obj_multi_select(req.body, ['device_id'], false);
       let voting_data = await Voting.checkVoting(input);
-      let checkVoteShedule = await VoteSchedule.getVoteSchedule(input.device_id);
+      let checkVoteShedule = await VoteSchedule.getVoteSchedule(
+        input.device_id,
+      );
       if (check_obj(voting_data) || check_obj(checkVoteShedule)) {
         return res
           .status(200)
@@ -380,13 +381,17 @@ class apiController {
       }
       input.voting_date = new Date();
       let voting_data = await Voting.checkVoting(input);
-      let checkVoteShedule = await VoteSchedule.getVoteSchedule(input.device_id);
+      let checkVoteShedule = await VoteSchedule.getVoteSchedule(
+        input.device_id,
+      );
       if (check_obj(voting_data)) {
         input.id = voting_data._id;
         if (
-          (change_time_format(input.voting_date, 'YYYY-MM-DD') ===
-          change_time_format(voting_data.voting_date, 'YYYY-MM-DD')) || (check_obj(checkVoteShedule) && change_time_format(input.voting_date, 'YYYY-MM-DD') ===
-          change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD'))
+          change_time_format(input.voting_date, 'YYYY-MM-DD') ===
+            change_time_format(voting_data.voting_date, 'YYYY-MM-DD') ||
+          (check_obj(checkVoteShedule) &&
+            change_time_format(input.voting_date, 'YYYY-MM-DD') ===
+              change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD'))
         ) {
           return res
             .status(206)
@@ -399,19 +404,28 @@ class apiController {
             );
         } else {
           if (check_obj(checkVoteShedule)) {
-              VoteSchedule.removeVoteSchedule(checkVoteShedule._id);
-              Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
-                count: -1,
-              });
-              if (checkVoteShedule.eighteen_above && checkVoteShedule.eighteen_above === 1) {
-                Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+            VoteSchedule.removeVoteSchedule(checkVoteShedule._id);
+            Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+              count: -1,
+            });
+            if (
+              checkVoteShedule.eighteen_above &&
+              checkVoteShedule.eighteen_above === 1
+            ) {
+              Configration.configrationPlusShedule(
+                checkVoteShedule.voter_type,
+                {
                   eighteen_above: -1,
-                });
-              }else{
-                Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+                },
+              );
+            } else {
+              Configration.configrationPlusShedule(
+                checkVoteShedule.voter_type,
+                {
                   eighteen_bellow: -1,
-                });
-              }
+                },
+              );
+            }
           }
           if (voting_data.party_id !== input.party_id) {
             Party.votersEstimatedMinusInParty(voting_data.party_id);
@@ -476,18 +490,21 @@ class apiController {
             );
         }
       } else {
-        if (check_obj(checkVoteShedule) && change_time_format(input.voting_date, 'YYYY-MM-DD') ===
-          change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')) {
-            return res
-              .status(206)
-              .json(
-                halper.api_response(
-                  0,
-                  halper.request_message('have_already_voted'),
-                  {},
-                ),
-              );
-        }else{
+        if (
+          check_obj(checkVoteShedule) &&
+          change_time_format(input.voting_date, 'YYYY-MM-DD') ===
+            change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')
+        ) {
+          return res
+            .status(206)
+            .json(
+              halper.api_response(
+                0,
+                halper.request_message('have_already_voted'),
+                {},
+              ),
+            );
+        } else {
           if (check_obj(checkVoteShedule)) {
             VoteSchedule.removeVoteSchedule(checkVoteShedule._id);
             Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
@@ -512,21 +529,21 @@ class apiController {
               );
             }
           }
-        Party.votersEstimatedPlusInParty(input.party_id);
-        if (input.eighteen_above) {
-          Party.votersAgeEstimatedPlusInParty(input.party_id, {
-            eighteen_above: 1,
-          });
-        } else {
-          Party.votersAgeEstimatedPlusInParty(input.party_id, {
-            eighteen_bellow: 1,
-          });
-        }
-        return res
-          .status(200)
-          .json(
-            halper.api_response(1, halper.request_message('vote_add'), input),
-          );
+          Party.votersEstimatedPlusInParty(input.party_id);
+          if (input.eighteen_above) {
+            Party.votersAgeEstimatedPlusInParty(input.party_id, {
+              eighteen_above: 1,
+            });
+          } else {
+            Party.votersAgeEstimatedPlusInParty(input.party_id, {
+              eighteen_bellow: 1,
+            });
+          }
+          return res
+            .status(200)
+            .json(
+              halper.api_response(1, halper.request_message('vote_add'), input),
+            );
         }
       }
     } catch (err) {
@@ -713,8 +730,11 @@ class apiController {
       );
       if (
         (check_obj(checkVoteShedule) &&
-        change_time_format(input.createdAt, 'YYYY-MM-DD') ===
-          change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')) || (check_obj(voting_data) && change_time_format(voting_data.voting_date, 'YYYY-MM-DD') === change_time_format(input.createdAt, 'YYYY-MM-DD'))
+          change_time_format(input.createdAt, 'YYYY-MM-DD') ===
+            change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')) ||
+        (check_obj(voting_data) &&
+          change_time_format(voting_data.voting_date, 'YYYY-MM-DD') ===
+            change_time_format(input.createdAt, 'YYYY-MM-DD'))
       ) {
         return res
           .status(200)
@@ -733,7 +753,7 @@ class apiController {
             Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
               eighteen_above: -1,
             });
-          }else{
+          } else {
             Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
               eighteen_bellow: -1,
             });
@@ -907,7 +927,11 @@ class apiController {
       return res
         .status(200)
         .json(
-          halper.api_response(1, halper.request_message('verifyVersion'), input),
+          halper.api_response(
+            1,
+            halper.request_message('verifyVersion'),
+            input,
+          ),
         );
     } catch (err) {
       return res
@@ -924,7 +948,7 @@ class apiController {
       let input = halper.obj_multi_select(req.body, ['version']);
       let configration = await Configration.getConfigrationByID('version');
       if (check_obj(configration)) {
-        if(parseFloat(configration.value) < parseFloat(input.version)){
+        if (parseFloat(configration.value) < parseFloat(input.version)) {
           Configration.updateConfigrationByID(
             { id: configration._id.toString(), value: input.version },
             function (err, resData) {
@@ -986,7 +1010,61 @@ class apiController {
       let big_party_response = [];
       let configration = await Configration.getConfigrationByID('party');
       let resdata = await Party.getAllParty(configration.value);
-      // let userCount = await Voting.getVotingCount();
+      let button_name = await Configration.getInfoConfigration([
+        'another_party',
+        'have_not_decided',
+        'i_will_not_vote',
+      ]);
+      for (let resdat of resdata) {
+        resdat = resdat.toObject();
+        resdat.collaboration = await Collaboration.getCollaborationFromParty(
+          resdat._id,
+        );
+        if (!check_obj(resdat.collaboration)) {
+          resdat.collaboration = {};
+        }
+        if (resdat.small_party === '1') {
+          small_party_response.push(resdat);
+        } else {
+          big_party_response.push(resdat);
+        }
+      }
+      let sifo_data = await Configration.getInfoSelectConfigration(
+        ['sifo_all_parties', 'sifo_yes'],
+        ['name', 'value'],
+      );
+      let small_party_response_count = halper.sum_array(
+        halper.filter_by_id(small_party_response, 'voters_estimated'),
+      );
+      let big_party_response_count = halper.sum_array(
+        halper.filter_by_id(big_party_response, 'voters_estimated'),
+      );
+      let userCount = small_party_response_count + big_party_response_count;
+      return res.status(200).json(
+        halper.api_response(1, halper.request_message('all_party'), {
+          total_voters: userCount,
+          button_name: button_name,
+          sifo_data: sifo_data,
+          small_party: small_party_response,
+          big_party: big_party_response,
+        }),
+      );
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(0, halper.request_message('invalid_request'), {}),
+        );
+    } finally {
+    }
+  }
+
+  async getGraphParty(req, res, next) {
+    try {
+      let small_party_response = [];
+      let big_party_response = [];
+      let configration = await Configration.getConfigrationByID('party');
+      let resdata = await Party.getSelectFieldAllParty(configration.value);
       let button_name = await Configration.getInfoConfigration([
         'another_party',
         'have_not_decided',

@@ -39,6 +39,26 @@ module.exports.getAllParty = async (value) => {
   return await Party.find().sort({ name: parseInt(value) }).exec();
 };
 
+//get all users
+module.exports.getSelectFieldAllParty = async (value) => {
+  return await Party.find()
+    .select([
+      '_id',
+      'name',
+      'bar_in_diagram',
+      'short_name',
+      'small_party',
+      'voters_estimated',
+      'eighteen_above',
+      'eighteen_bellow',
+      'vote_percentage',
+      'total_voters_estimated',
+      'sifo_factor',
+    ])
+    .sort({ name: parseInt(value) })
+    .exec();
+};
+
 
 //get all party count
 module.exports.getPartyCount = async function (callback) {
