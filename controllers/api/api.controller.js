@@ -398,6 +398,20 @@ class apiController {
               ),
             );
         } else {
+          if (check_obj(checkVoteShedule)) {
+              Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+                count: -1,
+              });
+              if (checkVoteShedule.eighteen_above && checkVoteShedule.eighteen_above === 1) {
+                Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+                  eighteen_above: -1,
+                });
+              }else{
+                Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+                  eighteen_bellow: -1,
+                });
+              }
+          }
           if (voting_data.party_id !== input.party_id) {
             Party.votersEstimatedMinusInParty(voting_data.party_id);
             if (voting_data.eighteen_above) {
@@ -419,14 +433,6 @@ class apiController {
                 eighteen_bellow: 1,
               });
             }
-            // if (voting_data.eighteen_above === input.eighteen_above) {
-            //     Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {
-            //       eighteen_above: -1,
-            //     });
-
-            // }else{
-
-            // }
           }
           if (voting_data.party_id.toHexString() === input.party_id) {
             if (voting_data.eighteen_above !== input.eighteen_above) {
@@ -469,6 +475,20 @@ class apiController {
             );
         }
       } else {
+        if (check_obj(checkVoteShedule)) {
+            Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+              count: -1,
+            });
+            if (checkVoteShedule.eighteen_above && checkVoteShedule.eighteen_above === 1) {
+              Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+                eighteen_above: -1,
+              });
+            }else{
+              Configration.configrationPlusShedule(checkVoteShedule.voter_type, {
+                eighteen_bellow: -1,
+              });
+            }
+        }
         if (check_obj(checkVoteShedule) && change_time_format(input.voting_date, 'YYYY-MM-DD') ===
           change_time_format(checkVoteShedule.createdAt, 'YYYY-MM-DD')) {
             return res
@@ -481,7 +501,6 @@ class apiController {
                 ),
               );
         }else{
-        Voting.addVoting(input);
         Party.votersEstimatedPlusInParty(input.party_id);
         if (input.eighteen_above) {
           Party.votersAgeEstimatedPlusInParty(input.party_id, {
