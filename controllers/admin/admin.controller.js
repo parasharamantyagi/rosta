@@ -16,8 +16,19 @@ var storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname);
   },
 });
+
+var storageicon = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/icon/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
 var upload = multer({ storage: storage }).single('image_link');
 const multiUpload = multer({ storage: storage }).any('image_link');
+const uploadIcon = multer({ storage: storageicon }).single('icon');
 
 // const findUser = async function () { 
 //         try {  return await User.getUsersCount();
@@ -121,8 +132,11 @@ class adminController {
 
   async addSocialInfoPost(req, res, next) {
     try {
-      upload(req, res, async function (err) {
+      uploadIcon(req, res, async function (err) {
         let inputData = req.body;
+        if (req.file) {
+          inputData.icon = 'icon/' + req.file.filename;
+        }
         SocialInfo.saveSocialInfo(inputData);
         return res
           .status(200)

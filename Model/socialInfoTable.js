@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var socialInfoSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
-    value: { type: String, required: true }
+    icon: { type: String, required: true },
+    value: { type: String, required: true },
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false
