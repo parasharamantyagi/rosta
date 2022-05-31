@@ -529,6 +529,7 @@ class apiController {
               );
             }
           }
+          Voting.addVoting(input);
           Party.votersEstimatedPlusInParty(input.party_id);
           if (input.eighteen_above) {
             Party.votersAgeEstimatedPlusInParty(input.party_id, {
