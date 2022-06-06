@@ -205,3 +205,8 @@ module.exports.adminLogin = function (data, callback) {
     var query = { email: data.email, password: data.password };
     return User.findOne(query, callback);
 }
+
+module.exports.removeUser = (id, callback) => {
+  var query = { _id: id };
+  User.remove(query, callback);
+};

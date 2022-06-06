@@ -26,6 +26,7 @@
   "getPrize": "All Prize",
   "deleteDeals": "Deal deleted successfully",
   "deleteCategory": "Category deleted successfully",
+  "deleteUser": "User deleted successfully",
   "addGenerateTokens": "Token Generate successfully",
   "getGenerateTokens": "Token get successfully",
   "vote_add": "Vote add successfully",

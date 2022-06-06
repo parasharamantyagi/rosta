@@ -342,6 +342,21 @@ class adminController {
               );
           }
         });
+      } else if (inputData.action === 'user') {
+        User.removeUser(inputData.id, async (err, resdata) => {
+          if (check_obj(resdata)) {
+            return res
+              .status(200)
+              .json(
+                halper.web_response(
+                  true,
+                  false,
+                  halper.request_message('deleteUser'),
+                  'view-user',
+                ),
+              );
+          }
+        });
       } else if (inputData.action === 'party_image') {
         Party.removePartyImage(
           inputData['id[image_id]'],
@@ -529,9 +544,11 @@ class adminController {
     try {
       upload(req, res, async function (err) {
         let inputData = req.body;
+         if (check_obj(inputData, 'password')) {
+           inputData.password = halper.encrypt(inputData.password);
+         }
+        inputData.is_verified = 1;
         User.addUser(inputData, async (err, resdata) => {
-          // console.log(err);
-          // console.log(addUser);
           if (check_obj(resdata)) {
             return res
               .status(200)
