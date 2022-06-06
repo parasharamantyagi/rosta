@@ -22,7 +22,7 @@ var userSchema = mongoose.Schema(
     UpdatedAt: { type: Date },
     is_premium: { type: Number, default: 0 },
     is_use_referral_code: { type: Number, default: 0 },
-    role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    role: { type: String, enum: ['user', 'admin','advertiser'], default: 'user' },
     referral_code: [{ type: String }],
     competetion: [
       { type: mongoose.Schema.Types.ObjectId, ref: 'competitions' },
@@ -40,6 +40,11 @@ const User = (module.exports = mongoose.model('users', userSchema));
 //get all users
 module.exports.getUsers = function (limit, callback) {
   User.find().limit(limit).exec(callback);
+};
+
+//get all users
+module.exports.getUsersAdvertiser = function (limit, callback) {
+  User.find({ role: 'advertiser' }).limit(limit).exec(callback);
 };
 
 //get all users

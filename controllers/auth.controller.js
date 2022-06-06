@@ -85,7 +85,7 @@ class authController {
 
   async userSeeds(req, res, next) {
     try {
-      let inputData = halper.obj_multi_select(req.body, ['email', 'password']);
+      let inputData = halper.obj_multi_select(req.body);
       inputData.password = halper.encrypt(inputData.password);
       let my_user = await User.addUserAsync(inputData);
       // User.addAdmin(inputData, (err, user) => {

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <%- include('include/Header') -%>
+  <link rel="stylesheet" href="<%= rosta.web_link('admin/css/toggle.css') %>" />
+  <body>
+    <%- include('include/Sidebar') -%>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+      <%- include('include/Logo') -%> <%- include('include/Menu',{menu: 'Advertiser'})
+      -%>
+
+      <!-- start menu -->
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="product-status-wrap">
+              <h4>All Advertiser</h4>
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Dob</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                  <% users.forEach(function(user){ %>
+                  <tr>
+                    <td><%- user.user_name %></td>
+                    <td><%- user.email %></td>
+                    <td><%- user.dob %></td>
+                    <td><%- user.role %></td>
+                    <td>
+                      <label class="toggleSwitch nolabel" onclick="">
+                        <input
+                          class="toggle-switch"
+                          data-type="users"
+                          data-id="<%= user._id %>"
+                          type="checkbox"
+                          <%- rosta.toggleSwitch(user.is_verified) %>
+                        />
+                        <span>
+                          <span>OFF</span>
+                          <span>ON</span>
+                        </span>
+                        <a></a>
+                      </label>
+                    </td>
+                    <td>
+                      <button
+                        data-toggle="tooltip"
+                        title=""
+                        class="pd-setting-ed"
+                        onclick="deleteData('<%= user._id %>','user')"
+                        data-original-title="Trash"
+                      >
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- end menu -->
+    </div>
+
+    <%- include('include/Footer') -%>
+  </body>
+</html>

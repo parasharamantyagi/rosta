@@ -375,7 +375,6 @@ class adminController {
               );
           }
         });
-
       } else if (inputData.action === 'prize') {
         const Prize = require('./../../Model/prizesTable');
         Prize.removePrize(inputData.id, async (err, resdata) => {
@@ -558,8 +557,24 @@ class adminController {
   async viewUser(req, res, next) {
     try {
       User.getUsers(10, (err, resdata) => {
-        // return res.json(resdata);
         return res.render('admin/viewUser', {
+          rosta: halper,
+          page_url: req.url,
+          users: resdata,
+        });
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), err),
+      );
+    } finally {
+    }
+  }
+
+  async viewAdvertiser(req, res, next) {
+    try {
+      User.getUsersAdvertiser(10, (err, resdata) => {
+        return res.render('admin/viewAdvertiser', {
           rosta: halper,
           page_url: req.url,
           users: resdata,

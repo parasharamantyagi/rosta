@@ -1140,11 +1140,40 @@ class apiController {
 
   async logIn(req, res, next) {
     try {
-      let input = halper.obj_multi_select(req.body, ['email', 'password']);
+      let input = halper.obj_multi_select(req.body, ['email', 'password','role']);
       let user_count = await User.getUserByEmail(input.email);
       if (check_obj(user_count)) {
         input.password = halper.encrypt(input.password);
-        if (user_count.password === input.password) {
+        if (!check_obj(input,'role') && user_count.password === input.password && user_count.role !== 'advertiser') {
+          user_count.accessToken = jwt.sign(
+            {
+              user_id: user_count._id,
+              email: user_count.email,
+            },
+            accessTokenSecret,
+          );
+          user_count = halper.obj_multi_select(user_count, [
+            'accessToken',
+            '_id',
+            'email',
+            'dob',
+            'user_name',
+            'alias',
+            'gdpr',
+            'frequency',
+            'role',
+          ]);
+
+          return res
+            .status(200)
+            .json(
+              halper.api_response(
+                1,
+                halper.request_message('logIn'),
+                user_count,
+              ),
+            );
+        }else if(check_obj(input,'role') && user_count.password === input.password && user_count.role === input.role && user_count.is_verified){
           user_count.accessToken = jwt.sign(
             {
               user_id: user_count._id,

@@ -4,7 +4,18 @@ const Advertiser = require('./../../Model/advertiserTable');
 const SocialInfo = require('./../../Model/socialInfoTable');
 const { filterApiQuestion } = require('../../halpers/FilterData');
 const { body, validationResult } = require('express-validator');
+const multer = require('multer');
 
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/target_url/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+var upload = multer({ storage: storage }).single('target_url');
 
 class apiAdvertisersController {
   async advertisersGet(req, res, next) {
@@ -30,19 +41,24 @@ class apiAdvertisersController {
 
   async advertisersPost(req, res, next) {
     try {
-      let inputData = halper.obj_multi_select(req.body);
-      inputData.createdAt = new Date();
-      inputData.updatedAt = new Date();
-      Advertiser.addAdvertiser(inputData);
-      return res
-        .status(200)
-        .json(
-          halper.api_response(
-            1,
-            halper.request_message('advertisersPost'),
-            inputData,
-          ),
-        );
+      upload(req, res, async function (err) {
+        let inputData = halper.obj_multi_select(req.body);
+        if (req.file) {
+          inputData.target_url = 'target_url/' + req.file.filename;
+        }
+        inputData.createdAt = new Date();
+        inputData.updatedAt = new Date();
+        Advertiser.addAdvertiser(inputData);
+        return res
+          .status(200)
+          .json(
+            halper.api_response(
+              1,
+              halper.request_message('advertisersPost'),
+              inputData,
+            ),
+          );
+      });
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),

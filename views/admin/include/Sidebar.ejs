@@ -66,9 +66,8 @@
               </li>
             </ul>
           </li>
-
           <li
-            class="<%= rosta.active_menu(page_url,['/view-user','/add-user']) %>"
+            class="<%= rosta.active_menu(page_url,['/view-user','/add-user','/view-advertiser']) %>"
           >
             <a
               class="has-arrow"
@@ -90,6 +89,13 @@
                   title="View Mail"
                   href="<%= rosta.web_link('admin/view-user') %>"
                   ><span class="mini-sub-pro">View User</span></a
+                >
+              </li>
+              <li>
+                <a
+                  title="View Mail"
+                  href="<%= rosta.web_link('admin/view-advertiser') %>"
+                  ><span class="mini-sub-pro">View Advertiser</span></a
                 >
               </li>
             </ul>

@@ -15,6 +15,7 @@ router.get('/view-party', adminController.viewParty); // Get list of user
 router.get('/add-party', adminController.addPartyView); // Get list of user
 router.get('/add-user', adminController.addUserView); // Get list of user
 router.get('/view-user', adminController.viewUser); // Get list of user
+router.get('/view-advertiser', adminController.viewAdvertiser); // Get list of user
 router.get('/view-history', adminController.viewUser); // Get list of user
 router.get('/add-collaboration', adminController.addCollaboration); // Get list of user
 router.get('/view-collaboration', adminController.viewCollaboration); // Get list of user
