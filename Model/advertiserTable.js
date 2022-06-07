@@ -6,7 +6,7 @@ var SchemaTypes = mongoose.Schema.Types;
 var advertiserSchema = mongoose.Schema(
   {
     ad_campaign_name: { type: String },
-    target_group: { type: String },
+    target_group: [{ type: String }],
     cpm_cpc_settings: { type: String },
     budget_per_day: { type: String },
     cpc_cost_per_click: { type: String },

@@ -167,6 +167,15 @@ class halper {
     return return_url;
   }
 
+  web_error_response(success, error, message, delayTime) {
+    return {
+      success: success,
+      error: error,
+      message: message,
+      delayTime: delayTime,
+    };
+  }
+
   roll_from_id(data) {
     switch (data) {
       case 1:

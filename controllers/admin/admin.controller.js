@@ -548,6 +548,19 @@ class adminController {
            inputData.password = halper.encrypt(inputData.password);
          }
         inputData.is_verified = 1;
+        if (check_obj(inputData, 'email')) {
+          let check_email = await User.getUserByEmail(inputData.email);
+          if (check_obj(check_email)) {
+            return res.json(
+              halper.web_error_response(
+                false,
+                true,
+                halper.request_message('email_exit'),
+                4000,
+              ),
+            );
+          }
+        }
         User.addUser(inputData, async (err, resdata) => {
           if (check_obj(resdata)) {
             return res
