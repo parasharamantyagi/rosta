@@ -7,6 +7,7 @@ var advertiserSchema = mongoose.Schema(
   {
     ad_campaign_name: { type: String },
     target_group: [{ type: String }],
+    target_group_id: [{ type: String }],
     cpm_cpc_settings: { type: String },
     budget_per_day: { type: String },
     cpc_cost_per_click: { type: String },

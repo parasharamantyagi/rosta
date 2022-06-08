@@ -13,6 +13,7 @@ class mail {
 				  pass: process.env.MAIL_PASSWORD, // generated ethereal password
 				},
 			});
+			// console.log(transporter);
 			let info = await transporter.sendMail({
 				from: process.env.mail_username, // sender address
 				to: to, // list of receivers
@@ -20,8 +21,10 @@ class mail {
 				text: html, // plain text body
 				html: html, // html body
 			});
+			console.log(info);
 			return true;
 		} catch (err) {
+			console.log(err);
 			return true;
 		}
 	}

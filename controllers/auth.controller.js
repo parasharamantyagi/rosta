@@ -2,6 +2,7 @@
 var User = require('./../Model/userTable');
 const Configration = require('./../Model/configrationTable');
 const halper = require('../halpers/halper');
+const mail = require('../halpers/mail');
 const multer = require('multer');
 
 var storage = multer.diskStorage({
@@ -65,6 +66,8 @@ class authController {
 
   async changeVersion(req, res, next) {
     try {
+      // let inputData = {};
+      // mail.sand('registration201@yopmail.com', 'user data', 'hello worldddddddd');
       let inputData = halper.obj_multi_select(req.body, ['id','version']);
       Configration.updateConfigrationByID(
         { id: inputData.id, value: inputData.version },
@@ -88,19 +91,11 @@ class authController {
       let inputData = halper.obj_multi_select(req.body);
       inputData.password = halper.encrypt(inputData.password);
       let my_user = await User.addUserAsync(inputData);
-      // User.addAdmin(inputData, (err, user) => {
-      // if (err) {
-      // return res.status(200).json(
-      // halper.api_response(0, halper.request_message('invalid_request'), err)
-      // );
-      // } else {
       return res
         .status(200)
         .json(
           halper.api_response(1, halper.request_message('getUser'), my_user),
         );
-      // }
-      // });
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),
