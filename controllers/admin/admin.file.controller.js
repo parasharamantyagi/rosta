@@ -71,6 +71,7 @@ class adminFileController {
             .pipe(csv())
             .on('data', (row) => {
               question_obj = filterCsv(Object.values(row));
+              // console.log(question_obj);
               data.push(question_obj);
             })
             .on('end', () => {
