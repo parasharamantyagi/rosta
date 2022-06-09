@@ -13,6 +13,8 @@ var advertiserSchema = mongoose.Schema(
     cpc_cost_per_click: { type: String },
     campaign_dates: { type: String },
     ad_material_url: { type: String },
+    age: { type: String },
+    after_vote: { type: String },
     target_url: { type: String },
     createdAt: { type: Date },
     updatedAt: { type: Date },
