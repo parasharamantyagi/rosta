@@ -61,12 +61,10 @@ class adminFileController {
 
   async questionUploadPost(req, res, next) {
     try {
-      // const neatCsv = require('neat-csv');
       upload(req, res, async function (err) {
         let inputData = req.body;
         if (req.file) {
           inputData.question = 'public/questions/' + req.file.filename;
-
           const data = [];
           let question_obj = {};
           fs.createReadStream(inputData.question)
