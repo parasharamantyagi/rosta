@@ -16,6 +16,8 @@ var advertiserSchema = mongoose.Schema(
     age: { type: String },
     after_vote: { type: String },
     target_url: { type: String },
+    ad_frequency: { type: String },
+    add_ranking: { type: String },
     createdAt: { type: Date },
     updatedAt: { type: Date },
   },
