@@ -100,6 +100,7 @@ class adminController {
 
   async viewSystemConfiguration(req, res, next) {
     try {
+      // Configration.saveConfigration({ name: 'factor_value', value: '0.1' });
       Configration.getConfigration(100, async (err, resdata) => {
         return res.render('admin/viewConfigration', {
           rosta: halper,
@@ -206,8 +207,9 @@ class adminController {
   async changeConfigration(req, res, next) {
     try {
       let input = halper.obj_multi_select(req.body, ['id', 'type', 'value']);
+      console.log(input);
+      // getConfigrationByID;
       if (input.type === 'configuration') {
-        // Configration.saveConfigration({ name: 'share', value: 'okkkkkkkkkkk' });
         Configration.updateConfigrationByID(
           {
             id: input.id,

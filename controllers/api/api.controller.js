@@ -978,6 +978,27 @@ class apiController {
     }
   }
 
+  async getServerData(req, res, next) {
+    try {
+      let response = await Configration.getInfoConfigration([
+        'factor',
+        'factor_value',
+      ]);
+      return res
+        .status(200)
+        .json(
+          halper.api_response(1, halper.request_message('info_list'), response),
+        );
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(0, halper.request_message('invalid_request'), {}),
+        );
+    } finally {
+    }
+  }
+
   async getScreenInfo(req, res, next) {
     try {
       let response = await Configration.getInfoConfigration([
@@ -1140,11 +1161,19 @@ class apiController {
 
   async logIn(req, res, next) {
     try {
-      let input = halper.obj_multi_select(req.body, ['email', 'password','role']);
+      let input = halper.obj_multi_select(req.body, [
+        'email',
+        'password',
+        'role',
+      ]);
       let user_count = await User.getUserByEmail(input.email);
       if (check_obj(user_count)) {
         input.password = halper.encrypt(input.password);
-        if (!check_obj(input,'role') && user_count.password === input.password && user_count.role !== 'advertiser') {
+        if (
+          !check_obj(input, 'role') &&
+          user_count.password === input.password &&
+          user_count.role !== 'advertiser'
+        ) {
           user_count.accessToken = jwt.sign(
             {
               user_id: user_count._id,
@@ -1173,7 +1202,12 @@ class apiController {
                 user_count,
               ),
             );
-        }else if(check_obj(input,'role') && user_count.password === input.password && user_count.role === input.role && user_count.is_verified){
+        } else if (
+          check_obj(input, 'role') &&
+          user_count.password === input.password &&
+          user_count.role === input.role &&
+          user_count.is_verified
+        ) {
           user_count.accessToken = jwt.sign(
             {
               user_id: user_count._id,
