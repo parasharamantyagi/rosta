@@ -62,3 +62,8 @@ module.exports.updateConfigrationByID = function (data, callback) {
   //   return err;
   // }
 };
+
+module.exports.removeConfigration = (id, callback) => {
+  var query = { _id: id };
+  Configration.remove(query, callback);
+};
