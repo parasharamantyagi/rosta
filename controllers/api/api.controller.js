@@ -18,6 +18,7 @@ const { check_obj, custom_date, change_time_format, current_date, randomValueHex
 const { push_notification_single } = require('../../trait/notification');
 const { jwt, accessTokenSecret } = require('../../Model/module');
 const Voting = require('../../Model/votingTable');
+const MyFavouriteAdvertiser = require('../../Model/myFavouriteAdvertiserTable');
 const { filterApiQuestion } = require('../../halpers/FilterData');
 
 var storage = multer.diskStorage({
@@ -351,6 +352,54 @@ class apiController {
             halper.api_response(1, halper.request_message('getDeals'), resdata),
           );
       });
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(
+            0,
+            halper.request_message('invalid_request'),
+            err,
+          ),
+        );
+    } finally {
+    }
+  }
+
+  async favouriteAdvertiser(req, res, next) {
+    try {
+      let input = halper.obj_multi_select(req.body, ['device_id','advertiser_id'], false);
+      MyFavouriteAdvertiser.addMyFavouriteAdvertiser(input);
+      return res
+        .status(200)
+        .json(halper.api_response(1, 'Advertiser set to favourite', input));
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(
+            0,
+            halper.request_message('invalid_request'),
+            err,
+          ),
+        );
+    } finally {
+    }
+  }
+
+  async myVote(req, res, next) {
+    try {
+      let input = halper.obj_multi_select(req.body, ['device_id'], false);
+      let my_vote = await Voting.getVotingByDevice(input.device_id);
+      let my_getVoteSchedule = await VoteSchedule.getVoteSchedule(
+        input.device_id,
+      );
+      return res.status(200).json(
+        halper.api_response(1, 'My vote', {
+          party: my_vote,
+          button: my_getVoteSchedule,
+        }),
+      );
     } catch (err) {
       return res
         .status(401)

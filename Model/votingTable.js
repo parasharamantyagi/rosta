@@ -42,6 +42,12 @@ module.exports.checkVoting = async (data) => {
   return checkVote;
 };
 
+module.exports.getVotingByDevice = async (device_id) => {
+  return await Voting.find({ device_id: device_id })
+    .populate({ path: 'party_id' })
+    .exec();
+};
+
 module.exports.getVotingByParty = async (party_id) => {
   return await Voting.find({ party_id: party_id }).exec();
 };
