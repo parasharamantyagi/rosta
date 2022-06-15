@@ -368,8 +368,19 @@ class apiController {
 
   async favouriteAdvertiser(req, res, next) {
     try {
-      let input = halper.obj_multi_select(req.body, ['device_id','advertiser_id'], false);
-      MyFavouriteAdvertiser.addMyFavouriteAdvertiser(input);
+      let input = halper.obj_multi_select(req.body, ['device_id','advertiser_id','my_favourite'], false);
+      let check_my_favourite = await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
+            input.device_id,
+            input.advertiser_id,
+          );
+      // console.log(check_my_favourite);
+      if (check_obj(check_my_favourite)) {
+         MyFavouriteAdvertiser.updateMyFavouriteAdvertiser(check_my_favourite._id,input,async (err, resdata) => {
+           return resdata;
+         });
+      }else{
+          MyFavouriteAdvertiser.addMyFavouriteAdvertiser(input);
+      }
       return res
         .status(200)
         .json(halper.api_response(1, 'Advertiser set to favourite', input));
