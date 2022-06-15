@@ -30,7 +30,7 @@ const Advertiser = (module.exports = mongoose.model('advertisers', advertiserSch
 
 //get all users
 module.exports.getAdvertiser = function (limit, callback) {
-  Advertiser.find().sort({ _id: -1 }).limit(limit).exec(callback);
+  return Advertiser.find().sort({ _id: -1 }).limit(limit).exec(callback);
 };
 
 module.exports.addAdvertiser = function (data, callback) {

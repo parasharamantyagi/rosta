@@ -19,6 +19,9 @@ module.exports.getaddMyFavouriteAdvertiser = function (callback, limit) {
   MyFavouriteAdvertiser.find(callback).limit(limit);
 };
 
+module.exports.getMyFavouriteAdvertiser = async (device_id,advertiser_id) => {
+  return await MyFavouriteAdvertiser.findOne({ device_id: device_id,advertiser_id:advertiser_id }).exec();
+};
 
 module.exports.addMyFavouriteAdvertiser = function (data, callback) {
   MyFavouriteAdvertiser.create(data, callback);
