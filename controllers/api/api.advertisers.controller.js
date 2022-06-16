@@ -53,7 +53,8 @@ class apiAdvertisersController {
             inputData.device_id,
             all_advertiser._id,
           );
-          all_advertiser.my_favourite = (halper.check_obj(all_advertiser.my_favourite)) ? 1 : 0;
+          // console.log(all_advertiser.my_favourite);
+          all_advertiser.my_favourite = (halper.check_obj(all_advertiser.my_favourite) && all_advertiser.my_favourite.my_favourite) ? 1 : 0;
         }
         response.push(all_advertiser);
       }
