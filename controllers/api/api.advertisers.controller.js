@@ -5,6 +5,8 @@ const MyFavouriteAdvertiser = require('./../../Model/myFavouriteAdvertiserTable'
 const SocialInfo = require('./../../Model/socialInfoTable');
 const { filterApiQuestion } = require('../../halpers/FilterData');
 const { body, validationResult } = require('express-validator');
+const { jwt, accessTokenSecret } = require('../../Model/module');
+
 const multer = require('multer');
 
 var storage = multer.diskStorage({
@@ -21,17 +23,24 @@ var upload = multer({ storage: storage }).single('target_url');
 class apiAdvertisersController {
   async advertisersGet(req, res, next) {
     try {
-      Advertiser.getAdvertiser(100, (err, resdata) => {
-        return res
-          .status(200)
-          .json(
-            halper.api_response(
-              1,
-              halper.request_message('advertisersGet'),
-              resdata,
-            ),
-          );
-      });
+      let user_id = '';
+      if (halper.check_obj(req.headers, 'authorization')) {
+        const user = await jwt.verify(
+          req.headers.authorization,
+          accessTokenSecret,
+        );
+        user_id = user.user_id;
+      }
+      let resdata = await Advertiser.getSelectedAdvertiser(user_id);
+      return res
+        .status(200)
+        .json(
+          halper.api_response(
+            1,
+            halper.request_message('advertisersGet'),
+            resdata,
+          ),
+        );
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),
@@ -77,11 +86,16 @@ class apiAdvertisersController {
 
   async advertisersPost(req, res, next) {
     try {
+      const user = await jwt.verify(
+        req.headers.authorization,
+        accessTokenSecret,
+      );
       upload(req, res, async function (err) {
         let inputData = halper.obj_multi_select(req.body);
         if (req.file) {
           inputData.target_url = 'target_url/' + req.file.filename;
         }
+        inputData.user_id = user.user_id;
         inputData.createdAt = new Date();
         inputData.updatedAt = new Date();
         Advertiser.addAdvertiser(inputData);
