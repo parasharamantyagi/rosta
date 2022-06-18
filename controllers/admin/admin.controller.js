@@ -526,6 +526,20 @@ class adminController {
     }
   }
 
+  async addAdvertiserView(req, res, next) {
+    try {
+      return res.render('admin/addAdvertiser', {
+        rosta: halper,
+        page_url: req.url,
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
   async addUserView(req, res, next) {
     try {
       return res.render('admin/addUser', {
@@ -540,13 +554,48 @@ class adminController {
     }
   }
 
+  async addAdvertiserPost(req, res, next) {
+    try {
+      upload(req, res, async function (err) {
+        let inputData = req.body;
+        if (req.file) {
+          inputData.add_logo = 'party_image/' + req.file.filename;
+        }
+        if (check_obj(inputData, 'password')) {
+          inputData.password = halper.encrypt(inputData.password);
+        }
+        inputData.role = 'advertiser';
+        inputData.is_verified = 1;
+        User.addUser(inputData, async (err, resdata) => {
+          // console.log(err);
+          // console.log(resdata);
+        });
+        return res
+          .status(200)
+          .json(
+            halper.web_response(
+              true,
+              false,
+              'Advertiser add successfully',
+              halper.web_link('admin/view-advertiser'),
+            ),
+          );
+      });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
   async addUserPost(req, res, next) {
     try {
       upload(req, res, async function (err) {
         let inputData = req.body;
-         if (check_obj(inputData, 'password')) {
-           inputData.password = halper.encrypt(inputData.password);
-         }
+        if (check_obj(inputData, 'password')) {
+          inputData.password = halper.encrypt(inputData.password);
+        }
         inputData.is_verified = 1;
         if (check_obj(inputData, 'email')) {
           let check_email = await User.getUserByEmail(inputData.email);

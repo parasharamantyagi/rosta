@@ -1252,7 +1252,6 @@ class apiController {
             'frequency',
             'role',
           ]);
-
           return res
             .status(200)
             .json(
@@ -1279,14 +1278,11 @@ class apiController {
             'accessToken',
             '_id',
             'email',
-            'dob',
-            'user_name',
-            'alias',
-            'gdpr',
-            'frequency',
+            'add_title',
+            'add_subtitle',
+            'add_logo',
             'role',
           ]);
-
           return res
             .status(200)
             .json(

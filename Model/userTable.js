@@ -10,6 +10,9 @@ var userSchema = mongoose.Schema(
     physical_user: { type: Number, enum: [1, 0], default: 0 },
     user_name: { type: String },
     nick_name: { type: String },
+    add_title: { type: String },
+    add_subtitle: { type: String },
+    add_logo: { type: String },
     password: { type: String, default: 'none' },
     hint: { type: String, default: '0' },
     alias: { type: String, default: 'none' },
@@ -22,7 +25,11 @@ var userSchema = mongoose.Schema(
     UpdatedAt: { type: Date },
     is_premium: { type: Number, default: 0 },
     is_use_referral_code: { type: Number, default: 0 },
-    role: { type: String, enum: ['user', 'admin','advertiser'], default: 'user' },
+    role: {
+      type: String,
+      enum: ['user', 'admin', 'advertiser'],
+      default: 'user',
+    },
     referral_code: [{ type: String }],
     competetion: [
       { type: mongoose.Schema.Types.ObjectId, ref: 'competitions' },

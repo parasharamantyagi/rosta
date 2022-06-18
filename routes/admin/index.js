@@ -14,6 +14,7 @@ router.get('/', adminController.dashboard); // Get list of user
 router.get('/view-party', adminController.viewParty); // Get list of user
 router.get('/add-party', adminController.addPartyView); // Get list of user
 router.get('/add-user', adminController.addUserView); // Get list of user
+router.get('/add-advertiser', adminController.addAdvertiserView); // Get list of user
 router.get('/view-user', adminController.viewUser); // Get list of user
 router.get('/view-advertiser', adminController.viewAdvertiser); // Get list of user
 router.get('/view-history', adminController.viewUser); // Get list of user
@@ -57,6 +58,7 @@ router.post('/add-collaboration', adminController.addCollaborationPost); // Get 
 router.post('/add-party', adminController.addPartyPost); // Get list of user
 router.post('/add-party/:party_id', adminController.updatePartyPost); // Get list of user
 router.post('/add-user', adminController.addUserPost); // Get list of user
+router.post('/add-advertiser', adminController.addAdvertiserPost); // Get list of user
 router.post('/delete-data', adminController.deleteData); // Get list of user
 router.post('/change-status', adminController.changeStatus); // Get list of user
 router.post('/change-configration', adminController.changeConfigration); // Get list of user
