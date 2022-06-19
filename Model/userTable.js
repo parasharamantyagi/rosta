@@ -132,6 +132,14 @@ module.exports.getUserByReferralCode = async (data, callback) => {
   }
 };
 
+module.exports.getUserByUuidOrMyId = async (data, callback) => {
+  try {
+    return await User.findOne({ $or: [ { my_id: data }, { uuid: data } ]}).exec(callback);
+  } catch (err) {
+    return err;
+  }
+};
+
 module.exports.getUserByUuid = async(data, callback) => {
   try {
     var query = await User.findOne({ uuid: data }).exec(callback);

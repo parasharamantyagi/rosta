@@ -182,9 +182,10 @@ class apiController {
           }
           input_referral_code.referral_code = user_my_id.uuid;
           User.addUser(input, async (err, resdata) => {
+            // console.log(resdata.my_id);
             User.addReferralCode({
               id: input_referral_code.referral_code,
-              referral_code: input.uuid,
+              referral_code: resdata.my_id,
             });
           });
         } else {
@@ -213,7 +214,7 @@ class apiController {
   async getUserInfo(req, res, next) {
     try {
       let storeid = req.params.store_id;
-      let user_count = await User.getUserByUuid(storeid);
+      let user_count = await User.getUserByUuidOrMyId(storeid);
       if (check_obj(user_count)) {
         if (!check_obj(user_count, 'dob')) {
           user_count.dob = '';
