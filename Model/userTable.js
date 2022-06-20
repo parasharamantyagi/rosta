@@ -113,7 +113,7 @@ module.exports.addReferralCode = function (data, callback) {
       if (error) {
         console.log(error);
       } else {
-        User.findOneAndUpdate({ uuid: data.referral_code }, { is_use_referral_code : 1}, { upsert: true }, function(err,successss){
+        User.findOneAndUpdate({ my_id: data.referral_code }, { is_use_referral_code : 1}, { upsert: true }, function(err,successss){
           console.log(successss);
         });
       }
