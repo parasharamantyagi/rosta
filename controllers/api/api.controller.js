@@ -90,7 +90,6 @@ class apiController {
   async setUserInfo(req, res, next) {
     try {
       let storeid = req.params.store_id;
-      console.log(req.body);
       let input = halper.obj_multi_select(req.body, [
         'nick_name',
         'email',
@@ -125,7 +124,7 @@ class apiController {
             }
             User.addReferralCode({
               id: user_my_id.uuid,
-              referral_code: storeid,
+              referral_code: user_count.my_id,
             });
           }
         } else {
@@ -251,8 +250,6 @@ class apiController {
   async storeUuid(req, res, next) {
     try {
       let input = halper.obj_multi_select(req.body, ['uuid', 'device_token']);
-      console.log('storeUuid');
-      console.log(input);
       let checkUser = await User.getUserByOnlyUuid(input.uuid);
       if (check_obj(checkUser)) {
         User.updateUserData(checkUser._id, input);
