@@ -17,7 +17,7 @@ var userSchema = mongoose.Schema(
     hint: { type: String, default: '0' },
     alias: { type: String, default: 'none' },
     gdpr: { type: String, default: '0' },
-    uuid: { type: String, default: '0' },
+    uuid: { type: String, required: true, default: '0' },
     my_id: { type: String, default: '0' },
     device_token: { type: String },
     frequency: { type: String },
