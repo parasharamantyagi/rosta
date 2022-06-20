@@ -105,7 +105,7 @@ class apiController {
           if (check_obj(input_referral_code)) {
             input_referral_code.referral_code =
               input_referral_code.referral_code.replace(
-                'https://rostaratt.com?',
+                'https://rostaratt.com/?',
                 '',
               );
             let user_my_id = await User.findUserByMyId(
@@ -163,7 +163,7 @@ class apiController {
         if (check_obj(input_referral_code)) {
           input_referral_code.referral_code =
             input_referral_code.referral_code.replace(
-              'https://rostaratt.com?',
+              'https://rostaratt.com/?',
               '',
             );
           let user_my_id = await User.findUserByMyId(
