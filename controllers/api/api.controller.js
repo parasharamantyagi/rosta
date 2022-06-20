@@ -153,7 +153,10 @@ class apiController {
         return res
           .status(200)
           .json(
-            halper.api_response(1, halper.request_message('user_set'), input),
+            halper.api_response(1, halper.request_message('user_set'), {
+              uuid: storeid,
+              my_id: user_count.my_id
+            }),
           );
       } else {
         let input_referral_code = halper.obj_multi_select(req.body, [
