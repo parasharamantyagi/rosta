@@ -64,12 +64,14 @@ function total_sum(competitionData, partyData , user_data) {
 
 function competitionCalculation(competitionDatas,partyData) {
   let resCompetition = [];
-  for(let competition_Data of competitionDatas){
-    if (check_array_length(competition_Data.competetion)) {
-      for (let competitionData of competition_Data.competetion) {
-        competitionData = competitionData.toObject();
-        competitionData.point = total_sum(competitionData, partyData ,competition_Data);
-        resCompetition.push(competitionData);
+  if (check_array_length(competitionDatas)) {
+    for(let competition_Data of competitionDatas){
+      if (check_array_length(competition_Data.competetion)) {
+        for (let competitionData of competition_Data.competetion) {
+          competitionData = competitionData.toObject();
+          competitionData.point = total_sum(competitionData, partyData ,competition_Data);
+          resCompetition.push(competitionData);
+        }
       }
     }
   }
