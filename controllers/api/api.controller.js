@@ -97,11 +97,11 @@ class apiController {
       ]);
       let user_count = await User.getUserByUuid(storeid);
       if (check_obj(user_count)) {
-        let checkUserReferralCode = await User.getUserByReferralCode(storeid);
+        // let checkUserReferralCode = await User.getUserByReferralCode(storeid);
         let input_referral_code = halper.obj_multi_select(req.body, [
           'referral_code',
         ]);
-        if (!check_obj(checkUserReferralCode)) {
+        // if (!check_obj(checkUserReferralCode)) {
           if (check_obj(input_referral_code)) {
             input_referral_code.referral_code =
               input_referral_code.referral_code.replace(
@@ -127,29 +127,35 @@ class apiController {
               referral_code: user_count.my_id,
             });
           }
-        } else {
-          if (check_obj(input_referral_code)) {
-            return res
-              .status(200)
-              .json(
-                halper.api_response(
-                  0,
-                  halper.request_message('use_referral_code'),
-                  input,
-                ),
-              );
-          }
+        // } else {
+        //   if (check_obj(input_referral_code)) {
+        //     return res
+        //       .status(200)
+        //       .json(
+        //         halper.api_response(
+        //           0,
+        //           halper.request_message('use_referral_code'),
+        //           input,
+        //         ),
+        //       );
+        //   }
+        // }
+        if (check_obj(input)) {
+          User.updateDataFromUuid(storeid, input);
+          // User.findOneAndUpdate(
+          //   { uuid: storeid },
+          //   {
+          //     $set: input,
+          //   },
+          //   {
+          //     returnNewDocument: true,
+          //   },
+          //   function (err, docs) {
+          //     console.log(err);
+          //     console.log(docs);
+          //   },
+          // );
         }
-        User.findOneAndUpdate(
-          { uuid: storeid },
-          {
-            $set: input,
-          },
-          {
-            returnNewDocument: true,
-          },
-          function (err, docs) {},
-        );
         return res
           .status(200)
           .json(

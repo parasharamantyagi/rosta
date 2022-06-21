@@ -4,7 +4,7 @@ const { check_obj, randomValueHex } = require('../halpers/halper');
 var userSchema = mongoose.Schema(
   {
     email: { type: String },
-    dob: { type: String },
+    dob: { type: String, default: "" },
     is_verified: { type: Number, enum: [1, 0], default: 0 },
     age_verification: { type: Number, enum: [1, 0], default: 0 },
     physical_user: { type: Number, enum: [1, 0], default: 0 },
@@ -96,6 +96,13 @@ module.exports.addPremiumUser = async function (user_id, callback) {
   var query = { _id: user_id };
   let uuu = await User.findOneAndUpdate(query, { is_premium:1 }, callback);
   return true;
+};
+
+module.exports.updateDataFromUuid = async function (uuid, data, callback) {
+  // var query = { _id: user_id };
+  // console.log(uuid);
+  // console.log(data);
+  return await User.updateMany({ uuid: uuid }, data, callback);
 };
 
 module.exports.addUser = function (data, callback) {
