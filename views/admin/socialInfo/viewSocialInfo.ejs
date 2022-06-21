@@ -18,6 +18,9 @@
     .form-border {
       color: #000000 !important;
     }
+    table select.form-control {
+      background-color: #fff;
+    }
   </style>
   <body>
     <%- include('./../include/Sidebar') -%>
@@ -34,9 +37,9 @@
             <div class="product-status-wrap">
               <h4>Social info</h4>
               <div class="add-product">
-                <a href="<%= rosta.web_link('admin/add-social-info') %>"
+                <!-- <a href="<%= rosta.web_link('admin/add-social-info') %>"
                   >Add Social Info</a
-                >
+                > -->
               </div>
               <table>
                 <tbody>
@@ -47,7 +50,19 @@
                   </tr>
                   <% socialInfos.forEach(function(socialInfo){ %>
                   <tr>
-                    <td><%- socialInfo.name %></td>
+                    <td>
+                      <select class="form-control">
+                        <option <%= (rosta.capitalize(socialInfo.name) == 'Youtube') ? 'selected' : '' %>>Youtube</option>
+                        <option  <%= (rosta.capitalize(socialInfo.name) == 'Facebook') ? 'selected' : '' %>>Facebook</option>
+                        <option  <%= (rosta.capitalize(socialInfo.name) == 'Homepage') ? 'selected' : '' %>>Homepage</option>
+                        <option  <%= (rosta.capitalize(socialInfo.name) == 'Linkedin') ? 'selected' : '' %>">Linkedin</option>
+                        <option  <%= (rosta.capitalize(socialInfo.name) == 'Instagram') ? 'selected' : '' %>>Instagram</option>
+                        <option  <%= (rosta.capitalize(socialInfo.name) == 'Snapchat') ? 'selected' : '' %>>Snapchat</option>
+                        <option  <%= (rosta.capitalize(socialInfo.name) == 'Email') ? 'selected' : '' %>>Email</option>
+                        <option  <%= (rosta.capitalize(socialInfo.name) == 'Twitter') ? 'selected' : '' %>">Twitter</option>
+                        <option  <%= (rosta.capitalize(socialInfo.name) == 'Tiktok') ? 'selected' : '' %>>Tiktok</option>
+                      </select>
+                    </td>
                     <td>
                       <input
                         type="text"
@@ -64,7 +79,7 @@
                         >
                           Save
                         </button>
-                        <button
+                        <!-- <button
                           data-toggle="tooltip"
                           title=""
                           class="pd-setting-ed"
@@ -72,7 +87,7 @@
                           data-original-title="Trash"
                         >
                           <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </button>
+                        </button> -->
                       </div>
                     </td>
                   </tr>

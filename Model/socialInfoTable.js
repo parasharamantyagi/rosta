@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var socialInfoSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
-    icon: { type: String, required: true },
+    icon: { type: String, default: '' },
     value: { type: String, required: true },
   },
   {

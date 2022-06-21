@@ -357,6 +357,24 @@ class halper {
     }
   }
 
+  mul_Socials() {
+    return [
+      'Youtube',
+      'Facebook',
+      'Homepage',
+      'Linkedin',
+      'Instagram',
+      'Snapchat',
+      'Email',
+      'Twitter',
+      'Tiktok',
+    ];
+  }
+
+  capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   check_obj(myObj, key = null) {
     // console.log(typeof myObj);
     // 👈 check object is valid and check key is exit in object

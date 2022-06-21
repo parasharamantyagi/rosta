@@ -156,13 +156,21 @@ class apiController {
           //   },
           // );
         }
+        let return_data = {
+              uuid: storeid,
+              my_id: user_count.my_id
+            };
+        if (check_obj(input, 'dob')) {
+          return_data.dob = input.dob;
+        }
         return res
           .status(200)
           .json(
-            halper.api_response(1, halper.request_message('user_set'), {
-              uuid: storeid,
-              my_id: user_count.my_id
-            }),
+            halper.api_response(
+              1,
+              halper.request_message('user_set'),
+              return_data,
+            ),
           );
       } else {
         let input_referral_code = halper.obj_multi_select(req.body, [
