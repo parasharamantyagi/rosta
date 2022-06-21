@@ -5,20 +5,27 @@ let joined_point = 30;
 let premium_point = 30;
 
 function findPoitCal(partyData,party_id = null) {
+  // console.log(partyData);
   if (party_id){
     party_id = party_id.toString();
     var index = partyData.findIndex(function (party) {
       return party._id == party_id;
     });
-    return partyData[index].vote_percentage;
+    // console.log(partyData[index]);
+    return (check_obj(partyData[index])) ? parseFloat(partyData[index].vote_percentage.replace(',', '.')) : 0;
   }else{
-    return "0";
+    return 0;
   }
 }
 
 const calPartycompetetionVoting = (competetionpercentage,partypercentage) => {
+  // console.log(partypercentage);
+  // console.log(competetionpercentage);
+  // console.log(partypercentage);
   let val1 = parseFloat(partypercentage.replace(',', '.'));
-  let val2 = parseFloat(competetionpercentage.replace(',', '.'));
+  let val2 = parseFloat(competetionpercentage);
+  // console.log(typeof val1);
+  // console.log(typeof val2);
   return Math.abs(val1 - val2);
 }
 

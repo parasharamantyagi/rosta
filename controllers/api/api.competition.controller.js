@@ -56,7 +56,7 @@ class apiCompetitionController {
   }
 
   async myCompetition(req, res, next) {
-    try {
+    // try {
       let inputData = halper.obj_multi_select(req.body, ['user_id']);
       let partyData = await Party.getAllParty('1');
       const competitionDatas = await User.getUserCompetitionByUuid(inputData.user_id);
@@ -73,12 +73,12 @@ class apiCompetitionController {
             myCompetitionDatas,
           ),
         );
-    } catch (err) {
-      return res.json(
-        halper.api_response(0, halper.request_message('invalid_request'), {}),
-      );
-    } finally {
-    }
+    // } catch (err) {
+    //   return res.json(
+    //     halper.api_response(0, halper.request_message('invalid_request'), {}),
+    //   );
+    // } finally {
+    // }
   }
 
   async addCompetition(req, res, next) {
