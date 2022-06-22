@@ -4,6 +4,7 @@ var socialInfoSchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     icon: { type: String, default: '' },
+    click_count: { type: Number, default: 0 },
     value: { type: String, required: true },
   },
   {
@@ -19,6 +20,14 @@ module.exports.getSocialInfo = function (limit, callback) {
 
 module.exports.saveSocialInfo = function (data, callback) {
   SocialInfo.create(data, callback);
+};
+
+module.exports.clickCountPlus = async (data) => {
+  return await SocialInfo.findOneAndUpdate(
+    { _id: data },
+    { $inc: { click_count: 1 } },
+    { new: true },
+  );
 };
 
 //get all users

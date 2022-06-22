@@ -58,24 +58,29 @@ class apiAdvertisersController {
         all_advertiser = all_advertiser.toObject();
         all_advertiser.my_favourite = 0;
         if (halper.check_obj(inputData, 'device_id')) {
-          all_advertiser.my_favourite = await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
-            inputData.device_id,
-            all_advertiser._id,
-          );
+          all_advertiser.my_favourite =
+            await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
+              inputData.device_id,
+              all_advertiser._id,
+            );
           // console.log(all_advertiser.my_favourite);
-          all_advertiser.my_favourite = (halper.check_obj(all_advertiser.my_favourite) && all_advertiser.my_favourite.my_favourite) ? 1 : 0;
+          all_advertiser.my_favourite =
+            halper.check_obj(all_advertiser.my_favourite) &&
+            all_advertiser.my_favourite.my_favourite
+              ? 1
+              : 0;
         }
         response.push(all_advertiser);
       }
-        return res
-          .status(200)
-          .json(
-            halper.api_response(
-              1,
-              halper.request_message('advertisersGet'),
-              response,
-            ),
-          );
+      return res
+        .status(200)
+        .json(
+          halper.api_response(
+            1,
+            halper.request_message('advertisersGet'),
+            response,
+          ),
+        );
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),
@@ -109,6 +114,21 @@ class apiAdvertisersController {
             ),
           );
       });
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
+  async viewCountSocial(req, res, next) {
+    try {
+        let inputData = halper.obj_multi_select(req.body, ['social_id']);
+        SocialInfo.clickCountPlus(inputData.social_id);
+        return res
+          .status(200)
+          .json(halper.api_response(1, 'Count increase successfully', {}));
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),

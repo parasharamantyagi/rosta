@@ -52,6 +52,7 @@ router.post('/advertisers-get', apiAdvertisersController.advertisersGetInPost);
 router.post('/advertisers', apiAdvertisersController.advertisersPost);
 
 router.get('/social-info', apiAdvertisersController.socialInfoGet);
+router.post('/view-count-social', apiAdvertisersController.viewCountSocial);
 router.post('/social-info', apiAdvertisersController.socialInfoPost);
 
 
