@@ -4,27 +4,62 @@ const Otp = require('./../../Model/otpTable');
 const mail = require('./../../halpers/mail');
 const MailTemplate = require('./../../halpers/mail_template');
 const multer = require('multer');
-const { check_obj, custom_date, change_time_format, current_date, randomValueHex } = require('../../halpers/halper');
+const {
+  check_obj,
+  custom_date,
+  change_time_format,
+  current_date,
+  randomValueHex,
+} = require('../../halpers/halper');
 const { rn } = require('../../Model/module');
 
 class apiForgotPasswordController {
+  async updatePassword(req, res, next) {
+    try {
+      let input = halper.obj_multi_select(req.body, ['email', 'new_password','old_password']);
+      let checkUser = await User.getUserByEmail(input.email);
+      if (check_obj(checkUser) && checkUser.password == input.old_password) {
+        if (check_obj(input, 'new_password')) {
+          input.password = halper.encrypt(input.new_password);
+        }
+        User.updateUserData(checkUser._id, { password: input.password });
+        return res
+          .status(200)
+          .json(
+            halper.api_response(1, 'Your password has been changed', input),
+          );
+      } else {
+        return res
+          .status(200)
+          .json(
+            halper.api_response(
+              0,
+              halper.request_message('invalid_request'),
+              {},
+            ),
+          );
+      }
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
   async changePassword(req, res, next) {
     try {
-      let input = halper.obj_multi_select(req.body, ['email','password']);
+      let input = halper.obj_multi_select(req.body, ['email', 'password']);
       let checkUser = await User.getUserByEmail(input.email);
       if (check_obj(checkUser)) {
         if (check_obj(input, 'password')) {
           input.password = halper.encrypt(input.password);
         }
-        User.updateUserData(checkUser._id,{password: input.password});
+        User.updateUserData(checkUser._id, { password: input.password });
         return res
           .status(200)
           .json(
-            halper.api_response(
-              1,
-              'Your password has been changed',
-              input,
-            ),
+            halper.api_response(1, 'Your password has been changed', input),
           );
       } else {
         return res
@@ -127,4 +162,3 @@ class apiForgotPasswordController {
 }
 
 module.exports = new apiForgotPasswordController();
-

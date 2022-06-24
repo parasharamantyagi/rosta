@@ -64,5 +64,6 @@ router.post('/remove-configration', apiConfigrationController.configrationInfoRe
 router.post('/forgot-password', apiForgotPasswordController.forgotPassword);
 router.post('/verify-otp', apiForgotPasswordController.verifyOtp);
 router.post('/change-password', apiForgotPasswordController.changePassword);
+router.post('/update-password', apiForgotPasswordController.updatePassword);
 
 module.exports = router;
