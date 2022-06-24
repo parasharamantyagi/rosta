@@ -18,7 +18,7 @@ class apiForgotPasswordController {
     try {
       let input = halper.obj_multi_select(req.body, ['email', 'new_password','old_password']);
       let checkUser = await User.getUserByEmail(input.email);
-      if (check_obj(checkUser) && checkUser.password == input.old_password) {
+      if (check_obj(checkUser) && checkUser.password == halper.encrypt(input.old_password)) {
         if (check_obj(input, 'new_password')) {
           input.password = halper.encrypt(input.new_password);
         }
@@ -31,13 +31,7 @@ class apiForgotPasswordController {
       } else {
         return res
           .status(200)
-          .json(
-            halper.api_response(
-              0,
-              halper.request_message('invalid_request'),
-              {},
-            ),
-          );
+          .json(halper.api_response(0, 'Your password does not matched', {}));
       }
     } catch (err) {
       return res.json(
