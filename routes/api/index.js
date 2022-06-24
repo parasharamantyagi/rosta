@@ -8,6 +8,7 @@ apiController = require('./../../controllers/api/api.controller');
 apiCompetitionController = require('./../../controllers/api/api.competition.controller');
 apiAdvertisersController = require('./../../controllers/api/api.advertisers.controller');
 apiConfigrationController = require('./../../controllers/api/api.configration.controller');
+apiForgotPasswordController = require('./../../controllers/api/api.forgotPassword.controller');
 
 router.get('/', apiController.dashboard); // Get list of user
 router.get('/check', apiController.viewCheck); // Get list of user
@@ -55,10 +56,13 @@ router.get('/social-info', apiAdvertisersController.socialInfoGet);
 router.post('/view-count-social', apiAdvertisersController.viewCountSocial);
 router.post('/social-info', apiAdvertisersController.socialInfoPost);
 
-
 router.get('/all-configration', apiConfigrationController.configrationInfo);
 router.post('/add-configration', apiConfigrationController.configrationInfoAdd);
 router.post('/remove-configration', apiConfigrationController.configrationInfoRemove);
 
+
+router.post('/forgot-password', apiForgotPasswordController.forgotPassword);
+router.post('/verify-otp', apiForgotPasswordController.verifyOtp);
+router.post('/change-password', apiForgotPasswordController.changePassword);
 
 module.exports = router;
