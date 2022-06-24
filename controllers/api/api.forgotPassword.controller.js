@@ -114,24 +114,25 @@ class apiForgotPasswordController {
       let input = halper.obj_multi_select(req.body, ['email']);
       let checkUser = await User.getUserByEmail(input.email);
       if (check_obj(checkUser)) {
-        input.otp = rn({ min: 11111, max: 99999, integer: true });
+        input.otp = rn({ min: 111111, max: 999999, integer: true });
         mail.sand(
           'aman24june@yopmail.com',
           'Forgot Password',
-          `Your one time otp is ${input.otp}`,
+          `Your one time password is ${input.otp}`,
         );
-        let check_email_otp = await Otp.getOtpFromEmail(input.email);
-        if (check_obj(check_email_otp)) {
-          Otp.updateOtpFromEmail(input.email, input.otp);
-        } else {
-          Otp.addOtpEmail(input);
-        }
+        User.updateUserData(checkUser._id, { password: input.otp });
+        // let check_email_otp = await Otp.getOtpFromEmail(input.email);
+        // if (check_obj(check_email_otp)) {
+        //   Otp.updateOtpFromEmail(input.email, input.otp);
+        // } else {
+        //   Otp.addOtpEmail(input);
+        // }
         return res
           .status(200)
           .json(
             halper.api_response(
               1,
-              'Please check your email and verify your otp',
+              'Please check your email for get password',
               input,
             ),
           );
