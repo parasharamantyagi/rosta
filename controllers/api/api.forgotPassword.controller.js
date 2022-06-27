@@ -116,7 +116,7 @@ class apiForgotPasswordController {
       if (check_obj(checkUser)) {
         input.otp = rn({ min: 111111, max: 999999, integer: true });
         mail.sand(
-          'aman24june@yopmail.com',
+          input.email,
           'Forgot Password',
           `Your one time password is ${input.otp}`,
         );
