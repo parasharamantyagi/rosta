@@ -793,42 +793,43 @@ class apiController {
         input,
       );
       // console.log('question_data', question_for_date);
-      if (
-        check_obj(question_data) ||
-        (change_time_format(question_s.createdAt, 'YYYY-MM-DD') ===
-          input.answer_date &&
-          check_obj(question_for_date))
-      ) {
-        return res
-          .status(200)
-          .json(
-            halper.api_response(
-              0,
-              halper.request_message('already_submitted_answered'),
-              input,
-            ),
-          );
-      } else {
-        submitted_answer.answer_estimated = 1;
-        submitted_answer[`select_${input.value}`] = 1;
-        Question.questionEstimatedPlus(input.question_id, submitted_answer);
-        let question_answer = halper.obj_multi_select(input, [
-          'user_id',
-          'question_id',
-          'device_id',
-          'answer_date',
-        ]);
-        QuestionAnswer.addQuestionAnswer(question_answer);
-        return res
-          .status(200)
-          .json(
-            halper.api_response(
-              1,
-              halper.request_message('already_submitted'),
-              input,
-            ),
-          );
-      }
+      // if (
+      //   check_obj(question_data) ||
+      //   (change_time_format(question_s.createdAt, 'YYYY-MM-DD') ===
+      //     input.answer_date &&
+      //     check_obj(question_for_date))
+      // )
+        if (check_obj(question_data)) {
+          return res
+            .status(200)
+            .json(
+              halper.api_response(
+                0,
+                halper.request_message('already_submitted_answered'),
+                input,
+              ),
+            );
+        } else {
+          submitted_answer.answer_estimated = 1;
+          submitted_answer[`select_${input.value}`] = 1;
+          Question.questionEstimatedPlus(input.question_id, submitted_answer);
+          let question_answer = halper.obj_multi_select(input, [
+            'user_id',
+            'question_id',
+            'device_id',
+            'answer_date',
+          ]);
+          QuestionAnswer.addQuestionAnswer(question_answer);
+          return res
+            .status(200)
+            .json(
+              halper.api_response(
+                1,
+                halper.request_message('already_submitted'),
+                input,
+              ),
+            );
+        }
     } catch (err) {
       return res
         .status(401)
