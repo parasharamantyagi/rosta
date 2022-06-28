@@ -114,13 +114,18 @@ class apiForgotPasswordController {
       let input = halper.obj_multi_select(req.body, ['email']);
       let checkUser = await User.getUserByEmail(input.email);
       if (check_obj(checkUser)) {
-        input.otp = rn({ min: 111111, max: 999999, integer: true });
+        let otp = rn({ min: 111111, max: 999999, integer: true });
         mail.sand(
           input.email,
           'Forgot Password',
-          `Your one time password is ${input.otp}`,
+          `Your one time password is ${otp}`,
         );
-        User.updateUserData(checkUser._id, { password: input.otp });
+        // console.log(otp);
+        otp = otp.toString();
+        input.otp = otp;
+        otp = halper.encrypt(otp);
+        console.log(otp);
+        User.updateUserData(checkUser._id, { password: otp });
         // let check_email_otp = await Otp.getOtpFromEmail(input.email);
         // if (check_obj(check_email_otp)) {
         //   Otp.updateOtpFromEmail(input.email, input.otp);
