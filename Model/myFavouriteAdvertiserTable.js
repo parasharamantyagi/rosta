@@ -17,8 +17,9 @@ const MyFavouriteAdvertiser = (module.exports = mongoose.model('my_favourite_adv
 var viewAdvertiserSchema = mongoose.Schema(
   {
     device_id: { type: String },
+    my_id: { type: String },
     advertiser_id: { type: mongoose.Schema.Types.ObjectId, ref: 'advertisers' },
-    current_date: { type: Date , default: Date.now()},
+    current_date: { type: Date, default: Date.now() },
   },
   {
     versionKey: false, // You should be aware of the outcome after set to false
@@ -35,6 +36,7 @@ module.exports.getViewAdvertiser = async (advertiser_id) => {
 };
 
 module.exports.saveViewAdvertiser = function (data, callback) {
+  console.log(data);
   ViewAdvertiser.create(data, callback);
 };
 

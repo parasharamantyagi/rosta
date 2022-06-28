@@ -396,7 +396,12 @@ class apiController {
       //     input.device_id,
       //     input.advertiser_id,
       //   );
-        MyFavouriteAdvertiser.saveViewAdvertiser(input);
+      input.my_id = "";
+      let user_count = await User.getUserByUuidOrMyId(input.device_id);
+      if (check_obj(user_count)){
+        input.my_id = user_count.my_id;
+      }
+      MyFavouriteAdvertiser.saveViewAdvertiser(input);
       return res
         .status(200)
         .json(halper.api_response(1, 'Advertiser set successfully', input));
