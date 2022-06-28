@@ -9,17 +9,64 @@ class FilterData {
     }else if(check_array_length(input)) {
       input = input[0].split(';');
     }
+    let return_data = {};
     if (check(input[0]) && check(input[1]) && check(input[2]) && check(input[3])) {
-      return {
+      return_data = {
         date: input[0],
         question: input[1],
         option_1: input[2],
         option_2: input[3],
         option_3: input[4],
         option_4: input[5],
-        option_5: input[6],
-        createdAt: current_date(),
+        option_5: input[6]
       };
+      if(check_array_length(input,7)){
+        return_data.option_6 = input[7];
+      }
+      if (check_array_length(input, 8)) {
+        return_data.option_7 = input[8];
+      }
+      if (check_array_length(input, 9)) {
+        return_data.option_8 = input[9];
+      }
+      if (check_array_length(input, 10)) {
+        return_data.option_9 = input[10];
+      }
+      if (check_array_length(input, 11)) {
+        return_data.option_10 = input[11];
+      }
+      if (check_array_length(input, 12)) {
+        return_data.option_11 = input[12];
+      }
+      if (check_array_length(input, 13)) {
+        return_data.option_12 = input[13];
+      }
+      if (check_array_length(input, 14)) {
+        return_data.option_13 = input[14];
+      }
+      if (check_array_length(input, 15)) {
+        return_data.option_14 = input[15];
+      }
+      if (check_array_length(input, 16)) {
+        return_data.option_15 = input[16];
+      }
+      if (check_array_length(input, 17)) {
+        return_data.option_16 = input[17];
+      }
+      if (check_array_length(input, 18)) {
+        return_data.option_17 = input[18];
+      }
+      if (check_array_length(input, 19)) {
+        return_data.option_18 = input[19];
+      }
+      if (check_array_length(input, 20)) {
+        return_data.option_19 = input[20];
+      }
+      if (check_array_length(input, 21)) {
+        return_data.option_20 = input[21];
+      }
+      return_data.createdAt = current_date();
+      return return_data;
     }else{
       return {};
     }

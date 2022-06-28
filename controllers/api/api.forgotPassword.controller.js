@@ -124,7 +124,7 @@ class apiForgotPasswordController {
         otp = otp.toString();
         input.otp = otp;
         otp = halper.encrypt(otp);
-        console.log(otp);
+        // console.log(otp);
         User.updateUserData(checkUser._id, { password: otp });
         // let check_email_otp = await Otp.getOtpFromEmail(input.email);
         // if (check_obj(check_email_otp)) {
