@@ -25,10 +25,8 @@ router.get('/testing', apiController.getTesting);
 router.get('/all-competition', apiCompetitionController.getAllUpcomingCompetition);
 router.get('/get-competition', apiCompetitionController.getCompetition);
 
-
 router.post('/get-generate-token', apiCompetitionController.getGenerateTokens);
 router.post('/generate-token', apiCompetitionController.addGenerateTokens);
-
 
 router.post('/login', apiController.logIn);
 router.post('/sign-up', apiController.signUp);
@@ -60,7 +58,6 @@ router.post('/social-info', apiAdvertisersController.socialInfoPost);
 router.get('/all-configration', apiConfigrationController.configrationInfo);
 router.post('/add-configration', apiConfigrationController.configrationInfoAdd);
 router.post('/remove-configration', apiConfigrationController.configrationInfoRemove);
-
 
 router.post('/forgot-password', apiForgotPasswordController.forgotPassword);
 router.post('/verify-otp', apiForgotPasswordController.verifyOtp);

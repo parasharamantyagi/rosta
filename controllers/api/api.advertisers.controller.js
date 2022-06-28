@@ -57,25 +57,16 @@ class apiAdvertisersController {
       for (let all_advertiser of all_advertisers) {
         all_advertiser = all_advertiser.toObject();
         all_advertiser.my_favourite = 0;
-        all_advertiser.view_advertiser = 0;
+        all_advertiser.view_advertiser = [];
         if (halper.check_obj(inputData, 'device_id')) {
-          all_advertiser.my_favourite =
-            await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
+          all_advertiser.my_favourite = await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
               inputData.device_id,
               all_advertiser._id,
             );
-          all_advertiser.view_advertiser =
-            await MyFavouriteAdvertiser.getViewAdvertiser(
-              inputData.device_id,
-              all_advertiser._id,
-            );
+          all_advertiser.view_advertiser = await MyFavouriteAdvertiser.getViewAdvertiser(all_advertiser._id);
           // console.log(all_advertiser.my_favourite);
-          all_advertiser.my_favourite =
-            halper.check_obj(all_advertiser.my_favourite) &&
-            all_advertiser.my_favourite.my_favourite
-              ? 1
-              : 0;
-          all_advertiser.view_advertiser = halper.check_obj(all_advertiser.view_advertiser) ? 1 : 0;
+          all_advertiser.my_favourite = halper.check_obj(all_advertiser.my_favourite) && all_advertiser.my_favourite.my_favourite ? 1 : 0;
+          // all_advertiser.view_advertiser = halper.check_obj(all_advertiser.view_advertiser) ? 1 : 0;
         }
         response.push(all_advertiser);
       }
