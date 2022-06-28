@@ -102,31 +102,31 @@ class apiController {
           'referral_code',
         ]);
         // if (!check_obj(checkUserReferralCode)) {
-          if (check_obj(input_referral_code)) {
-            input_referral_code.referral_code =
-              input_referral_code.referral_code.replace(
-                'https://rostaratt.com/?',
-                '',
-              );
-            let user_my_id = await User.findUserByMyId(
-              input_referral_code.referral_code,
+        if (check_obj(input_referral_code)) {
+          input_referral_code.referral_code =
+            input_referral_code.referral_code.replace(
+              'https://rostaratt.com/?',
+              '',
             );
-            if (!check_obj(user_my_id)) {
-              return res
-                .status(200)
-                .json(
-                  halper.api_response(
-                    0,
-                    halper.request_message('invalid_referral_code'),
-                    input,
-                  ),
-                );
-            }
-            User.addReferralCode({
-              id: user_my_id.uuid,
-              referral_code: user_count.my_id,
-            });
+          let user_my_id = await User.findUserByMyId(
+            input_referral_code.referral_code,
+          );
+          if (!check_obj(user_my_id)) {
+            return res
+              .status(200)
+              .json(
+                halper.api_response(
+                  0,
+                  halper.request_message('invalid_referral_code'),
+                  input,
+                ),
+              );
           }
+          User.addReferralCode({
+            id: user_my_id.uuid,
+            referral_code: user_count.my_id,
+          });
+        }
         // } else {
         //   if (check_obj(input_referral_code)) {
         //     return res
@@ -157,9 +157,9 @@ class apiController {
           // );
         }
         let return_data = {
-              uuid: storeid,
-              my_id: user_count.my_id
-            };
+          uuid: storeid,
+          my_id: user_count.my_id,
+        };
         if (check_obj(input, 'dob')) {
           return_data.dob = input.dob;
         }
@@ -384,20 +384,59 @@ class apiController {
     }
   }
 
+  async viewAdvertiser(req, res, next) {
+    try {
+      let input = halper.obj_multi_select(
+        req.body,
+        ['device_id', 'advertiser_id'],
+        false,
+      );
+      // let check_my_favourite =
+      //   await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
+      //     input.device_id,
+      //     input.advertiser_id,
+      //   );
+        MyFavouriteAdvertiser.saveViewAdvertiser(input);
+      return res
+        .status(200)
+        .json(halper.api_response(1, 'Advertiser set successfully', input));
+    } catch (err) {
+      return res
+        .status(401)
+        .json(
+          halper.api_response(
+            0,
+            halper.request_message('invalid_request'),
+            err,
+          ),
+        );
+    } finally {
+    }
+  }
+
   async favouriteAdvertiser(req, res, next) {
     try {
-      let input = halper.obj_multi_select(req.body, ['device_id','advertiser_id','my_favourite'], false);
-      let check_my_favourite = await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
-            input.device_id,
-            input.advertiser_id,
-          );
+      let input = halper.obj_multi_select(
+        req.body,
+        ['device_id', 'advertiser_id', 'my_favourite'],
+        false,
+      );
+      let check_my_favourite =
+        await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
+          input.device_id,
+          input.advertiser_id,
+        );
       // console.log(check_my_favourite);
       if (check_obj(check_my_favourite)) {
-         MyFavouriteAdvertiser.updateMyFavouriteAdvertiser(check_my_favourite._id,input,async (err, resdata) => {
-           return resdata;
-         });
-      }else{
-          MyFavouriteAdvertiser.addMyFavouriteAdvertiser(input);
+        MyFavouriteAdvertiser.updateMyFavouriteAdvertiser(
+          check_my_favourite._id,
+          input,
+          async (err, resdata) => {
+            return resdata;
+          },
+        );
+      } else {
+        MyFavouriteAdvertiser.addMyFavouriteAdvertiser(input);
       }
       return res
         .status(200)

@@ -44,6 +44,7 @@ router.post('/store-uuid', apiController.storeUuid);
 router.post('/vote-shedule', apiController.voteShedule);
 router.post('/my-vote', apiController.myVote);
 router.post('/favourite-advertiser', apiController.favouriteAdvertiser);
+router.post('/view-advertiser', apiController.viewAdvertiser);
 router.post('/user-info/:store_id', apiController.setUserInfo);
 router.post('/add-competition', apiCompetitionController.addCompetition);
 router.post('/my-competition', apiCompetitionController.myCompetition);

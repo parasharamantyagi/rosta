@@ -14,6 +14,29 @@ var favouriteAdvertiserSchema = mongoose.Schema(
 
 const MyFavouriteAdvertiser = (module.exports = mongoose.model('my_favourite_advertiser', favouriteAdvertiserSchema));
 
+var viewAdvertiserSchema = mongoose.Schema(
+  {
+    device_id: { type: String },
+    advertiser_id: { type: mongoose.Schema.Types.ObjectId, ref: 'advertisers' },
+    current_date: { type: Date },
+  },
+  {
+    versionKey: false, // You should be aware of the outcome after set to false
+  },
+);
+
+const ViewAdvertiser = (module.exports = mongoose.model('view_advertisers', viewAdvertiserSchema));
+
+
+module.exports.getViewAdvertiser = async (device_id,advertiser_id) => {
+  return await ViewAdvertiser.findOne({ device_id: device_id,advertiser_id:advertiser_id }).exec();
+};
+
+module.exports.saveViewAdvertiser = function (data, callback) {
+  ViewAdvertiser.create(data, callback);
+};
+
+
 //get all votings
 module.exports.getaddMyFavouriteAdvertiser = function (callback, limit) {
   MyFavouriteAdvertiser.find(callback).limit(limit);
