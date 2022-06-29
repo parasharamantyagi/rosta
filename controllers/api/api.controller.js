@@ -388,7 +388,7 @@ class apiController {
     try {
       let input = halper.obj_multi_select(
         req.body,
-        ['device_id', 'advertiser_id'],
+        ['device_id', 'advertiser_id', 'add_date'],
         false,
       );
       // let check_my_favourite =

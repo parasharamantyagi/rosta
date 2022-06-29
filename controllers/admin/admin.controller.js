@@ -49,7 +49,7 @@ class adminController {
 
   async viewParty(req, res, next) {
     try {
-      Party.getParty(10, (err, resdata) => {
+      Party.getParty(100, (err, resdata) => {
         return res.render('admin/viewparty', {
           rosta: halper,
           page_url: req.url,
@@ -242,6 +242,7 @@ class adminController {
       let party_id = req.params.party_id;
       multiUpload(req, res, async function (err) {
         let inputData = req.body;
+        console.log(inputData);
         if (halper.check_array_length(req.files)) {
           inputData.image_link = halper.filter_by_id_party_image(
             req.files,

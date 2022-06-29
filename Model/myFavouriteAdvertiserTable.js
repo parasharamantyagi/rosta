@@ -5,6 +5,7 @@ var favouriteAdvertiserSchema = mongoose.Schema(
     device_id: { type: String },
     advertiser_id: { type: mongoose.Schema.Types.ObjectId, ref: 'advertisers' },
     my_favourite: { type: Number, enum: [1, 0], default: 0 },
+    add_date: { type: String },
     current_date: { type: Date },
   },
   {

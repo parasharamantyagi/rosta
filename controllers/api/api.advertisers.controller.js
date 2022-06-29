@@ -64,9 +64,7 @@ class apiAdvertisersController {
               all_advertiser._id,
             );
           all_advertiser.view_advertiser = await MyFavouriteAdvertiser.getViewAdvertiser(all_advertiser._id);
-          // console.log(all_advertiser.my_favourite);
           all_advertiser.my_favourite = halper.check_obj(all_advertiser.my_favourite) && all_advertiser.my_favourite.my_favourite ? 1 : 0;
-          // all_advertiser.view_advertiser = halper.check_obj(all_advertiser.view_advertiser) ? 1 : 0;
         }
         response.push(all_advertiser);
       }
