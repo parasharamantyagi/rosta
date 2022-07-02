@@ -21,6 +21,33 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('target_url');
 
 class apiAdvertisersController {
+  async allAdvertisersGet(req, res, next) {
+    try {
+      let response = [];
+      let resdatas = await Advertiser.getAdvertiser(10000);
+      for (let resdata of resdatas) {
+        resdata = resdata.toObject();
+        // halper.randomValueHex();
+        // Advertiser.updateAdvertiser({});
+        response.push(resdata);
+      }
+      return res
+        .status(200)
+        .json(
+          halper.api_response(
+            1,
+            halper.request_message('advertisersGet'),
+            response,
+          ),
+        );
+    } catch (err) {
+      return res.json(
+        halper.api_response(0, halper.request_message('invalid_request'), {}),
+      );
+    } finally {
+    }
+  }
+
   async advertisersGet(req, res, next) {
     try {
       let user_id = '';
@@ -59,12 +86,18 @@ class apiAdvertisersController {
         all_advertiser.my_favourite = 0;
         all_advertiser.view_advertiser = [];
         if (halper.check_obj(inputData, 'device_id')) {
-          all_advertiser.my_favourite = await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
+          all_advertiser.my_favourite =
+            await MyFavouriteAdvertiser.getMyFavouriteAdvertiser(
               inputData.device_id,
               all_advertiser._id,
             );
-          all_advertiser.view_advertiser = await MyFavouriteAdvertiser.getViewAdvertiser(all_advertiser._id);
-          all_advertiser.my_favourite = halper.check_obj(all_advertiser.my_favourite) && all_advertiser.my_favourite.my_favourite ? 1 : 0;
+          all_advertiser.view_advertiser =
+            await MyFavouriteAdvertiser.getViewAdvertiser(all_advertiser._id);
+          all_advertiser.my_favourite =
+            halper.check_obj(all_advertiser.my_favourite) &&
+            all_advertiser.my_favourite.my_favourite
+              ? 1
+              : 0;
         }
         response.push(all_advertiser);
       }
@@ -120,11 +153,11 @@ class apiAdvertisersController {
 
   async viewCountSocial(req, res, next) {
     try {
-        let inputData = halper.obj_multi_select(req.body, ['social_id']);
-        SocialInfo.clickCountPlus(inputData.social_id);
-        return res
-          .status(200)
-          .json(halper.api_response(1, 'Count increase successfully', {}));
+      let inputData = halper.obj_multi_select(req.body, ['social_id']);
+      SocialInfo.clickCountPlus(inputData.social_id);
+      return res
+        .status(200)
+        .json(halper.api_response(1, 'Count increase successfully', {}));
     } catch (err) {
       return res.json(
         halper.api_response(0, halper.request_message('invalid_request'), {}),

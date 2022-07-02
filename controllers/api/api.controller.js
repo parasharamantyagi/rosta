@@ -549,7 +549,7 @@ class apiController {
               );
             }
           }
-          if (voting_data.party_id !== input.party_id) {
+          if (voting_data.party_id.toHexString() !== input.party_id) {
             Party.votersEstimatedMinusInParty(voting_data.party_id);
             if (voting_data.eighteen_above) {
               Party.votersAgeEstimatedPlusInParty(voting_data.party_id, {

@@ -47,6 +47,7 @@ router.post('/user-info/:store_id', apiController.setUserInfo);
 router.post('/add-competition', apiCompetitionController.addCompetition);
 router.post('/my-competition', apiCompetitionController.myCompetition);
 
+router.get('/all-advertisers', apiAdvertisersController.allAdvertisersGet);
 router.get('/advertisers', apiAdvertisersController.advertisersGet);
 router.post('/advertisers-get', apiAdvertisersController.advertisersGetInPost);
 router.post('/advertisers', apiAdvertisersController.advertisersPost);

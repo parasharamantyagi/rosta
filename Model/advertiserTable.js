@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-const { check, check_obj } = require('../halpers/halper');
+const { check, check_obj, randomValueHex } = require('../halpers/halper');
 require('mongoose-double')(mongoose);
 var SchemaTypes = mongoose.Schema.Types;
 
@@ -28,6 +28,7 @@ var advertiserSchema = mongoose.Schema(
     add_title: { type: String },
     add_subtitle: { type: String },
     add_logo: { type: String },
+    my_id: { type: String, default: '0' },
     createdAt: { type: Date },
     updatedAt: { type: Date },
   },
@@ -53,7 +54,12 @@ module.exports.getAdvertiser = function (limit, callback) {
 };
 
 module.exports.addAdvertiser = function (data, callback) {
+  data.my_id = randomValueHex();
   Advertiser.create(data, callback);
+};
+
+module.exports.updateAdvertiser = function (query, update, callback) {
+  Advertiser.findOneAndUpdate(query, update, { upsert: true, new: true }, callback);
 };
 
 module.exports.removeAdvertiser = (id, callback) => {

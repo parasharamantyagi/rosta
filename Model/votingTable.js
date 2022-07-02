@@ -29,6 +29,21 @@ module.exports.getVotingCount = async function (callback) {
   }
 };
 
+module.exports.checkPartyVoting = async (data) => {
+  let checkVote = {};
+  let where_Vote = {};
+  if (check_obj(data, 'user_id')) {
+    where_Vote = { user_id: data.user_id };
+  }
+  if (check_obj(data, 'device_id')) {
+    where_Vote = { device_id: data.device_id };
+  }
+  checkVote = await Voting.findOne(where_Vote)
+    .populate({ path: 'party_id' })
+    .exec();
+  return checkVote;
+};
+
 module.exports.checkVoting = async (data) => {
   let checkVote = {};
   let where_Vote = {};
