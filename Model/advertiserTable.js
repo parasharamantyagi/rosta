@@ -27,6 +27,7 @@ var advertiserSchema = mongoose.Schema(
     link_name: { type: String },
     add_title: { type: String },
     add_subtitle: { type: String },
+    new_user: { type: String },
     add_logo: { type: String },
     my_id: { type: String, default: '0' },
     createdAt: { type: Date },
