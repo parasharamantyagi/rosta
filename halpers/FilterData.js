@@ -74,8 +74,9 @@ class FilterData {
 
   filterApiQuestion(input) {
     // return input;
+    let return_obj = {};
     return input.map(function (key) {
-      return {
+      return_obj = {
         _id: key._id,
         date: key.date,
         question: key.question,
@@ -90,6 +91,52 @@ class FilterData {
           { option: key.option_5, select: key.select_5, value: 5 },
         ],
       };
+      if (check_obj(key, 'option_6')) {
+        return_obj.options.push({ option: key.option_6, select: key.select_6, value: 6 });
+      }
+      if (check_obj(key, 'option_7')) {
+        return_obj.options.push({ option: key.option_7, select: key.select_7, value: 7 });
+      }
+      if (check_obj(key, 'option_8')) {
+        return_obj.options.push({ option: key.option_8, select: key.select_8, value: 8 });
+      }
+      if (check_obj(key, 'option_9')) {
+        return_obj.options.push({ option: key.option_9, select: key.select_9, value: 9 });
+      }
+      if (check_obj(key, 'option_10')) {
+        return_obj.options.push({ option: key.option_10, select: key.select_10, value: 10 });
+      }
+      if (check_obj(key, 'option_11')) {
+        return_obj.options.push({ option: key.option_11, select: key.select_11, value: 11 });
+      }
+      if (check_obj(key, 'option_12')) {
+        return_obj.options.push({ option: key.option_12, select: key.select_12, value: 12 });
+      }
+      if (check_obj(key, 'option_13')) {
+        return_obj.options.push({ option: key.option_13, select: key.select_13, value: 13 });
+      }
+      if (check_obj(key, 'option_14')) {
+        return_obj.options.push({ option: key.option_14, select: key.select_14, value: 14 });
+      }
+      if (check_obj(key, 'option_15')) {
+        return_obj.options.push({ option: key.option_15, select: key.select_15, value: 15 });
+      }
+      if (check_obj(key, 'option_16')) {
+        return_obj.options.push({ option: key.option_16, select: key.select_16, value: 16 });
+      }
+      if (check_obj(key, 'option_17')) {
+        return_obj.options.push({ option: key.option_17, select: key.select_17, value: 17 });
+      }
+      if (check_obj(key, 'option_18')) {
+        return_obj.options.push({ option: key.option_18, select: key.select_18, value: 18 });
+      }
+      if (check_obj(key, 'option_19')) {
+        return_obj.options.push({ option: key.option_19, select: key.select_19, value: 19 });
+      }
+      if (check_obj(key, 'option_20')) {
+        return_obj.options.push({ option: key.option_20, select: key.select_20, value: 20 });
+      }
+      return return_obj;
     });
   }
 
