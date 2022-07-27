@@ -494,6 +494,7 @@ class apiController {
         ['party_id', 'device_id', 'eighteen_above'],
         false,
       );
+      input.eighteen_above = parseInt(input.eighteen_above);
       if (check_obj(req.headers, 'authorization')) {
         const user = await jwt.verify(
           req.headers.authorization,
